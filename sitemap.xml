@@ -2,17 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/posts/my-first-post/</loc>
+    <loc>https://sheep44044.github.io/</loc>
+    <lastmod>2025-09-13T17:28:33+08:00</lastmod>
+  </url><url>
+    <loc>https://sheep44044.github.io/about/</loc>
+    <lastmod>2025-09-13T14:51:37+08:00</lastmod>
+  </url><url>
+    <loc>https://sheep44044.github.io/daily/2025/09/my-first-post/</loc>
     <lastmod>2025-09-11T20:24:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2025-09-11T20:24:30+08:00</lastmod>
+    <loc>https://sheep44044.github.io/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2025-09-11T20:24:30+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/categories/</loc>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>https://sheep44044.github.io/tags/</loc>
   </url>
 </urlset>
