@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>王中昊的个人空间</title>
-    <link>http://localhost:1313/</link>
-    <description>Recent content on 王中昊的个人空间</description>
+    <title>sheep44044的小站</title>
+    <link>https://sheep44044.github.io/</link>
+    <description>Recent content on sheep44044的小站</description>
     <generator>Hugo -- 0.147.4</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 13 Sep 2025 15:29:49 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Weekly 1</title>
-      <link>http://localhost:1313/weekly/weekly-1/</link>
-      <pubDate>Sat, 13 Sep 2025 15:29:49 +0800</pubDate>
-      <guid>http://localhost:1313/weekly/weekly-1/</guid>
-      <description></description>
-    </item>
+    <lastBuildDate>Sat, 13 Sep 2025 14:51:37 +0800</lastBuildDate>
+    <atom:link href="https://sheep44044.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>关于我</title>
-      <link>http://localhost:1313/about/</link>
+      <link>https://sheep44044.github.io/about/</link>
       <pubDate>Sat, 13 Sep 2025 14:51:37 +0800</pubDate>
-      <guid>http://localhost:1313/about/</guid>
+      <guid>https://sheep44044.github.io/about/</guid>
       <description>&lt;p&gt;关于我 🥳&lt;/p&gt;
 &lt;p&gt;我是 &lt;strong&gt;sheep44044&lt;/strong&gt;，一名CQUPT的24级学生🧑‍🎓，一名对世界充满好奇的探索者。&lt;/p&gt;
 &lt;ul&gt;
@@ -40,9 +33,9 @@
     </item>
     <item>
       <title>My First Post</title>
-      <link>http://localhost:1313/posts/my-first-post/</link>
+      <link>https://sheep44044.github.io/daily/my-first-post/</link>
       <pubDate>Thu, 11 Sep 2025 20:24:30 +0800</pubDate>
-      <guid>http://localhost:1313/posts/my-first-post/</guid>
+      <guid>https://sheep44044.github.io/daily/my-first-post/</guid>
       <description>&lt;h1 id=&#34;种一棵树最好的时间是十年前其次是现在&#34;&gt;种一棵树最好的时间是十年前，其次是现在。&lt;/h1&gt;
 &lt;p&gt;大一的时候，我初出茅庐，渴望着完美，绩点、开发、算法一并取得，最后什么都没拿到。&lt;/p&gt;
 &lt;p&gt;现在，希望专注于一点，取得一丝成就吧。&lt;br&gt;
