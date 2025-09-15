@@ -1,75 +1,36 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>sheep44044的小站</title>
-    <link>http://localhost:1313/</link>
-    <description>Recent content on sheep44044的小站</description>
-    <generator>Hugo -- 0.147.4</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Sun, 14 Sep 2025 00:42:54 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>First Post</title>
-      <link>http://localhost:1313/posts/first-post/</link>
-      <pubDate>Sun, 14 Sep 2025 00:42:54 +0800</pubDate>
-      <guid>http://localhost:1313/posts/first-post/</guid>
-      <description>&lt;p&gt;暂时无内容&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>week 1</title>
-      <link>http://localhost:1313/weekly/weekly-1/</link>
-      <pubDate>Sat, 13 Sep 2025 15:29:49 +0800</pubDate>
-      <guid>http://localhost:1313/weekly/weekly-1/</guid>
-      <description>&lt;p&gt;重启了对于 &lt;code&gt;Golang&lt;/code&gt; 的学习，利用 &lt;code&gt;Hugo&lt;/code&gt; 来搭建自己的博客。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>关于我</title>
-      <link>http://localhost:1313/about/</link>
-      <pubDate>Sat, 13 Sep 2025 14:51:37 +0800</pubDate>
-      <guid>http://localhost:1313/about/</guid>
-      <description>&lt;p&gt;关于我 🥳&lt;/p&gt;
-&lt;p&gt;我是 &lt;strong&gt;sheep44044&lt;/strong&gt;，一名CQUPT的24级学生🧑‍🎓，一名对世界充满好奇的探索者。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;🚀 &lt;strong&gt;我正在学习&lt;/strong&gt;：Git, Golang 以及其他有趣的开发技术。&lt;/li&gt;
-&lt;li&gt;📝 &lt;strong&gt;我正在记录&lt;/strong&gt;：学习过程中的思考、总结和牢骚😩。&lt;/li&gt;
-&lt;li&gt;🎃 &lt;strong&gt;我的兴趣&lt;/strong&gt;：代码、游戏、发呆ing。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;🎯 展望&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;提升自己&lt;/li&gt;
-&lt;li&gt;留点时间给自己&lt;/li&gt;
-&lt;li&gt;探索些感兴趣的东西&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;这个博客是我成长路上的数字脚印，也是你眼前看到的第一个小成果！旨在记录和分享我的学习历程与偶尔的碎碎念。如果这里的内容能给你带来一丝启发或帮助，那将是我最大的荣幸。&lt;/p&gt;
-&lt;p&gt;💌 &lt;strong&gt;联系我&lt;/strong&gt;：&lt;code&gt;3290120053@qq.com&lt;/code&gt;&lt;br&gt;
-🐙 &lt;strong&gt;GitHub&lt;/strong&gt;: &lt;a href=&#34;https://github.com/sheep44044&#34;&gt;sheep44044&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;感谢你的到访！期待与你交流。祝你今天过得愉快！✨&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>My First Post</title>
-      <link>http://localhost:1313/daily/my-first-post/</link>
-      <pubDate>Thu, 11 Sep 2025 20:24:30 +0800</pubDate>
-      <guid>http://localhost:1313/daily/my-first-post/</guid>
-      <description>&lt;h1 id=&#34;种一棵树最好的时间是十年前其次是现在&#34;&gt;种一棵树最好的时间是十年前，其次是现在。&lt;/h1&gt;
-&lt;p&gt;大一的时候，我初出茅庐，渴望着完美，绩点、开发、算法一并取得，最后什么都没拿到。&lt;/p&gt;
-&lt;p&gt;现在，希望专注于一点，取得一丝成就吧。&lt;br&gt;
-— 2025.9.13&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;只有选择，没有对错，喜欢的事，勇敢去做，不要怕，不喜欢的事，尽力而为，听从自己内心的选择。&lt;/p&gt;
-&lt;p&gt;在网上，人们说大学最好的时光是在高中时，最好的高中时光在大学生活中。回顾高中三年，我却难以会想起我自身的成就和生活的美好，就连学习也没有学到什么——周末、寒暑去补课，最终，却还是需要父母的帮助才来到重邮。&lt;/p&gt;
-&lt;p&gt;悟以往之不谏，知来者之可追。我希望能通过日记来记录自己的学习，亦是提醒自己不要忘记过去的遗憾和那每年的30000元学费。&lt;/p&gt;
-&lt;p&gt;我希望能通过自己的蜕变，逐渐成长，达成以下目标：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;拿到奖学金&lt;/li&gt;
-&lt;li&gt;通过红岩和蓝山的考核&lt;/li&gt;
-&lt;li&gt;进入ACM集训队&lt;/li&gt;
-&lt;li&gt;拿到地区的奖牌&lt;/li&gt;
-&lt;li&gt;获得浙大的录取通知书或是大厂的offer&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;虽然我的目标实现十分困难，也没有任何实现的依据。但是，我希望借此来激发自己，成为别人口中聪明的孩子，对得起父母、自己和每年的30000元。&lt;/p&gt;
-&lt;p&gt;这些想法积聚我脑中已久，借此，我想放空我的脑袋，把这些情绪与计划一同放于日记中，付诸更多的行动，来更好地学习。至于对象、健身这些对我虚无缥缈的东西，尽力而为吧。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;FIGHTing&lt;/strong&gt;&lt;br&gt;
-— 2024.11.8&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>sheep44044的小站</title><link>https://sheep44044.github.io/</link><description>Recent content on sheep44044的小站</description><generator>Hugo -- 0.147.4</generator><language>zh-CN</language><lastBuildDate>Sun, 14 Sep 2025 00:42:54 +0800</lastBuildDate><atom:link href="https://sheep44044.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>First Post</title><link>https://sheep44044.github.io/posts/first-post/</link><pubDate>Sun, 14 Sep 2025 00:42:54 +0800</pubDate><guid>https://sheep44044.github.io/posts/first-post/</guid><description>&lt;p>暂时无内容&lt;/p></description></item><item><title>week 1</title><link>https://sheep44044.github.io/weekly/weekly-1/</link><pubDate>Sat, 13 Sep 2025 15:29:49 +0800</pubDate><guid>https://sheep44044.github.io/weekly/weekly-1/</guid><description>&lt;p>重启了对于 &lt;code>Golang&lt;/code> 的学习，利用 &lt;code>Hugo&lt;/code> 来搭建自己的博客。&lt;/p></description></item><item><title>关于我</title><link>https://sheep44044.github.io/about/</link><pubDate>Sat, 13 Sep 2025 14:51:37 +0800</pubDate><guid>https://sheep44044.github.io/about/</guid><description>&lt;p>关于我 🥳&lt;/p>
+&lt;p>我是 &lt;strong>sheep44044&lt;/strong>，一名CQUPT的24级学生🧑‍🎓，一名对世界充满好奇的探索者。&lt;/p>
+&lt;ul>
+&lt;li>🚀 &lt;strong>我正在学习&lt;/strong>：Git, Golang 以及其他有趣的开发技术。&lt;/li>
+&lt;li>📝 &lt;strong>我正在记录&lt;/strong>：学习过程中的思考、总结和牢骚😩。&lt;/li>
+&lt;li>🎃 &lt;strong>我的兴趣&lt;/strong>：代码、游戏、发呆ing。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>🎯 展望&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>提升自己&lt;/li>
+&lt;li>留点时间给自己&lt;/li>
+&lt;li>探索些感兴趣的东西&lt;/li>
+&lt;/ul>
+&lt;p>这个博客是我成长路上的数字脚印，也是你眼前看到的第一个小成果！旨在记录和分享我的学习历程与偶尔的碎碎念。如果这里的内容能给你带来一丝启发或帮助，那将是我最大的荣幸。&lt;/p>
+&lt;p>💌 &lt;strong>联系我&lt;/strong>：&lt;code>3290120053@qq.com&lt;/code>&lt;br>
+🐙 &lt;strong>GitHub&lt;/strong>: &lt;a href="https://github.com/sheep44044">sheep44044&lt;/a>&lt;/p>
+&lt;p>感谢你的到访！期待与你交流。祝你今天过得愉快！✨&lt;/p></description></item><item><title>My First Post</title><link>https://sheep44044.github.io/daily/my-first-post/</link><pubDate>Thu, 11 Sep 2025 20:24:30 +0800</pubDate><guid>https://sheep44044.github.io/daily/my-first-post/</guid><description>&lt;h1 id="种一棵树最好的时间是十年前其次是现在">种一棵树最好的时间是十年前，其次是现在。&lt;/h1>
+&lt;p>大一的时候，我初出茅庐，渴望着完美，绩点、开发、算法一并取得，最后什么都没拿到。&lt;/p>
+&lt;p>现在，希望专注于一点，取得一丝成就吧。&lt;br>
+— 2025.9.13&lt;/p>
+&lt;hr>
+&lt;p>只有选择，没有对错，喜欢的事，勇敢去做，不要怕，不喜欢的事，尽力而为，听从自己内心的选择。&lt;/p>
+&lt;p>在网上，人们说大学最好的时光是在高中时，最好的高中时光在大学生活中。回顾高中三年，我却难以会想起我自身的成就和生活的美好，就连学习也没有学到什么——周末、寒暑去补课，最终，却还是需要父母的帮助才来到重邮。&lt;/p>
+&lt;p>悟以往之不谏，知来者之可追。我希望能通过日记来记录自己的学习，亦是提醒自己不要忘记过去的遗憾和那每年的30000元学费。&lt;/p>
+&lt;p>我希望能通过自己的蜕变，逐渐成长，达成以下目标：&lt;/p>
+&lt;ul>
+&lt;li>拿到奖学金&lt;/li>
+&lt;li>通过红岩和蓝山的考核&lt;/li>
+&lt;li>进入ACM集训队&lt;/li>
+&lt;li>拿到地区的奖牌&lt;/li>
+&lt;li>获得浙大的录取通知书或是大厂的offer&lt;/li>
+&lt;/ul>
+&lt;p>虽然我的目标实现十分困难，也没有任何实现的依据。但是，我希望借此来激发自己，成为别人口中聪明的孩子，对得起父母、自己和每年的30000元。&lt;/p>
+&lt;p>这些想法积聚我脑中已久，借此，我想放空我的脑袋，把这些情绪与计划一同放于日记中，付诸更多的行动，来更好地学习。至于对象、健身这些对我虚无缥缈的东西，尽力而为吧。&lt;/p>
+&lt;p>&lt;strong>FIGHTing&lt;/strong>&lt;br>
+— 2024.11.8&lt;/p></description></item></channel></rss>
