@@ -1,4 +1,36 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>sheep44044的小站</title><link>https://sheep44044.github.io/</link><description>Recent content on sheep44044的小站</description><generator>Hugo -- 0.147.4</generator><language>zh-CN</language><lastBuildDate>Sun, 14 Sep 2025 00:42:54 +0800</lastBuildDate><atom:link href="https://sheep44044.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>First Post</title><link>https://sheep44044.github.io/posts/first-post/</link><pubDate>Sun, 14 Sep 2025 00:42:54 +0800</pubDate><guid>https://sheep44044.github.io/posts/first-post/</guid><description>&lt;p>暂时无内容&lt;/p></description></item><item><title>week 1</title><link>https://sheep44044.github.io/weekly/weekly-1/</link><pubDate>Sat, 13 Sep 2025 15:29:49 +0800</pubDate><guid>https://sheep44044.github.io/weekly/weekly-1/</guid><description>&lt;p>重启了对于 &lt;code>Golang&lt;/code> 的学习，利用 &lt;code>Hugo&lt;/code> 来搭建自己的博客。&lt;/p></description></item><item><title>关于我</title><link>https://sheep44044.github.io/about/</link><pubDate>Sat, 13 Sep 2025 14:51:37 +0800</pubDate><guid>https://sheep44044.github.io/about/</guid><description>&lt;p>关于我 🥳&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>sheep44044的小站</title><link>https://sheep44044.github.io/</link><description>Recent content on sheep44044的小站</description><generator>Hugo -- 0.147.4</generator><language>zh-CN</language><lastBuildDate>Sun, 14 Sep 2025 00:42:54 +0800</lastBuildDate><atom:link href="https://sheep44044.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>First Post</title><link>https://sheep44044.github.io/posts/first-post/</link><pubDate>Sun, 14 Sep 2025 00:42:54 +0800</pubDate><guid>https://sheep44044.github.io/posts/first-post/</guid><description>&lt;p>暂时无内容&lt;/p></description></item><item><title>第一周总结</title><link>https://sheep44044.github.io/weekly/weekly-1/</link><pubDate>Sat, 13 Sep 2025 15:29:49 +0800</pubDate><guid>https://sheep44044.github.io/weekly/weekly-1/</guid><description>&lt;h1 id="第一周总结">第一周总结&lt;/h1>
+&lt;p>本周主要完成了以下三件事情：&lt;/p>
+&lt;h2 id="完成事项">完成事项&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>熟悉 Mac 并配置软件环境&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>开始熟悉 macOS 操作系统。&lt;/li>
+&lt;li>使用 Jetbrans Toolbox 安装 Goland 等开发工具。&lt;/li>
+&lt;li>通过 Homebrew 包管理器安装并管理 Git、Typora 等软件。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>学习并使用 Git&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>通过教程网站 &lt;a href="https://learngitbranching.js.org/?demo=&amp;amp;locale=zh_CN">learngitbranching.js.org&lt;/a> 的git小游戏来学习和练习 Git 操作。&lt;/li>
+&lt;li>成功配置 Git 并与我的 GitHub 账户进行关联。&lt;/li>
+&lt;li>实现了在 Goland IDE 中集成并使用 Git。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>利用 Hugo 搭建博客&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>使用 &lt;code>Hugo&lt;/code> 静态网站生成器初步搭建了个人博客。&lt;/li>
+&lt;li>实现了基本功能：主页文章展示、包含“文章”和“周报”等菜单的导航栏。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="下周计划可能">下周计划（可能）&lt;/h2>
+&lt;ul>
+&lt;li>解决博客的一个小问题：博客在互联网上登入时会错误跳转到本地。&lt;/li>
+&lt;li>复习 Golang 的知识。&lt;/li>
+&lt;/ul></description></item><item><title>关于我</title><link>https://sheep44044.github.io/about/</link><pubDate>Sat, 13 Sep 2025 14:51:37 +0800</pubDate><guid>https://sheep44044.github.io/about/</guid><description>&lt;p>关于我 🥳&lt;/p>
 &lt;p>我是 &lt;strong>sheep44044&lt;/strong>，一名CQUPT的24级学生🧑‍🎓，一名对世界充满好奇的探索者。&lt;/p>
 &lt;ul>
 &lt;li>🚀 &lt;strong>我正在学习&lt;/strong>：Git, Golang 以及其他有趣的开发技术。&lt;/li>
