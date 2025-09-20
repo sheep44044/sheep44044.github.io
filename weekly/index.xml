@@ -1,33 +1,51 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Weekly on sheep44044的小站</title><link>https://sheep44044.github.io/weekly/</link><description>Recent content in Weekly on sheep44044的小站</description><generator>Hugo -- 0.147.4</generator><language>zh-CN</language><lastBuildDate>Sat, 13 Sep 2025 15:29:49 +0800</lastBuildDate><atom:link href="https://sheep44044.github.io/weekly/index.xml" rel="self" type="application/rss+xml"/><item><title>第一周总结</title><link>https://sheep44044.github.io/weekly/weekly-1/</link><pubDate>Sat, 13 Sep 2025 15:29:49 +0800</pubDate><guid>https://sheep44044.github.io/weekly/weekly-1/</guid><description>&lt;h1 id="第一周总结">第一周总结&lt;/h1>
-&lt;p>本周主要完成了以下三件事情：&lt;/p>
-&lt;h2 id="完成事项">完成事项&lt;/h2>
-&lt;ol>
-&lt;li>
-&lt;p>&lt;strong>熟悉 Mac 并配置软件环境&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>开始熟悉 macOS 操作系统。&lt;/li>
-&lt;li>使用 Jetbrans Toolbox 安装 Goland 等开发工具。&lt;/li>
-&lt;li>通过 Homebrew 包管理器安装并管理 Git、Typora 等软件。&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>学习并使用 Git&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>通过教程网站 &lt;a href="https://learngitbranching.js.org/?demo=&amp;amp;locale=zh_CN">learngitbranching.js.org&lt;/a> 的git小游戏来学习和练习 Git 操作。&lt;/li>
-&lt;li>成功配置 Git 并与我的 GitHub 账户进行关联。&lt;/li>
-&lt;li>实现了在 Goland IDE 中集成并使用 Git。&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>利用 Hugo 搭建博客&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>使用 &lt;code>Hugo&lt;/code> 静态网站生成器初步搭建了个人博客。&lt;/li>
-&lt;li>实现了基本功能：主页文章展示、包含“文章”和“周报”等菜单的导航栏。&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ol>
-&lt;h2 id="下周计划可能">下周计划（可能）&lt;/h2>
-&lt;ul>
-&lt;li>解决博客的一个小问题：博客在互联网上登入时会错误跳转到本地。&lt;/li>
-&lt;li>复习 Golang 的知识。&lt;/li>
-&lt;/ul></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Weekly on sheep44044的小站</title>
+    <link>https://sheep44044.github.io/weekly/</link>
+    <description>Recent content in Weekly on sheep44044的小站</description>
+    <generator>Hugo -- 0.147.4</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 13 Sep 2025 15:29:49 +0800</lastBuildDate>
+    <atom:link href="https://sheep44044.github.io/weekly/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第一周总结</title>
+      <link>https://sheep44044.github.io/weekly/weekly-1/</link>
+      <pubDate>Sat, 13 Sep 2025 15:29:49 +0800</pubDate>
+      <guid>https://sheep44044.github.io/weekly/weekly-1/</guid>
+      <description>&lt;h1 id=&#34;第一周总结&#34;&gt;第一周总结&lt;/h1&gt;
+&lt;p&gt;本周主要完成了以下三件事情：&lt;/p&gt;
+&lt;h2 id=&#34;完成事项&#34;&gt;完成事项&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;熟悉 Mac 并配置软件环境&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;开始熟悉 macOS 操作系统。&lt;/li&gt;
+&lt;li&gt;使用 Jetbrans Toolbox 安装 Goland 等开发工具。&lt;/li&gt;
+&lt;li&gt;通过 Homebrew 包管理器安装并管理 Git、Typora 等软件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;学习并使用 Git&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通过教程网站 &lt;a href=&#34;https://learngitbranching.js.org/?demo=&amp;amp;locale=zh_CN&#34;&gt;learngitbranching.js.org&lt;/a&gt; 的git小游戏来学习和练习 Git 操作。&lt;/li&gt;
+&lt;li&gt;成功配置 Git 并与我的 GitHub 账户进行关联。&lt;/li&gt;
+&lt;li&gt;实现了在 Goland IDE 中集成并使用 Git。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;利用 Hugo 搭建博客&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用 &lt;code&gt;Hugo&lt;/code&gt; 静态网站生成器初步搭建了个人博客。&lt;/li&gt;
+&lt;li&gt;实现了基本功能：主页文章展示、包含“文章”和“周报”等菜单的导航栏。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;下周计划可能&#34;&gt;下周计划（可能）&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;解决博客的一个小问题：博客在互联网上登入时会错误跳转到本地。&lt;/li&gt;
+&lt;li&gt;复习 Golang 的知识。&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

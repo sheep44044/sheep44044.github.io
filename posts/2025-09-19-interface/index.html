@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Golang的之借口 | sheep44044的小站</title>
+<meta name="keywords" content="">
+<meta name="description" content="Golang之接口
+接口是我在tour of go上遇到的第一个难点，因此我打算再开一篇来着重记录，不仅是当下对此的沉淀与思考，也是对未来的提醒与照应。为了方便自己的查看，便独立于之前的知识碎片。
+接口（interface）
+接口的定义
+接口（Interface）本质上就是定义了一组方法签名（Method Signatures）的集合。它只关心**“做什么”，而不关心“怎么做”**。
+它规定：“任何类型，只要你实现了我的合同里规定的所有这些方法，那我就认为你实现了这个接口。”
+每个接口类型由任意个方法签名组成，接口的定义格式如下：
+type 接口类型名 interface{
+    方法名1( 参数列表1 ) 返回值列表1
+    方法名2( 参数列表2 ) 返回值列表2
+    …
+}
+如何实现接口？（“隐式实现”）
+Go 接口的实现是 “隐式” 的。这意味着你不需要像 Java 那样明确地写 implements Speaker。只需要让这个类型拥有接口里规定的所有方法，它就自动实现了该接口！
+这是 Go 的哲学——“鸭子类型”（如果它走起来像鸭子，叫起来像鸭子，那它就是鸭子）。
+接口值
+接口也是值。它们可以像其它值一样传递。
+接口值可以用作函数的参数或返回值。
+接口值可以看作两部分具体类型和该类型的值。
+可以把接口值想象成一个特殊的“盒子”。
+
+这个盒子上贴着一个标签，写着里面装的东西的类型（*main.Dog）。
+盒子里装着实际的值（一个 Dog 结构体的实例）。
+
+var s Speaker      // 接口变量 s，此时它是一个空的“盒子”，里面是 nil
+s = Dog{Name: &#34;Rex&#34;} // 赋值后，s 这个“盒子”里：
+                     // - 标签：main.Dog
+                     // - 值：{Rex}
+
+fmt.Printf(&#34;(%v, %T)\n&#34;, s, s) // 输出：({Rex}, main.Dog)
+                               // 值部分 和 类型部分
+当你调用 s.Speak() 时，Go 会打开这个“盒子”，根据标签找到类型 Dog，然后执行 Dog 的 Speak 方法。">
+<meta name="author" content="Sheep44044">
+<link rel="canonical" href="https://sheep44044.github.io/posts/2025-09-19-interface/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" integrity="sha256-IhHKMWS&#43;eDACT2qtKzouUghDpk&#43;PBIRFw0AcEkmqBR0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://sheep44044.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://sheep44044.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://sheep44044.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://sheep44044.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://sheep44044.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://sheep44044.github.io/posts/2025-09-19-interface/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://sheep44044.github.io/posts/2025-09-19-interface/">
+  <meta property="og:site_name" content="sheep44044的小站">
+  <meta property="og:title" content="Golang的之借口">
+  <meta property="og:description" content="Golang之接口 接口是我在tour of go上遇到的第一个难点，因此我打算再开一篇来着重记录，不仅是当下对此的沉淀与思考，也是对未来的提醒与照应。为了方便自己的查看，便独立于之前的知识碎片。
+接口（interface） 接口的定义 接口（Interface）本质上就是定义了一组方法签名（Method Signatures）的集合。它只关心**“做什么”，而不关心“怎么做”**。
+它规定：“任何类型，只要你实现了我的合同里规定的所有这些方法，那我就认为你实现了这个接口。”
+每个接口类型由任意个方法签名组成，接口的定义格式如下：
+type 接口类型名 interface{ 方法名1( 参数列表1 ) 返回值列表1 方法名2( 参数列表2 ) 返回值列表2 … } 如何实现接口？（“隐式实现”） Go 接口的实现是 “隐式” 的。这意味着你不需要像 Java 那样明确地写 implements Speaker。只需要让这个类型拥有接口里规定的所有方法，它就自动实现了该接口！
+这是 Go 的哲学——“鸭子类型”（如果它走起来像鸭子，叫起来像鸭子，那它就是鸭子）。
+接口值 接口也是值。它们可以像其它值一样传递。
+接口值可以用作函数的参数或返回值。
+接口值可以看作两部分具体类型和该类型的值。
+可以把接口值想象成一个特殊的“盒子”。
+这个盒子上贴着一个标签，写着里面装的东西的类型（*main.Dog）。 盒子里装着实际的值（一个 Dog 结构体的实例）。 var s Speaker // 接口变量 s，此时它是一个空的“盒子”，里面是 nil s = Dog{Name: &#34;Rex&#34;} // 赋值后，s 这个“盒子”里： // - 标签：main.Dog // - 值：{Rex} fmt.Printf(&#34;(%v, %T)\n&#34;, s, s) // 输出：({Rex}, main.Dog) // 值部分 和 类型部分 当你调用 s.Speak() 时，Go 会打开这个“盒子”，根据标签找到类型 Dog，然后执行 Dog 的 Speak 方法。">
+  <meta property="og:locale" content="zh-CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-09-20T13:33:54+08:00">
+    <meta property="article:modified_time" content="2025-09-20T13:33:54+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Golang的之借口">
+<meta name="twitter:description" content="Golang之接口
+接口是我在tour of go上遇到的第一个难点，因此我打算再开一篇来着重记录，不仅是当下对此的沉淀与思考，也是对未来的提醒与照应。为了方便自己的查看，便独立于之前的知识碎片。
+接口（interface）
+接口的定义
+接口（Interface）本质上就是定义了一组方法签名（Method Signatures）的集合。它只关心**“做什么”，而不关心“怎么做”**。
+它规定：“任何类型，只要你实现了我的合同里规定的所有这些方法，那我就认为你实现了这个接口。”
+每个接口类型由任意个方法签名组成，接口的定义格式如下：
+type 接口类型名 interface{
+    方法名1( 参数列表1 ) 返回值列表1
+    方法名2( 参数列表2 ) 返回值列表2
+    …
+}
+如何实现接口？（“隐式实现”）
+Go 接口的实现是 “隐式” 的。这意味着你不需要像 Java 那样明确地写 implements Speaker。只需要让这个类型拥有接口里规定的所有方法，它就自动实现了该接口！
+这是 Go 的哲学——“鸭子类型”（如果它走起来像鸭子，叫起来像鸭子，那它就是鸭子）。
+接口值
+接口也是值。它们可以像其它值一样传递。
+接口值可以用作函数的参数或返回值。
+接口值可以看作两部分具体类型和该类型的值。
+可以把接口值想象成一个特殊的“盒子”。
+
+这个盒子上贴着一个标签，写着里面装的东西的类型（*main.Dog）。
+盒子里装着实际的值（一个 Dog 结构体的实例）。
+
+var s Speaker      // 接口变量 s，此时它是一个空的“盒子”，里面是 nil
+s = Dog{Name: &#34;Rex&#34;} // 赋值后，s 这个“盒子”里：
+                     // - 标签：main.Dog
+                     // - 值：{Rex}
+
+fmt.Printf(&#34;(%v, %T)\n&#34;, s, s) // 输出：({Rex}, main.Dog)
+                               // 值部分 和 类型部分
+当你调用 s.Speak() 时，Go 会打开这个“盒子”，根据标签找到类型 Dog，然后执行 Dog 的 Speak 方法。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://sheep44044.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Golang的之借口",
+      "item": "https://sheep44044.github.io/posts/2025-09-19-interface/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Golang的之借口",
+  "name": "Golang的之借口",
+  "description": "Golang之接口 接口是我在tour of go上遇到的第一个难点，因此我打算再开一篇来着重记录，不仅是当下对此的沉淀与思考，也是对未来的提醒与照应。为了方便自己的查看，便独立于之前的知识碎片。\n接口（interface） 接口的定义 接口（Interface）本质上就是定义了一组方法签名（Method Signatures）的集合。它只关心**“做什么”，而不关心“怎么做”**。\n它规定：“任何类型，只要你实现了我的合同里规定的所有这些方法，那我就认为你实现了这个接口。”\n每个接口类型由任意个方法签名组成，接口的定义格式如下：\ntype 接口类型名 interface{ 方法名1( 参数列表1 ) 返回值列表1 方法名2( 参数列表2 ) 返回值列表2 … } 如何实现接口？（“隐式实现”） Go 接口的实现是 “隐式” 的。这意味着你不需要像 Java 那样明确地写 implements Speaker。只需要让这个类型拥有接口里规定的所有方法，它就自动实现了该接口！\n这是 Go 的哲学——“鸭子类型”（如果它走起来像鸭子，叫起来像鸭子，那它就是鸭子）。\n接口值 接口也是值。它们可以像其它值一样传递。\n接口值可以用作函数的参数或返回值。\n接口值可以看作两部分具体类型和该类型的值。\n可以把接口值想象成一个特殊的“盒子”。\n这个盒子上贴着一个标签，写着里面装的东西的类型（*main.Dog）。 盒子里装着实际的值（一个 Dog 结构体的实例）。 var s Speaker // 接口变量 s，此时它是一个空的“盒子”，里面是 nil s = Dog{Name: \u0026#34;Rex\u0026#34;} // 赋值后，s 这个“盒子”里： // - 标签：main.Dog // - 值：{Rex} fmt.Printf(\u0026#34;(%v, %T)\\n\u0026#34;, s, s) // 输出：({Rex}, main.Dog) // 值部分 和 类型部分 当你调用 s.Speak() 时，Go 会打开这个“盒子”，根据标签找到类型 Dog，然后执行 Dog 的 Speak 方法。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "Golang之接口 接口是我在tour of go上遇到的第一个难点，因此我打算再开一篇来着重记录，不仅是当下对此的沉淀与思考，也是对未来的提醒与照应。为了方便自己的查看，便独立于之前的知识碎片。\n接口（interface） 接口的定义 接口（Interface）本质上就是定义了一组方法签名（Method Signatures）的集合。它只关心**“做什么”，而不关心“怎么做”**。\n它规定：“任何类型，只要你实现了我的合同里规定的所有这些方法，那我就认为你实现了这个接口。”\n每个接口类型由任意个方法签名组成，接口的定义格式如下：\ntype 接口类型名 interface{ 方法名1( 参数列表1 ) 返回值列表1 方法名2( 参数列表2 ) 返回值列表2 … } 如何实现接口？（“隐式实现”） Go 接口的实现是 “隐式” 的。这意味着你不需要像 Java 那样明确地写 implements Speaker。只需要让这个类型拥有接口里规定的所有方法，它就自动实现了该接口！\n这是 Go 的哲学——“鸭子类型”（如果它走起来像鸭子，叫起来像鸭子，那它就是鸭子）。\n接口值 接口也是值。它们可以像其它值一样传递。\n接口值可以用作函数的参数或返回值。\n接口值可以看作两部分具体类型和该类型的值。\n可以把接口值想象成一个特殊的“盒子”。\n这个盒子上贴着一个标签，写着里面装的东西的类型（*main.Dog）。 盒子里装着实际的值（一个 Dog 结构体的实例）。 var s Speaker // 接口变量 s，此时它是一个空的“盒子”，里面是 nil s = Dog{Name: \"Rex\"} // 赋值后，s 这个“盒子”里： // - 标签：main.Dog // - 值：{Rex} fmt.Printf(\"(%v, %T)\\n\", s, s) // 输出：({Rex}, main.Dog) // 值部分 和 类型部分 当你调用 s.Speak() 时，Go 会打开这个“盒子”，根据标签找到类型 Dog，然后执行 Dog 的 Speak 方法。\n底层值为 nil 的接口值 即便接口内的具体值为 nil，方法仍然会被 nil 接收者调用。保存了 nil 具体值的接口其自身并不为 nil。\nnil 接口值 nil 接口值既不保存值也不保存具体类型。\n为 nil 接口调用方法会产生运行时错误，因为接口的元组内并未包含能够指明该调用哪个 具体 方法的类型。\n空接口（interface{}/any） 空接口可保存任何类型的值（因为每个类型都至少实现了零个方法）\n空接口被用来处理未知类型的值\ntips：\n空接口是一个接口类型。因为它没有规定任何方法，所以Go语言规定所有类型都自动实现了空接口。\nnil接口值指的是一个接口变量的当前状态是“空”的。\n它们之间的关系是正交的：你可以有一个空接口类型的nil接口值，也可以有一个非空的自定义接口类型的nil接口值。\n类型断言 由于接口变量可以持有任意实现它的类型的值，有时我们需要知道它背后具体的实际值是什么。\n在 Go 语言中，接口断言是一种检查接口变量是否具有特定具体类型的方法。接口断言的基本语法如下：\nvalue, ok := interfaceVariable.(Type) 其中：\ninterfaceVariable 是一个接口类型的变量 Type 是你想要断言的具体类型 如果 interfaceVariable 实际上是一个 Type 类型的值，那么 value 将会被赋值为该值，并且 ok 将会是 true。如果 interfaceVariable 不是 Type 类型，那么 value 将会是 Type 类型的零值，而 ok 将会是 false 对于空接口 interface{}，任何类型的值都可以被赋值给它，因此对接口断言的需求更加常见 类型选择 类型选择 是一种按顺序从几个类型断言中选择分支的结构。\n类型选择与一般的 switch 语句相似，不过类型选择中的 case 为类型（而非值）， 它们针对给定接口值所存储的值的类型进行比较。\nswitch v := i.(type) { case T: // v 的类型为 T case S: // v 的类型为 S default: // 没有匹配，v 与 i 的类型相同 } 类型选择中的声明与类型断言 i.(T) 的语法相同，只是具体类型 T 被替换成了关键字 type。\n多态实现 接口变量可以持有任意实现它的类型的值\n多态（Polymorphism） 指的是一个接口的调用方式，可以在运行时根据其底层实际类型的不同而表现出不同的行为\n核心思想： 不同结构体只要实现了相同的接口，它们就可以被当作同一种类型（接口类型）来处理，但在执行接口方法时，会执行各自具体的实现。\n经典例子：\npackage main import \"fmt\" // 定义一个支付接口 type Payment interface { Pay(amount float64) string } // 实现两种不同的支付方式 type Alipay struct { Account string } func (a Alipay) Pay(amount float64) string { return fmt.Sprintf(\"使用支付宝 %s 支付了 %.2f 元\", a.Account, amount) } type WechatPay struct { OpenID string } func (w WechatPay) Pay(amount float64) string { return fmt.Sprintf(\"使用微信 %s 支付了 %.2f 元\", w.OpenID, amount) } // 一个通用的支付函数，它只关心传入的对象是否实现了 Payment 接口 func ProcessPayment(p Payment, amount float64) { result := p.Pay(amount) fmt.Println(result) } func main() { a := Alipay{Account: \"zhangsan@alipay.com\"} w := WechatPay{OpenID: \"wx_abcdef123456\"} // 多态的体现：ProcessPayment 函数不需要知道具体是哪种支付方式 // 它只需要调用 Pay 方法，而具体执行哪个版本的 Pay，由运行时 p 的实际类型决定 ProcessPayment(a, 100.5) ProcessPayment(w, 200.0) // 也可以将不同的实现放入同一个切片（接口类型切片） payments := []Payment{a, w} for _, payer := range payments { ProcessPayment(payer, 50.0) } } 输出：\n使用支付宝 zhangsan@alipay.com 支付了 100.50 元 使用微信 wx_abcdef123456 支付了 200.00 元 使用支付宝 zhangsan@alipay.com 支付了 50.00 元 使用微信 wx_abcdef123456 支付了 50.00 元 Go的\"继承\" Go 语言设计者认为传统的类继承（尤其是多重继承）模型复杂且容易出错。因此，Go 彻底摒弃了 class 和 extends 的概念。\nGo 的“继承”是通过结构体的嵌套（Embedding）来实现的，这本质上是“组合”。\n// “父类”（基类） type Animal struct { name string } func (a *Animal) Speak() { fmt.Println(\"我是:\", a.name) } // “子类”（派生类），通过嵌入 Animal 来“继承”它的字段和方法 type Dog struct { Animal // 嵌入 Animal，实现了组合 Breed string // 子类自己的字段 } // 子类可以重写父类的方法 func (d *Dog) Speak() { d.Animal.Speak() // 可以调用“父类”的方法 fmt.Println(\"汪汪汪！\") } func main() { d := Dog{ Animal: Animal{name: \"旺财\"}, // 初始化嵌入的结构体 Breed: \"柯基\", } d.Speak() // 调用子类重写后的方法 d.Animal.Speak() // 仍然可以显式调用父类的方法 } 这种组合的优势：\n清晰简单：没有复杂的继承链。 解耦：Dog 和 Animal 是两个独立的类型，Dog 只是使用了 Animal 的功能。 灵活性：Dog 可以轻松组合多个其他结构体（例如 Pet）的功能，模拟了“多重继承”，但又没有多重继承的歧义问题。 常见的接口 1.Stringer fmt 包中定义的 Stringer 是最普遍的接口之一。\ntype Stringer interface { String() string } Stringer 是一个可以用字符串描述自己的类型。fmt 包（还有很多包）都通过此接口来打印值。\n2.error Go 程序使用 error 值来表示错误状态。\n与 fmt.Stringer 类似，error 类型是一个内建接口：\ntype error interface { Error() string } （与 fmt.Stringer 类似，fmt 包也会根据对 error 的实现来打印值。）\n通常函数会返回一个 error 值，调用它的代码应当判断这个错误是否等于 nil 来进行错误处理。\ni, err := strconv.Atoi(\"42\") if err != nil { fmt.Printf(\"couldn't convert number: %v\\n\", err) return } fmt.Println(\"Converted integer:\", i) error 为 nil 时表示成功；非 nil 的 error 表示失败。\n3.Readers io 包指定了 io.Reader 接口，它表示数据流的读取端。\nGo 标准库包含了该接口的许多实现，包括文件、网络连接、压缩和加密等等。\nio.Reader 接口有一个 Read 方法：\nfunc (T) Read(b []byte) (n int, err error) Read 用数据填充给定的字节切片并返回填充的字节数和错误值。在遇到数据流的结尾时，它会返回一个 io.EOF 错误。\n4.Image image 包定义了 Image 接口：\npackage image type Image interface { ColorModel() color.Model Bounds() Rectangle At(x, y int) color.Color } 注意: Bounds 方法的返回值 Rectangle 实际上是一个 image.Rectangle，它在 image 包中声明。\n",
+  "wordCount" : "543",
+  "inLanguage": "en",
+  "datePublished": "2025-09-20T13:33:54+08:00",
+  "dateModified": "2025-09-20T13:33:54+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Sheep44044"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://sheep44044.github.io/posts/2025-09-19-interface/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "sheep44044的小站",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sheep44044.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://sheep44044.github.io/" accesskey="h" title="sheep44044的小站 (Alt + H)">sheep44044的小站</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://sheep44044.github.io/" title="主页">
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sheep44044.github.io/about/" title="个人">
+                    <span>个人</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sheep44044.github.io/posts/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sheep44044.github.io/daily/" title="日常">
+                    <span>日常</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sheep44044.github.io/weekly/" title="周报">
+                    <span>周报</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Golang的之借口
+    </h1>
+    <div class="post-meta"><span title='2025-09-20 13:33:54 +0800 CST'>September 20, 2025</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Sheep44044
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#golang%e4%b9%8b%e6%8e%a5%e5%8f%a3" aria-label="Golang之接口">Golang之接口</a><ul>
+                        
+                <li>
+                    <a href="#%e6%8e%a5%e5%8f%a3interface" aria-label="接口（interface）">接口（interface）</a><ul>
+                        
+                <li>
+                    <a href="#%e6%8e%a5%e5%8f%a3%e7%9a%84%e5%ae%9a%e4%b9%89" aria-label="接口的定义">接口的定义</a></li>
+                <li>
+                    <a href="#%e5%a6%82%e4%bd%95%e5%ae%9e%e7%8e%b0%e6%8e%a5%e5%8f%a3%e9%9a%90%e5%bc%8f%e5%ae%9e%e7%8e%b0" aria-label="如何实现接口？（“隐式实现”）">如何实现接口？（“隐式实现”）</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%8e%a5%e5%8f%a3%e5%80%bc" aria-label="接口值">接口值</a></li>
+                <li>
+                    <a href="#%e5%ba%95%e5%b1%82%e5%80%bc%e4%b8%ba-nil-%e7%9a%84%e6%8e%a5%e5%8f%a3%e5%80%bc" aria-label="底层值为 nil 的接口值">底层值为 nil 的接口值</a></li>
+                <li>
+                    <a href="#nil-%e6%8e%a5%e5%8f%a3%e5%80%bc" aria-label="nil 接口值">nil 接口值</a></li>
+                <li>
+                    <a href="#%e7%a9%ba%e6%8e%a5%e5%8f%a3interfaceany" aria-label="空接口（interface{}/any）">空接口（interface{}/any）</a></li>
+                <li>
+                    <a href="#%e7%b1%bb%e5%9e%8b%e6%96%ad%e8%a8%80" aria-label="类型断言">类型断言</a></li>
+                <li>
+                    <a href="#%e7%b1%bb%e5%9e%8b%e9%80%89%e6%8b%a9" aria-label="类型选择">类型选择</a><ul>
+                        
+                <li>
+                    <a href="#%e5%a4%9a%e6%80%81%e5%ae%9e%e7%8e%b0" aria-label="多态实现">多态实现</a></li>
+                <li>
+                    <a href="#go%e7%9a%84%e7%bb%a7%e6%89%bf" aria-label="Go的&quot;继承&quot;">Go的&quot;继承&quot;</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%b8%b8%e8%a7%81%e7%9a%84%e6%8e%a5%e5%8f%a3" aria-label="常见的接口">常见的接口</a><ul>
+                        
+                <li>
+                    <a href="#1stringer" aria-label="1.Stringer">1.Stringer</a></li>
+                <li>
+                    <a href="#2error" aria-label="2.error">2.error</a></li>
+                <li>
+                    <a href="#3readers" aria-label="3.Readers">3.Readers</a></li>
+                <li>
+                    <a href="#4image" aria-label="4.Image">4.Image</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="golang之接口">Golang之接口<a hidden class="anchor" aria-hidden="true" href="#golang之接口">#</a></h1>
+<p>接口是我在tour of go上遇到的第一个难点，因此我打算再开一篇来着重记录，不仅是当下对此的沉淀与思考，也是对未来的提醒与照应。为了方便自己的查看，便独立于之前的知识碎片。</p>
+<h2 id="接口interface">接口（interface）<a hidden class="anchor" aria-hidden="true" href="#接口interface">#</a></h2>
+<h3 id="接口的定义">接口的定义<a hidden class="anchor" aria-hidden="true" href="#接口的定义">#</a></h3>
+<p>接口（Interface）本质上就是<strong>定义了一组方法签名（Method Signatures）的集合</strong>。它只关心**“做什么”<strong>，而不关心</strong>“怎么做”**。</p>
+<p>它规定：<strong>“任何类型，只要你实现了我的合同里规定的所有这些方法，那我就认为你实现了这个接口。”</strong></p>
+<p>每个接口类型由任意个方法签名组成，接口的定义格式如下：</p>
+<pre tabindex="0"><code>type 接口类型名 interface{
+    方法名1( 参数列表1 ) 返回值列表1
+    方法名2( 参数列表2 ) 返回值列表2
+    …
+}
+</code></pre><h3 id="如何实现接口隐式实现">如何实现接口？（“隐式实现”）<a hidden class="anchor" aria-hidden="true" href="#如何实现接口隐式实现">#</a></h3>
+<p>Go 接口的实现是 <strong>“隐式”</strong> 的。这意味着你<strong>不需要</strong>像 Java 那样明确地写 <code>implements Speaker</code>。只需要让这个类型拥有接口里规定的所有方法，它就自动实现了该接口！</p>
+<p>这是 Go 的哲学——“鸭子类型”（如果它走起来像鸭子，叫起来像鸭子，那它就是鸭子）。</p>
+<h2 id="接口值">接口值<a hidden class="anchor" aria-hidden="true" href="#接口值">#</a></h2>
+<p>接口也是值。它们可以像其它值一样传递。</p>
+<p>接口值可以用作函数的参数或返回值。</p>
+<p>接口值可以看作两部分<strong>具体类型</strong>和<strong>该类型的值</strong>。</p>
+<p><strong>可以把接口值想象成一个特殊的“盒子”。</strong></p>
+<ul>
+<li>这个盒子上贴着一个<strong>标签</strong>，写着里面装的东西的类型（<code>*main.Dog</code>）。</li>
+<li>盒子里装着<strong>实际的值</strong>（一个 <code>Dog</code> 结构体的实例）。</li>
+</ul>
+<pre tabindex="0"><code>var s Speaker      // 接口变量 s，此时它是一个空的“盒子”，里面是 nil
+s = Dog{Name: &#34;Rex&#34;} // 赋值后，s 这个“盒子”里：
+                     // - 标签：main.Dog
+                     // - 值：{Rex}
+
+fmt.Printf(&#34;(%v, %T)\n&#34;, s, s) // 输出：({Rex}, main.Dog)
+                               // 值部分 和 类型部分
+</code></pre><p>当你调用 <code>s.Speak()</code> 时，Go 会打开这个“盒子”，根据标签找到类型 <code>Dog</code>，然后执行 <code>Dog</code> 的 <code>Speak</code> 方法。</p>
+<h2 id="底层值为-nil-的接口值">底层值为 nil 的接口值<a hidden class="anchor" aria-hidden="true" href="#底层值为-nil-的接口值">#</a></h2>
+<p>即便接口内的具体值为 nil，方法仍然会被 nil 接收者调用。保存了 nil 具体值的接口其自身并不为 nil。</p>
+<h2 id="nil-接口值">nil 接口值<a hidden class="anchor" aria-hidden="true" href="#nil-接口值">#</a></h2>
+<p>nil 接口值既不保存值也不保存具体类型。</p>
+<p>为 nil 接口调用方法会产生运行时错误，因为接口的元组内并未包含能够指明该调用哪个 <strong>具体</strong> 方法的类型。</p>
+<h2 id="空接口interfaceany">空接口（interface{}/any）<a hidden class="anchor" aria-hidden="true" href="#空接口interfaceany">#</a></h2>
+<p>空接口可保存任何类型的值（因为每个类型都至少实现了零个方法）</p>
+<p>空接口被用来处理未知类型的值</p>
+<p><strong>tips</strong>：</p>
+<p><strong>空接口</strong>是一个接口<strong>类型</strong>。因为它没有规定任何方法，所以Go语言规定<strong>所有类型都自动实现了空接口</strong>。</p>
+<p><strong>nil接口值</strong>指的是一个接口变量的<strong>当前状态是“空”的</strong>。</p>
+<p><strong>它们之间的关系是正交的：<strong>你可以有一个</strong>空接口类型的nil接口值</strong>，也可以有一个<strong>非空的自定义接口类型的nil接口值</strong>。</p>
+<h2 id="类型断言">类型断言<a hidden class="anchor" aria-hidden="true" href="#类型断言">#</a></h2>
+<p>由于接口变量可以持有任意实现它的类型的值，有时我们需要知道它背后具体的实际值是什么。</p>
+<p>在 Go 语言中，接口断言是一种检查接口变量是否具有特定具体类型的方法。接口断言的基本语法如下：</p>
+<pre tabindex="0"><code>value, ok := interfaceVariable.(Type)
+</code></pre><p>其中：</p>
+<ul>
+<li><code>interfaceVariable</code> 是一个接口类型的变量</li>
+<li><code>Type</code> 是你想要断言的具体类型</li>
+<li>如果 <code>interfaceVariable</code> 实际上是一个 <code>Type</code> 类型的值，那么 <code>value</code> 将会被赋值为该值，并且 <code>ok</code> 将会是 <code>true</code>。如果 <code>interfaceVariable</code> 不是 <code>Type</code> 类型，那么 <code>value</code> 将会是 <code>Type</code> 类型的零值，而 <code>ok</code> 将会是 <code>false</code></li>
+<li>对于空接口 <code>interface{}</code>，任何类型的值都可以被赋值给它，因此对接口断言的需求更加常见</li>
+</ul>
+<h2 id="类型选择">类型选择<a hidden class="anchor" aria-hidden="true" href="#类型选择">#</a></h2>
+<p><strong>类型选择</strong> 是一种按顺序从几个类型断言中选择分支的结构。</p>
+<p>类型选择与一般的 switch 语句相似，不过类型选择中的 case 为类型（而非值）， 它们针对给定接口值所存储的值的类型进行比较。</p>
+<pre tabindex="0"><code>switch v := i.(type) {
+case T:
+    // v 的类型为 T
+case S:
+    // v 的类型为 S
+default:
+    // 没有匹配，v 与 i 的类型相同
+}
+</code></pre><p>类型选择中的声明与类型断言 <code>i.(T)</code> 的语法相同，只是具体类型 <code>T</code> 被替换成了关键字 <code>type</code>。</p>
+<h3 id="多态实现">多态实现<a hidden class="anchor" aria-hidden="true" href="#多态实现">#</a></h3>
+<p>接口变量可以持有任意实现它的类型的值</p>
+<p><strong>多态（Polymorphism）</strong> 指的是一个接口的调用方式，可以在运行时根据其底层实际类型的不同而表现出不同的行为</p>
+<p><strong>核心思想：</strong> 不同结构体只要实现了相同的接口，它们就可以被当作同一种类型（接口类型）来处理，但在执行接口方法时，会执行各自具体的实现。</p>
+<p><strong>经典例子：</strong></p>
+<pre tabindex="0"><code>package main
+
+import &#34;fmt&#34;
+
+// 定义一个支付接口
+type Payment interface {
+    Pay(amount float64) string
+}
+
+// 实现两种不同的支付方式
+type Alipay struct {
+    Account string
+}
+
+func (a Alipay) Pay(amount float64) string {
+    return fmt.Sprintf(&#34;使用支付宝 %s 支付了 %.2f 元&#34;, a.Account, amount)
+}
+
+type WechatPay struct {
+    OpenID string
+}
+
+func (w WechatPay) Pay(amount float64) string {
+    return fmt.Sprintf(&#34;使用微信 %s 支付了 %.2f 元&#34;, w.OpenID, amount)
+}
+
+// 一个通用的支付函数，它只关心传入的对象是否实现了 Payment 接口
+func ProcessPayment(p Payment, amount float64) {
+    result := p.Pay(amount)
+    fmt.Println(result)
+}
+
+func main() {
+    a := Alipay{Account: &#34;zhangsan@alipay.com&#34;}
+    w := WechatPay{OpenID: &#34;wx_abcdef123456&#34;}
+
+    // 多态的体现：ProcessPayment 函数不需要知道具体是哪种支付方式
+    // 它只需要调用 Pay 方法，而具体执行哪个版本的 Pay，由运行时 p 的实际类型决定
+    ProcessPayment(a, 100.5)
+    ProcessPayment(w, 200.0)
+
+    // 也可以将不同的实现放入同一个切片（接口类型切片）
+    payments := []Payment{a, w}
+    for _, payer := range payments {
+        ProcessPayment(payer, 50.0)
+    }
+}
+</code></pre><p><strong>输出：</strong></p>
+<pre tabindex="0"><code>使用支付宝 zhangsan@alipay.com 支付了 100.50 元
+使用微信 wx_abcdef123456 支付了 200.00 元
+使用支付宝 zhangsan@alipay.com 支付了 50.00 元
+使用微信 wx_abcdef123456 支付了 50.00 元
+</code></pre><h3 id="go的继承">Go的&quot;继承&quot;<a hidden class="anchor" aria-hidden="true" href="#go的继承">#</a></h3>
+<p>Go 语言设计者认为传统的类继承（尤其是多重继承）模型复杂且容易出错。因此，Go 彻底摒弃了 <code>class</code> 和 <code>extends</code> 的概念。</p>
+<p><strong>Go 的“继承”是通过结构体的嵌套（Embedding）来实现的，这本质上是“组合”。</strong></p>
+<pre tabindex="0"><code>// “父类”（基类）
+type Animal struct {
+    name string
+}
+
+func (a *Animal) Speak() {
+    fmt.Println(&#34;我是:&#34;, a.name)
+}
+
+// “子类”（派生类），通过嵌入 Animal 来“继承”它的字段和方法
+type Dog struct {
+    Animal        // 嵌入 Animal，实现了组合
+    Breed  string // 子类自己的字段
+}
+
+// 子类可以重写父类的方法
+func (d *Dog) Speak() {
+    d.Animal.Speak() // 可以调用“父类”的方法
+    fmt.Println(&#34;汪汪汪！&#34;)
+}
+
+func main() {
+    d := Dog{
+        Animal: Animal{name: &#34;旺财&#34;}, // 初始化嵌入的结构体
+        Breed:  &#34;柯基&#34;,
+    }
+    d.Speak()       // 调用子类重写后的方法
+    d.Animal.Speak() // 仍然可以显式调用父类的方法
+}
+</code></pre><p><strong>这种组合的优势：</strong></p>
+<ol>
+<li><strong>清晰简单</strong>：没有复杂的继承链。</li>
+<li><strong>解耦</strong>：<code>Dog</code> 和 <code>Animal</code> 是两个独立的类型，<code>Dog</code> 只是使用了 <code>Animal</code> 的功能。</li>
+<li><strong>灵活性</strong>：<code>Dog</code> 可以轻松组合多个其他结构体（例如 <code>Pet</code>）的功能，模拟了“多重继承”，但又没有多重继承的歧义问题。</li>
+</ol>
+<h2 id="常见的接口">常见的接口<a hidden class="anchor" aria-hidden="true" href="#常见的接口">#</a></h2>
+<h3 id="1stringer">1.Stringer<a hidden class="anchor" aria-hidden="true" href="#1stringer">#</a></h3>
+<p><a href="https://go-zh.org/pkg/fmt/"><code>fmt</code></a> 包中定义的 <a href="https://go-zh.org/pkg/fmt/#Stringer"><code>Stringer</code></a> 是最普遍的接口之一。</p>
+<pre tabindex="0"><code>type Stringer interface {
+    String() string
+}
+</code></pre><p><code>Stringer</code> 是一个可以用字符串描述自己的类型。<code>fmt</code> 包（还有很多包）都通过此接口来打印值。</p>
+<h3 id="2error">2.error<a hidden class="anchor" aria-hidden="true" href="#2error">#</a></h3>
+<p>Go 程序使用 <code>error</code> 值来表示错误状态。</p>
+<p>与 <code>fmt.Stringer</code> 类似，<code>error</code> 类型是一个内建接口：</p>
+<pre tabindex="0"><code>type error interface {
+    Error() string
+}
+</code></pre><p>（与 <code>fmt.Stringer</code> 类似，<code>fmt</code> 包也会根据对 <code>error</code> 的实现来打印值。）</p>
+<p>通常函数会返回一个 <code>error</code> 值，调用它的代码应当判断这个错误是否等于 <code>nil</code> 来进行错误处理。</p>
+<pre tabindex="0"><code>i, err := strconv.Atoi(&#34;42&#34;)
+if err != nil {
+    fmt.Printf(&#34;couldn&#39;t convert number: %v\n&#34;, err)
+    return
+}
+fmt.Println(&#34;Converted integer:&#34;, i)
+</code></pre><p><code>error</code> 为 nil 时表示成功；非 nil 的 <code>error</code> 表示失败。</p>
+<h3 id="3readers">3.Readers<a hidden class="anchor" aria-hidden="true" href="#3readers">#</a></h3>
+<p><code>io</code> 包指定了 <code>io.Reader</code> 接口，它表示数据流的读取端。</p>
+<p>Go 标准库包含了该接口的<a href="https://cs.opensource.google/search?q=Read(%5Cw%2B%5Cs%5B%5Dbyte)&amp;ss=go%2Fgo">许多实现</a>，包括文件、网络连接、压缩和加密等等。</p>
+<p><code>io.Reader</code> 接口有一个 <code>Read</code> 方法：</p>
+<pre tabindex="0"><code>func (T) Read(b []byte) (n int, err error)
+</code></pre><p><code>Read</code> 用数据填充给定的字节切片并返回填充的字节数和错误值。在遇到数据流的结尾时，它会返回一个 <code>io.EOF</code> 错误。</p>
+<h3 id="4image">4.Image<a hidden class="anchor" aria-hidden="true" href="#4image">#</a></h3>
+<p><a href="https://go-zh.org/pkg/image/#Image"><code>image</code></a> 包定义了 <code>Image</code> 接口：</p>
+<pre tabindex="0"><code>package image
+
+type Image interface {
+    ColorModel() color.Model
+    Bounds() Rectangle
+    At(x, y int) color.Color
+}
+</code></pre><p><strong>注意:</strong> <code>Bounds</code> 方法的返回值 <code>Rectangle</code> 实际上是一个 <a href="https://go-zh.org/pkg/image/#Rectangle"><code>image.Rectangle</code></a>，它在 <code>image</code> 包中声明。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://sheep44044.github.io/posts/first-post/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Golang的知识碎片（基础篇）</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://sheep44044.github.io/">sheep44044的小站</a></span> · 
+        © 2025 我的网站 | <a href="/privacy">隐私政策</a> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
