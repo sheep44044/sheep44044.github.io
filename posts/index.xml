@@ -53,6 +53,15 @@ fmt.Printf(&amp;#34;(%v, %T)\n&amp;#34;, s, s) // 输出：({Rex}, main.Dog)
       <guid>https://sheep44044.github.io/posts/first-post/</guid>
       <description>&lt;h1 id=&#34;golang的知识碎片&#34;&gt;Golang的知识碎片&lt;/h1&gt;
 &lt;p&gt;在此之前golang单纯看蓝山的文档，感觉学的很浅很零碎，所以打算重新看一遍。因为go by example、tour go和蓝山工作室的文档比较完善，所以下方将着重提及一些之前不太清楚的零碎知识，提醒自己。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;0.Go 语言的零值机制&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在 Go 语言中，所有变量在声明时都会被自动初始化为其类型的&lt;strong&gt;零值&lt;/strong&gt;（zero value）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数值类型：&lt;code&gt;0&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;布尔类型：&lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;字符串类型：&lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt;（空字符串）&lt;/li&gt;
+&lt;li&gt;指针、接口、切片、映射、通道：&lt;code&gt;nil&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;结构体：每个字段都初始化为其类型的零值&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;1.变量声明&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;关于变量的声明包括两部分，类型和初始值，变量会从初始值中推断出类型或从类型中推断出初始值（即零值）&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;2.返回值&lt;/strong&gt;&lt;/p&gt;
