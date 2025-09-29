@@ -24,7 +24,7 @@
 Go 的返回值可以被命名（向前面的参数一样），return后面没有参数，就会返回没有命名的返回值
 3.条件语句前简短语句
 for和if 语句可以在条件表达式前执行一个简短语句
-4.无条件的switch
+4.无条件的switch(类似于if-else)
 switch {
 case x &lt; 0:
     fmt.Println(&#34;Negative&#34;)
@@ -39,7 +39,18 @@ defer 语句会将函数调用推迟到外层函数返回之后执行
 被推迟的函数调用会被压入一个栈中，当外层函数返回时，被推迟的函数会按照后进先出（LIFO）的顺序执行
 
 6.函数闭包
-还没看懂，标记一下，感觉类似于递归？不懂
+闭包 = 函数 &#43; 外部变量变量
+
+状态保持：闭包可以记住并修改外部变量
+独立实例：每次调用外部函数都会创建新的闭包实例
+实用性强：用于需要保持状态的场景
+
+如何判断外部变量
+
+&ldquo;这个变量是在内层函数内部定义的，还是外部定义的？&rdquo;
+再问：&ldquo;内层函数是否使用了这个外部变量？&rdquo;
+如果两个答案都是&quot;是&quot;：那么这个变量就是被捕获的外部变量
+
 7.方法
 方法可以看作有接收者的函数，不过带指针/值参数的函数必须接受一个指针/值，不然会报错，而以指针/值为接收者的方法被调用时，接收者既能为值又能为指针，不过能不能生效另说
 8.接收者类型
@@ -109,11 +120,12 @@ tips
 Go 的返回值可以被命名（向前面的参数一样），return后面没有参数，就会返回没有命名的返回值
 3.条件语句前简短语句
 for和if 语句可以在条件表达式前执行一个简短语句
-4.无条件的switch
+4.无条件的switch(类似于if-else)
 switch { case x &lt; 0: fmt.Println(&#34;Negative&#34;) case x == 0: fmt.Println(&#34;Zero&#34;) default: fmt.Println(&#34;Positive&#34;) } 5.defer推迟/defer栈
 defer 语句会将函数调用推迟到外层函数返回之后执行 被推迟的函数调用会被压入一个栈中，当外层函数返回时，被推迟的函数会按照后进先出（LIFO）的顺序执行 6.函数闭包
-还没看懂，标记一下，感觉类似于递归？不懂
-7.方法
+闭包 = 函数 &#43; 外部变量变量
+状态保持：闭包可以记住并修改外部变量 独立实例：每次调用外部函数都会创建新的闭包实例 实用性强：用于需要保持状态的场景 如何判断外部变量
+“这个变量是在内层函数内部定义的，还是外部定义的？” 再问：“内层函数是否使用了这个外部变量？” 如果两个答案都是&#34;是&#34;：那么这个变量就是被捕获的外部变量 7.方法
 方法可以看作有接收者的函数，不过带指针/值参数的函数必须接受一个指针/值，不然会报错，而以指针/值为接收者的方法被调用时，接收者既能为值又能为指针，不过能不能生效另说
 8.接收者类型
 接收者有两种类型，值接收者和指针接收者。
@@ -147,7 +159,7 @@ tips
 Go 的返回值可以被命名（向前面的参数一样），return后面没有参数，就会返回没有命名的返回值
 3.条件语句前简短语句
 for和if 语句可以在条件表达式前执行一个简短语句
-4.无条件的switch
+4.无条件的switch(类似于if-else)
 switch {
 case x &lt; 0:
     fmt.Println(&#34;Negative&#34;)
@@ -162,7 +174,18 @@ defer 语句会将函数调用推迟到外层函数返回之后执行
 被推迟的函数调用会被压入一个栈中，当外层函数返回时，被推迟的函数会按照后进先出（LIFO）的顺序执行
 
 6.函数闭包
-还没看懂，标记一下，感觉类似于递归？不懂
+闭包 = 函数 &#43; 外部变量变量
+
+状态保持：闭包可以记住并修改外部变量
+独立实例：每次调用外部函数都会创建新的闭包实例
+实用性强：用于需要保持状态的场景
+
+如何判断外部变量
+
+&ldquo;这个变量是在内层函数内部定义的，还是外部定义的？&rdquo;
+再问：&ldquo;内层函数是否使用了这个外部变量？&rdquo;
+如果两个答案都是&quot;是&quot;：那么这个变量就是被捕获的外部变量
+
 7.方法
 方法可以看作有接收者的函数，不过带指针/值参数的函数必须接受一个指针/值，不然会报错，而以指针/值为接收者的方法被调用时，接收者既能为值又能为指针，不过能不能生效另说
 8.接收者类型
@@ -201,12 +224,12 @@ tips
   "@type": "BlogPosting",
   "headline": "Golang的知识碎片（基础篇）",
   "name": "Golang的知识碎片（基础篇）",
-  "description": "Golang的知识碎片 在此之前golang单纯看蓝山的文档，感觉学的很浅很零碎，所以打算重新看一遍。因为go by example、tour go和蓝山工作室的文档比较完善，所以下方将着重提及一些之前不太清楚的零碎知识，提醒自己。\n0.Go 语言的零值机制\n在 Go 语言中，所有变量在声明时都会被自动初始化为其类型的零值（zero value）：\n数值类型：0 布尔类型：false 字符串类型：\u0026quot;\u0026quot;（空字符串） 指针、接口、切片、映射、通道：nil 结构体：每个字段都初始化为其类型的零值 1.变量声明\n关于变量的声明包括两部分，类型和初始值，变量会从初始值中推断出类型或从类型中推断出初始值（即零值）\n2.返回值\nGo 的返回值可以被命名（向前面的参数一样），return后面没有参数，就会返回没有命名的返回值\n3.条件语句前简短语句\nfor和if 语句可以在条件表达式前执行一个简短语句\n4.无条件的switch\nswitch { case x \u0026lt; 0: fmt.Println(\u0026#34;Negative\u0026#34;) case x == 0: fmt.Println(\u0026#34;Zero\u0026#34;) default: fmt.Println(\u0026#34;Positive\u0026#34;) } 5.defer推迟/defer栈\ndefer 语句会将函数调用推迟到外层函数返回之后执行 被推迟的函数调用会被压入一个栈中，当外层函数返回时，被推迟的函数会按照后进先出（LIFO）的顺序执行 6.函数闭包\n还没看懂，标记一下，感觉类似于递归？不懂\n7.方法\n方法可以看作有接收者的函数，不过带指针/值参数的函数必须接受一个指针/值，不然会报错，而以指针/值为接收者的方法被调用时，接收者既能为值又能为指针，不过能不能生效另说\n8.接收者类型\n接收者有两种类型，值接收者和指针接收者。\n使用指针接收者的两个原因：\n1.方法需要修改接收者的值，值接收者只能改变副本，指针可以改变原始值\n2.提高效率，每次方法调用时，Go 需要将整个结构体的数据复制一份给方法使用。如果结构体非常大，这个复制操作的开销会很大。而Go 只需要复制一个指针（通常是一个机器字长的大小，如 8 字节），开销极小。\n所以，大部分的时候使用指针\ntips\n对于一个特定的类型，你应该决定是使用值接收者还是指针接收者，并为该类型的所有方法保持一致。\n",
+  "description": "Golang的知识碎片 在此之前golang单纯看蓝山的文档，感觉学的很浅很零碎，所以打算重新看一遍。因为go by example、tour go和蓝山工作室的文档比较完善，所以下方将着重提及一些之前不太清楚的零碎知识，提醒自己。\n0.Go 语言的零值机制\n在 Go 语言中，所有变量在声明时都会被自动初始化为其类型的零值（zero value）：\n数值类型：0 布尔类型：false 字符串类型：\u0026quot;\u0026quot;（空字符串） 指针、接口、切片、映射、通道：nil 结构体：每个字段都初始化为其类型的零值 1.变量声明\n关于变量的声明包括两部分，类型和初始值，变量会从初始值中推断出类型或从类型中推断出初始值（即零值）\n2.返回值\nGo 的返回值可以被命名（向前面的参数一样），return后面没有参数，就会返回没有命名的返回值\n3.条件语句前简短语句\nfor和if 语句可以在条件表达式前执行一个简短语句\n4.无条件的switch(类似于if-else)\nswitch { case x \u0026lt; 0: fmt.Println(\u0026#34;Negative\u0026#34;) case x == 0: fmt.Println(\u0026#34;Zero\u0026#34;) default: fmt.Println(\u0026#34;Positive\u0026#34;) } 5.defer推迟/defer栈\ndefer 语句会将函数调用推迟到外层函数返回之后执行 被推迟的函数调用会被压入一个栈中，当外层函数返回时，被推迟的函数会按照后进先出（LIFO）的顺序执行 6.函数闭包\n闭包 = 函数 + 外部变量变量\n状态保持：闭包可以记住并修改外部变量 独立实例：每次调用外部函数都会创建新的闭包实例 实用性强：用于需要保持状态的场景 如何判断外部变量\n\u0026ldquo;这个变量是在内层函数内部定义的，还是外部定义的？\u0026rdquo; 再问：\u0026ldquo;内层函数是否使用了这个外部变量？\u0026rdquo; 如果两个答案都是\u0026quot;是\u0026quot;：那么这个变量就是被捕获的外部变量 7.方法\n方法可以看作有接收者的函数，不过带指针/值参数的函数必须接受一个指针/值，不然会报错，而以指针/值为接收者的方法被调用时，接收者既能为值又能为指针，不过能不能生效另说\n8.接收者类型\n接收者有两种类型，值接收者和指针接收者。\n使用指针接收者的两个原因：\n1.方法需要修改接收者的值，值接收者只能改变副本，指针可以改变原始值\n2.提高效率，每次方法调用时，Go 需要将整个结构体的数据复制一份给方法使用。如果结构体非常大，这个复制操作的开销会很大。而Go 只需要复制一个指针（通常是一个机器字长的大小，如 8 字节），开销极小。\n所以，大部分的时候使用指针\ntips\n对于一个特定的类型，你应该决定是使用值接收者还是指针接收者，并为该类型的所有方法保持一致。\n",
   "keywords": [
     
   ],
-  "articleBody": "Golang的知识碎片 在此之前golang单纯看蓝山的文档，感觉学的很浅很零碎，所以打算重新看一遍。因为go by example、tour go和蓝山工作室的文档比较完善，所以下方将着重提及一些之前不太清楚的零碎知识，提醒自己。\n0.Go 语言的零值机制\n在 Go 语言中，所有变量在声明时都会被自动初始化为其类型的零值（zero value）：\n数值类型：0 布尔类型：false 字符串类型：\"\"（空字符串） 指针、接口、切片、映射、通道：nil 结构体：每个字段都初始化为其类型的零值 1.变量声明\n关于变量的声明包括两部分，类型和初始值，变量会从初始值中推断出类型或从类型中推断出初始值（即零值）\n2.返回值\nGo 的返回值可以被命名（向前面的参数一样），return后面没有参数，就会返回没有命名的返回值\n3.条件语句前简短语句\nfor和if 语句可以在条件表达式前执行一个简短语句\n4.无条件的switch\nswitch { case x \u003c 0: fmt.Println(\"Negative\") case x == 0: fmt.Println(\"Zero\") default: fmt.Println(\"Positive\") } 5.defer推迟/defer栈\ndefer 语句会将函数调用推迟到外层函数返回之后执行 被推迟的函数调用会被压入一个栈中，当外层函数返回时，被推迟的函数会按照后进先出（LIFO）的顺序执行 6.函数闭包\n还没看懂，标记一下，感觉类似于递归？不懂\n7.方法\n方法可以看作有接收者的函数，不过带指针/值参数的函数必须接受一个指针/值，不然会报错，而以指针/值为接收者的方法被调用时，接收者既能为值又能为指针，不过能不能生效另说\n8.接收者类型\n接收者有两种类型，值接收者和指针接收者。\n使用指针接收者的两个原因：\n1.方法需要修改接收者的值，值接收者只能改变副本，指针可以改变原始值\n2.提高效率，每次方法调用时，Go 需要将整个结构体的数据复制一份给方法使用。如果结构体非常大，这个复制操作的开销会很大。而Go 只需要复制一个指针（通常是一个机器字长的大小，如 8 字节），开销极小。\n所以，大部分的时候使用指针\ntips\n对于一个特定的类型，你应该决定是使用值接收者还是指针接收者，并为该类型的所有方法保持一致。\n",
-  "wordCount" : "60",
+  "articleBody": "Golang的知识碎片 在此之前golang单纯看蓝山的文档，感觉学的很浅很零碎，所以打算重新看一遍。因为go by example、tour go和蓝山工作室的文档比较完善，所以下方将着重提及一些之前不太清楚的零碎知识，提醒自己。\n0.Go 语言的零值机制\n在 Go 语言中，所有变量在声明时都会被自动初始化为其类型的零值（zero value）：\n数值类型：0 布尔类型：false 字符串类型：\"\"（空字符串） 指针、接口、切片、映射、通道：nil 结构体：每个字段都初始化为其类型的零值 1.变量声明\n关于变量的声明包括两部分，类型和初始值，变量会从初始值中推断出类型或从类型中推断出初始值（即零值）\n2.返回值\nGo 的返回值可以被命名（向前面的参数一样），return后面没有参数，就会返回没有命名的返回值\n3.条件语句前简短语句\nfor和if 语句可以在条件表达式前执行一个简短语句\n4.无条件的switch(类似于if-else)\nswitch { case x \u003c 0: fmt.Println(\"Negative\") case x == 0: fmt.Println(\"Zero\") default: fmt.Println(\"Positive\") } 5.defer推迟/defer栈\ndefer 语句会将函数调用推迟到外层函数返回之后执行 被推迟的函数调用会被压入一个栈中，当外层函数返回时，被推迟的函数会按照后进先出（LIFO）的顺序执行 6.函数闭包\n闭包 = 函数 + 外部变量变量\n状态保持：闭包可以记住并修改外部变量 独立实例：每次调用外部函数都会创建新的闭包实例 实用性强：用于需要保持状态的场景 如何判断外部变量\n“这个变量是在内层函数内部定义的，还是外部定义的？” 再问：“内层函数是否使用了这个外部变量？” 如果两个答案都是\"是\"：那么这个变量就是被捕获的外部变量 7.方法\n方法可以看作有接收者的函数，不过带指针/值参数的函数必须接受一个指针/值，不然会报错，而以指针/值为接收者的方法被调用时，接收者既能为值又能为指针，不过能不能生效另说\n8.接收者类型\n接收者有两种类型，值接收者和指针接收者。\n使用指针接收者的两个原因：\n1.方法需要修改接收者的值，值接收者只能改变副本，指针可以改变原始值\n2.提高效率，每次方法调用时，Go 需要将整个结构体的数据复制一份给方法使用。如果结构体非常大，这个复制操作的开销会很大。而Go 只需要复制一个指针（通常是一个机器字长的大小，如 8 字节），开销极小。\n所以，大部分的时候使用指针\ntips\n对于一个特定的类型，你应该决定是使用值接收者还是指针接收者，并为该类型的所有方法保持一致。\n9.值类型/引用类型\n这是 Go 语言中一个非常重要的概念，决定了变量如何被分配内存、如何被赋值以及如何被传递给函数。\n值类型 (Value Types) 包括： 所有基本数据类型（如 int, float64, bool, string）、数组（Array）、结构体（struct）。 行为特点： 变量直接存储值本身。 赋值操作和函数传参时，会创建值的完整副本。 修改副本不会影响原始值。 在内存中，通常被分配在栈（Stack） 上（但编译器也可能决定分配在堆上）。 // 值类型示例：数组 arr1 := [3]int{1, 2, 3} arr2 := arr1 // 将 arr1 的【所有值】完整地复制一份给 arr2 arr2[0] = 100 // 修改副本 fmt.Println(arr1) // 输出: [1 2 3] (原值未改变) fmt.Println(arr2) // 输出: [100 2 3] 引用类型 (Reference Types) 包括： 切片（Slice）、映射（Map）、通道（Channel）、指针（Pointer）、函数（Function）。 行为特点： 变量存储的是一个“引用”（可以理解为内存地址），这个引用指向底层真正存储数据的内存空间。 赋值操作和函数传参时，复制的是这个“引用”（内存地址），而不是底层数据本身。 多个变量可以共享同一份底层数据。通过任何一个变量修改底层数据，其他所有引用它的变量都会“看到”这个变化。 底层数据通常存储在堆（Heap） 上。 // 引用类型示例：切片 slice1 := []int{1, 2, 3} slice2 := slice1 // 复制的是引用（地址），现在 slice1 和 slice2 指向同一个底层数组 slice2[0] = 100 // 通过 slice2 修改底层数组 fmt.Println(slice1) // 输出: [100 2 3] (原值被改变了！) fmt.Println(slice2) // 输出: [100 2 3] 总结对比表 特性 值类型 引用类型 代表类型 int, array, struct, string slice, map, channel, pointer 变量存储内容 实际的数据值 指向底层数据的地址（引用） 赋值/传参行为 复制整个数据值，创建独立副本 复制引用地址，共享底层数据 修改副本的影响 不影响原始数据 影响原始数据 内存主要位置 栈 堆（数据本身），变量本身可能在栈 10.匿名函数/结构体…\n暂时不太懂，标记一下\n",
+  "wordCount" : "197",
   "inLanguage": "en",
   "datePublished": "2025-09-14T00:42:54+08:00",
   "dateModified": "2025-09-14T00:42:54+08:00",
@@ -317,8 +340,21 @@ tips
 
         <div class="inner"><ul>
                 <li>
-                    <a href="#golang%e7%9a%84%e7%9f%a5%e8%af%86%e7%a2%8e%e7%89%87" aria-label="Golang的知识碎片">Golang的知识碎片</a>
+                    <a href="#golang%e7%9a%84%e7%9f%a5%e8%af%86%e7%a2%8e%e7%89%87" aria-label="Golang的知识碎片">Golang的知识碎片</a><ul>
+                        <ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#%e5%80%bc%e7%b1%bb%e5%9e%8b-value-types" aria-label="值类型 (Value Types)">值类型 (Value Types)</a></li>
+                <li>
+                    <a href="#%e5%bc%95%e7%94%a8%e7%b1%bb%e5%9e%8b-reference-types" aria-label="引用类型 (Reference Types)">引用类型 (Reference Types)</a></li>
+                <li>
+                    <a href="#%e6%80%bb%e7%bb%93%e5%af%b9%e6%af%94%e8%a1%a8" aria-label="总结对比表">总结对比表</a>
                 </li>
+            </ul>
+            </ul>
+            </ul>
+            </li>
             </ul>
         </div>
     </details>
@@ -341,7 +377,7 @@ tips
 <p>Go 的返回值可以被命名（向前面的参数一样），return后面没有参数，就会返回没有命名的返回值</p>
 <p><strong>3.条件语句前简短语句</strong></p>
 <p>for和<code>if</code> 语句可以在条件表达式前执行一个简短语句</p>
-<p><strong>4.无条件的switch</strong></p>
+<p><strong>4.无条件的switch(类似于if-else)</strong></p>
 <pre tabindex="0"><code>switch {
 case x &lt; 0:
     fmt.Println(&#34;Negative&#34;)
@@ -356,7 +392,18 @@ default:
 <li>被推迟的函数调用会被压入一个<strong>栈</strong>中，当外层函数返回时，被推迟的函数会按照<strong>后进先出</strong>（LIFO）的顺序执行</li>
 </ul>
 <p><strong>6.函数闭包</strong></p>
-<p>还没看懂，标记一下，感觉类似于递归？不懂</p>
+<p><strong>闭包 = 函数 + 外部变量变量</strong></p>
+<ol>
+<li><strong>状态保持</strong>：闭包可以记住并修改外部变量</li>
+<li><strong>独立实例</strong>：每次调用外部函数都会创建新的闭包实例</li>
+<li><strong>实用性强</strong>：用于需要保持状态的场景</li>
+</ol>
+<p>如何判断外部变量</p>
+<ol>
+<li>&ldquo;这个变量是在内层函数内部定义的，还是外部定义的？&rdquo;</li>
+<li><strong>再问</strong>：&ldquo;内层函数是否使用了这个外部变量？&rdquo;</li>
+<li><strong>如果两个答案都是&quot;是&quot;</strong>：那么这个变量就是被捕获的外部变量</li>
+</ol>
 <p><strong>7.方法</strong></p>
 <p>方法可以看作有接收者的函数，不过带指针/值参数的函数必须接受一个指针/值，不然会报错，而以指针/值为接收者的方法被调用时，接收者既能为值又能为指针，不过能不能生效另说</p>
 <p><strong>8.接收者类型</strong></p>
@@ -367,6 +414,85 @@ default:
 <p>所以，大部分的时候使用指针</p>
 <p><strong>tips</strong></p>
 <p>对于一个特定的类型，你应该决定是使用值接收者还是指针接收者，并<strong>为该类型的所有方法保持一致</strong>。</p>
+<p><strong>9.值类型/引用类型</strong></p>
+<p>这是 Go 语言中一个非常重要的概念，决定了变量如何被分配内存、如何被赋值以及如何被传递给函数。</p>
+<h4 id="值类型-value-types">值类型 (Value Types)<a hidden class="anchor" aria-hidden="true" href="#值类型-value-types">#</a></h4>
+<ul>
+<li><strong>包括：</strong> 所有基本数据类型（如 <code>int</code>, <code>float64</code>, <code>bool</code>, <code>string</code>）、<strong>数组（Array）</strong>、结构体（<code>struct</code>）。</li>
+<li><strong>行为特点：</strong>
+<ol>
+<li><strong>变量直接存储值本身。</strong></li>
+<li><strong>赋值操作和函数传参时，会创建值的完整副本。</strong> 修改副本不会影响原始值。</li>
+<li>在内存中，通常被分配在<strong>栈（Stack）</strong> 上（但编译器也可能决定分配在堆上）。</li>
+</ol>
+</li>
+</ul>
+<pre tabindex="0"><code>// 值类型示例：数组
+arr1 := [3]int{1, 2, 3}
+arr2 := arr1 // 将 arr1 的【所有值】完整地复制一份给 arr2
+
+arr2[0] = 100 // 修改副本
+
+fmt.Println(arr1) // 输出: [1 2 3] (原值未改变)
+fmt.Println(arr2) // 输出: [100 2 3]
+</code></pre><h4 id="引用类型-reference-types">引用类型 (Reference Types)<a hidden class="anchor" aria-hidden="true" href="#引用类型-reference-types">#</a></h4>
+<ul>
+<li><strong>包括：</strong> <strong>切片（Slice）、映射（Map）、通道（Channel）、指针（Pointer）、函数（Function）。</strong></li>
+<li><strong>行为特点：</strong>
+<ol>
+<li><strong>变量存储的是一个“引用”（可以理解为内存地址），这个引用指向底层真正存储数据的内存空间。</strong></li>
+<li><strong>赋值操作和函数传参时，复制的是这个“引用”（内存地址），而不是底层数据本身。</strong> 多个变量可以共享同一份底层数据。通过任何一个变量修改底层数据，其他所有引用它的变量都会“看到”这个变化。</li>
+<li>底层数据通常存储在<strong>堆（Heap）</strong> 上。</li>
+</ol>
+</li>
+</ul>
+<pre tabindex="0"><code>// 引用类型示例：切片
+slice1 := []int{1, 2, 3}
+slice2 := slice1 // 复制的是引用（地址），现在 slice1 和 slice2 指向同一个底层数组
+
+slice2[0] = 100 // 通过 slice2 修改底层数组
+
+fmt.Println(slice1) // 输出: [100 2 3] (原值被改变了！)
+fmt.Println(slice2) // 输出: [100 2 3]
+</code></pre><h4 id="总结对比表">总结对比表<a hidden class="anchor" aria-hidden="true" href="#总结对比表">#</a></h4>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">特性</th>
+          <th style="text-align: left">值类型</th>
+          <th style="text-align: left">引用类型</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>代表类型</strong></td>
+          <td style="text-align: left"><code>int</code>, <code>array</code>, <code>struct</code>, <code>string</code></td>
+          <td style="text-align: left"><code>slice</code>, <code>map</code>, <code>channel</code>, <code>pointer</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>变量存储内容</strong></td>
+          <td style="text-align: left">实际的数据值</td>
+          <td style="text-align: left">指向底层数据的地址（引用）</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>赋值/传参行为</strong></td>
+          <td style="text-align: left">复制整个数据值，创建独立副本</td>
+          <td style="text-align: left">复制引用地址，共享底层数据</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>修改副本的影响</strong></td>
+          <td style="text-align: left">不影响原始数据</td>
+          <td style="text-align: left"><strong>影响</strong>原始数据</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>内存主要位置</strong></td>
+          <td style="text-align: left">栈</td>
+          <td style="text-align: left">堆（数据本身），变量本身可能在栈</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>10.匿名函数/结构体&hellip;</strong></p>
+<p>暂时不太懂，标记一下</p>
 
 
   </div>
@@ -378,7 +504,7 @@ default:
   <a class="prev" href="https://sheep44044.github.io/posts/2025-09-19-interface/">
     <span class="title">« Prev</span>
     <br>
-    <span>Golang的之接口</span>
+    <span>Golang之接口</span>
   </a>
   <a class="next" href="https://sheep44044.github.io/weekly/weekly-1/">
     <span class="title">Next »</span>

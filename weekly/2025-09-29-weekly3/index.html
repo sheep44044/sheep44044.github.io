@@ -5,25 +5,61 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>第二周总结 | sheep44044的小站</title>
+<title>第三周总结 | sheep44044的小站</title>
 <meta name="keywords" content="">
-<meta name="description" content="第二周总结
-完成事项
+<meta name="description" content="第三周学习总结
+已完成事项
 
-解决了上周博客留下来的问题，有了一个简陋但功能完备的网站 🥳。
-在 Tour of Go 上基本完成了所有内容的学习，包括切片、接口、并发等知识点。
-持续推进 Go by Example 的学习，目前完成 switch 部分，进入数组相关内容（不得不说gobyexample确实不赖，对于这些基础知识我也能学到新的特性）。
-做了一些学习笔记。
+Go 语言学习
+
+完成了 Tour of Go 的大部分练习。
+但是也跳过了一些练习，image 接口等内容目前不急需；二叉查找树 等概念需要继续沉淀。
 
 
-下周计划（可能）
+Go by Example 推进
 
-巩固已学知识，搞懂 Tour of Go 中的练习题。
-继续学习 Go by Example 的后续内容。
-（可能）了解一些常用标准库包的基本用法。
+已学习到 goroutine 的 rate-limiting 部分。
+重点学习了闭包和goroutine及其timer、tickers、waitgroup 等内容。
+但是也跳过了 范型、枚举、迭代器的 range 等目前不会的内容。
+
+
+项目开发 - 智能笔记
+
+开始完成智能笔记项目，准备一边学一边开发。
+迈出第一步：成功让 API 服务运行起来。
+
+
+Gin 框架学习
+
+初步开始Gin的学习，掌握了 HTTP 方法、路由、路由参数、JSON、Query 和 Post Form 的使用。
+计划在后续开发 JWT、日志 等功能时进行更深入的学习。
+
+
+工具与环境
+
+安装了 Postman、MySQL 等开发工具。
+成功申请了 GitHub 教育福利（费了我好大劲，在使用 VPN 的情况下）。
+
+
+
+下周计划 (可能)
+
+项目开发继续
+
+学习 SQL 基础语法。
+初步学习 Gorm。
+实现笔记的完整 CRUD 功能。
+实现数据持久化，接入 MySQL 数据库。
+
+
+学校课业（可能）
+
+可能需要回顾学校知识，为 10 月中下旬 的期中考做准备。
+
+
 ">
 <meta name="author" content="Sheep44044">
-<link rel="canonical" href="https://sheep44044.github.io/weekly/2025-09-22-weekly2/">
+<link rel="canonical" href="https://sheep44044.github.io/weekly/2025-09-29-weekly3/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" integrity="sha256-IhHKMWS&#43;eDACT2qtKzouUghDpk&#43;PBIRFw0AcEkmqBR0=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://sheep44044.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://sheep44044.github.io/favicon-16x16.png">
@@ -32,7 +68,7 @@
 <link rel="mask-icon" href="https://sheep44044.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://sheep44044.github.io/weekly/2025-09-22-weekly2/">
+<link rel="alternate" hreflang="en" href="https://sheep44044.github.io/weekly/2025-09-29-weekly3/">
 <noscript>
     <style>
         #theme-toggle,
@@ -69,31 +105,67 @@
         }
 
     </style>
-</noscript><meta property="og:url" content="https://sheep44044.github.io/weekly/2025-09-22-weekly2/">
+</noscript><meta property="og:url" content="https://sheep44044.github.io/weekly/2025-09-29-weekly3/">
   <meta property="og:site_name" content="sheep44044的小站">
-  <meta property="og:title" content="第二周总结">
-  <meta property="og:description" content="第二周总结 完成事项 解决了上周博客留下来的问题，有了一个简陋但功能完备的网站 🥳。 在 Tour of Go 上基本完成了所有内容的学习，包括切片、接口、并发等知识点。 持续推进 Go by Example 的学习，目前完成 switch 部分，进入数组相关内容（不得不说gobyexample确实不赖，对于这些基础知识我也能学到新的特性）。 做了一些学习笔记。 下周计划（可能） 巩固已学知识，搞懂 Tour of Go 中的练习题。 继续学习 Go by Example 的后续内容。 （可能）了解一些常用标准库包的基本用法。 ">
+  <meta property="og:title" content="第三周总结">
+  <meta property="og:description" content="第三周学习总结 已完成事项 Go 语言学习 完成了 Tour of Go 的大部分练习。 但是也跳过了一些练习，image 接口等内容目前不急需；二叉查找树 等概念需要继续沉淀。 Go by Example 推进 已学习到 goroutine 的 rate-limiting 部分。 重点学习了闭包和goroutine及其timer、tickers、waitgroup 等内容。 但是也跳过了 范型、枚举、迭代器的 range 等目前不会的内容。 项目开发 - 智能笔记 开始完成智能笔记项目，准备一边学一边开发。 迈出第一步：成功让 API 服务运行起来。 Gin 框架学习 初步开始Gin的学习，掌握了 HTTP 方法、路由、路由参数、JSON、Query 和 Post Form 的使用。 计划在后续开发 JWT、日志 等功能时进行更深入的学习。 工具与环境 安装了 Postman、MySQL 等开发工具。 成功申请了 GitHub 教育福利（费了我好大劲，在使用 VPN 的情况下）。 下周计划 (可能) 项目开发继续 学习 SQL 基础语法。 初步学习 Gorm。 实现笔记的完整 CRUD 功能。 实现数据持久化，接入 MySQL 数据库。 学校课业（可能） 可能需要回顾学校知识，为 10 月中下旬 的期中考做准备。 ">
   <meta property="og:locale" content="zh-CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="weekly">
-    <meta property="article:published_time" content="2025-09-22T08:04:18+08:00">
-    <meta property="article:modified_time" content="2025-09-22T08:04:18+08:00">
+    <meta property="article:published_time" content="2025-09-29T08:25:14+08:00">
+    <meta property="article:modified_time" content="2025-09-29T08:25:14+08:00">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第二周总结">
-<meta name="twitter:description" content="第二周总结
-完成事项
+<meta name="twitter:title" content="第三周总结">
+<meta name="twitter:description" content="第三周学习总结
+已完成事项
 
-解决了上周博客留下来的问题，有了一个简陋但功能完备的网站 🥳。
-在 Tour of Go 上基本完成了所有内容的学习，包括切片、接口、并发等知识点。
-持续推进 Go by Example 的学习，目前完成 switch 部分，进入数组相关内容（不得不说gobyexample确实不赖，对于这些基础知识我也能学到新的特性）。
-做了一些学习笔记。
+Go 语言学习
+
+完成了 Tour of Go 的大部分练习。
+但是也跳过了一些练习，image 接口等内容目前不急需；二叉查找树 等概念需要继续沉淀。
 
 
-下周计划（可能）
+Go by Example 推进
 
-巩固已学知识，搞懂 Tour of Go 中的练习题。
-继续学习 Go by Example 的后续内容。
-（可能）了解一些常用标准库包的基本用法。
+已学习到 goroutine 的 rate-limiting 部分。
+重点学习了闭包和goroutine及其timer、tickers、waitgroup 等内容。
+但是也跳过了 范型、枚举、迭代器的 range 等目前不会的内容。
+
+
+项目开发 - 智能笔记
+
+开始完成智能笔记项目，准备一边学一边开发。
+迈出第一步：成功让 API 服务运行起来。
+
+
+Gin 框架学习
+
+初步开始Gin的学习，掌握了 HTTP 方法、路由、路由参数、JSON、Query 和 Post Form 的使用。
+计划在后续开发 JWT、日志 等功能时进行更深入的学习。
+
+
+工具与环境
+
+安装了 Postman、MySQL 等开发工具。
+成功申请了 GitHub 教育福利（费了我好大劲，在使用 VPN 的情况下）。
+
+
+
+下周计划 (可能)
+
+项目开发继续
+
+学习 SQL 基础语法。
+初步学习 Gorm。
+实现笔记的完整 CRUD 功能。
+实现数据持久化，接入 MySQL 数据库。
+
+
+学校课业（可能）
+
+可能需要回顾学校知识，为 10 月中下旬 的期中考做准备。
+
+
 ">
 
 
@@ -111,8 +183,8 @@
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "第二周总结",
-      "item": "https://sheep44044.github.io/weekly/2025-09-22-weekly2/"
+      "name": "第三周总结",
+      "item": "https://sheep44044.github.io/weekly/2025-09-29-weekly3/"
     }
   ]
 }
@@ -121,24 +193,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "第二周总结",
-  "name": "第二周总结",
-  "description": "第二周总结 完成事项 解决了上周博客留下来的问题，有了一个简陋但功能完备的网站 🥳。 在 Tour of Go 上基本完成了所有内容的学习，包括切片、接口、并发等知识点。 持续推进 Go by Example 的学习，目前完成 switch 部分，进入数组相关内容（不得不说gobyexample确实不赖，对于这些基础知识我也能学到新的特性）。 做了一些学习笔记。 下周计划（可能） 巩固已学知识，搞懂 Tour of Go 中的练习题。 继续学习 Go by Example 的后续内容。 （可能）了解一些常用标准库包的基本用法。 ",
+  "headline": "第三周总结",
+  "name": "第三周总结",
+  "description": "第三周学习总结 已完成事项 Go 语言学习 完成了 Tour of Go 的大部分练习。 但是也跳过了一些练习，image 接口等内容目前不急需；二叉查找树 等概念需要继续沉淀。 Go by Example 推进 已学习到 goroutine 的 rate-limiting 部分。 重点学习了闭包和goroutine及其timer、tickers、waitgroup 等内容。 但是也跳过了 范型、枚举、迭代器的 range 等目前不会的内容。 项目开发 - 智能笔记 开始完成智能笔记项目，准备一边学一边开发。 迈出第一步：成功让 API 服务运行起来。 Gin 框架学习 初步开始Gin的学习，掌握了 HTTP 方法、路由、路由参数、JSON、Query 和 Post Form 的使用。 计划在后续开发 JWT、日志 等功能时进行更深入的学习。 工具与环境 安装了 Postman、MySQL 等开发工具。 成功申请了 GitHub 教育福利（费了我好大劲，在使用 VPN 的情况下）。 下周计划 (可能) 项目开发继续 学习 SQL 基础语法。 初步学习 Gorm。 实现笔记的完整 CRUD 功能。 实现数据持久化，接入 MySQL 数据库。 学校课业（可能） 可能需要回顾学校知识，为 10 月中下旬 的期中考做准备。 ",
   "keywords": [
     
   ],
-  "articleBody": "第二周总结 完成事项 解决了上周博客留下来的问题，有了一个简陋但功能完备的网站 🥳。 在 Tour of Go 上基本完成了所有内容的学习，包括切片、接口、并发等知识点。 持续推进 Go by Example 的学习，目前完成 switch 部分，进入数组相关内容（不得不说gobyexample确实不赖，对于这些基础知识我也能学到新的特性）。 做了一些学习笔记。 下周计划（可能） 巩固已学知识，搞懂 Tour of Go 中的练习题。 继续学习 Go by Example 的后续内容。 （可能）了解一些常用标准库包的基本用法。 ",
-  "wordCount" : "29",
+  "articleBody": "第三周学习总结 已完成事项 Go 语言学习 完成了 Tour of Go 的大部分练习。 但是也跳过了一些练习，image 接口等内容目前不急需；二叉查找树 等概念需要继续沉淀。 Go by Example 推进 已学习到 goroutine 的 rate-limiting 部分。 重点学习了闭包和goroutine及其timer、tickers、waitgroup 等内容。 但是也跳过了 范型、枚举、迭代器的 range 等目前不会的内容。 项目开发 - 智能笔记 开始完成智能笔记项目，准备一边学一边开发。 迈出第一步：成功让 API 服务运行起来。 Gin 框架学习 初步开始Gin的学习，掌握了 HTTP 方法、路由、路由参数、JSON、Query 和 Post Form 的使用。 计划在后续开发 JWT、日志 等功能时进行更深入的学习。 工具与环境 安装了 Postman、MySQL 等开发工具。 成功申请了 GitHub 教育福利（费了我好大劲，在使用 VPN 的情况下）。 下周计划 (可能) 项目开发继续 学习 SQL 基础语法。 初步学习 Gorm。 实现笔记的完整 CRUD 功能。 实现数据持久化，接入 MySQL 数据库。 学校课业（可能） 可能需要回顾学校知识，为 10 月中下旬 的期中考做准备。 ",
+  "wordCount" : "74",
   "inLanguage": "en",
-  "datePublished": "2025-09-22T08:04:18+08:00",
-  "dateModified": "2025-09-22T08:04:18+08:00",
+  "datePublished": "2025-09-29T08:25:14+08:00",
+  "dateModified": "2025-09-29T08:25:14+08:00",
   "author":{
     "@type": "Person",
     "name": "Sheep44044"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://sheep44044.github.io/weekly/2025-09-22-weekly2/"
+    "@id": "https://sheep44044.github.io/weekly/2025-09-29-weekly3/"
   },
   "publisher": {
     "@type": "Organization",
@@ -226,9 +298,9 @@
   <header class="post-header">
     
     <h1 class="post-title entry-hint-parent">
-      第二周总结
+      第三周总结
     </h1>
-    <div class="post-meta"><span title='2025-09-22 08:04:18 +0800 CST'>September 22, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044
+    <div class="post-meta"><span title='2025-09-29 08:25:14 +0800 CST'>September 29, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044
 
 </div>
   </header> <div class="toc">
@@ -239,12 +311,12 @@
 
         <div class="inner"><ul>
                 <li>
-                    <a href="#%e7%ac%ac%e4%ba%8c%e5%91%a8%e6%80%bb%e7%bb%93" aria-label="第二周总结">第二周总结</a><ul>
+                    <a href="#%e7%ac%ac%e4%b8%89%e5%91%a8%e5%ad%a6%e4%b9%a0%e6%80%bb%e7%bb%93" aria-label="第三周学习总结">第三周学习总结</a><ul>
                         
                 <li>
-                    <a href="#%e5%ae%8c%e6%88%90%e4%ba%8b%e9%a1%b9" aria-label="完成事项">完成事项</a></li>
+                    <a href="#%e5%b7%b2%e5%ae%8c%e6%88%90%e4%ba%8b%e9%a1%b9" aria-label="已完成事项">已完成事项</a></li>
                 <li>
-                    <a href="#%e4%b8%8b%e5%91%a8%e8%ae%a1%e5%88%92%e5%8f%af%e8%83%bd" aria-label="下周计划（可能）">下周计划（可能）</a>
+                    <a href="#%e4%b8%8b%e5%91%a8%e8%ae%a1%e5%88%92-%e5%8f%af%e8%83%bd" aria-label="下周计划 (可能)">下周计划 (可能)</a>
                 </li>
             </ul>
             </li>
@@ -253,20 +325,56 @@
     </details>
 </div>
 
-  <div class="post-content"><h1 id="第二周总结">第二周总结<a hidden class="anchor" aria-hidden="true" href="#第二周总结">#</a></h1>
-<h2 id="完成事项">完成事项<a hidden class="anchor" aria-hidden="true" href="#完成事项">#</a></h2>
+  <div class="post-content"><h1 id="第三周学习总结">第三周学习总结<a hidden class="anchor" aria-hidden="true" href="#第三周学习总结">#</a></h1>
+<h2 id="已完成事项">已完成事项<a hidden class="anchor" aria-hidden="true" href="#已完成事项">#</a></h2>
 <ol>
-<li>解决了上周博客留下来的问题，有了一个简陋但功能完备的网站 🥳。</li>
-<li>在 <a href="https://tour.go-zh.org/">Tour of Go</a> 上基本完成了所有内容的学习，包括切片、接口、并发等知识点。</li>
-<li>持续推进 <a href="https://gobyexample.com/">Go by Example</a> 的学习，目前完成 <code>switch</code> 部分，进入数组相关内容（不得不说gobyexample确实不赖，对于这些基础知识我也能学到新的特性）。</li>
-<li>做了一些学习笔记。</li>
+<li><strong>Go 语言学习</strong>
+<ul>
+<li>完成了 <code>Tour of Go</code> 的大部分练习。</li>
+<li>但是也跳过了一些练习，<code>image</code> 接口等内容目前不急需；<code>二叉查找树</code> 等概念需要继续沉淀。</li>
+</ul>
+</li>
+<li><strong>Go by Example 推进</strong>
+<ul>
+<li>已学习到 <code>goroutine</code> 的 <code>rate-limiting</code> 部分。</li>
+<li>重点学习了<code>闭包</code>和<code>goroutine</code>及其<code>timer</code>、<code>tickers</code>、<code>waitgroup</code> 等内容。</li>
+<li>但是也跳过了 <code>范型</code>、<code>枚举</code>、<code>迭代器的 range</code> 等目前不会的内容。</li>
+</ul>
+</li>
+<li><strong>项目开发 - 智能笔记</strong>
+<ul>
+<li>开始完成智能笔记项目，准备一边学一边开发。</li>
+<li><strong>迈出第一步</strong>：成功让 API 服务运行起来。</li>
+</ul>
+</li>
+<li><strong>Gin 框架学习</strong>
+<ul>
+<li>初步开始Gin的学习，掌握了 <code>HTTP 方法</code>、<code>路由</code>、<code>路由参数</code>、<code>JSON</code>、<code>Query</code> 和 <code>Post Form</code> 的使用。</li>
+<li>计划在后续开发 <code>JWT</code>、<code>日志</code> 等功能时进行更深入的学习。</li>
+</ul>
+</li>
+<li><strong>工具与环境</strong>
+<ul>
+<li>安装了 <code>Postman</code>、<code>MySQL</code> 等开发工具。</li>
+<li>成功申请了 <code>GitHub 教育福利</code>（费了我好大劲，在使用 VPN 的情况下）。</li>
+</ul>
+</li>
 </ol>
-<hr>
-<h2 id="下周计划可能">下周计划（可能）<a hidden class="anchor" aria-hidden="true" href="#下周计划可能">#</a></h2>
+<h2 id="下周计划-可能">下周计划 (可能)<a hidden class="anchor" aria-hidden="true" href="#下周计划-可能">#</a></h2>
 <ol>
-<li>巩固已学知识，搞懂 Tour of Go 中的练习题。</li>
-<li>继续学习 Go by Example 的后续内容。</li>
-<li>（可能）了解一些常用标准库包的基本用法。</li>
+<li><strong>项目开发继续</strong>
+<ul>
+<li>学习 <code>SQL</code> 基础语法。</li>
+<li>初步学习 <code>Gorm</code>。</li>
+<li>实现笔记的完整 <strong>CRUD</strong> 功能。</li>
+<li>实现数据持久化，接入 <code>MySQL</code> 数据库。</li>
+</ul>
+</li>
+<li><strong>学校课业（可能）</strong>
+<ul>
+<li><strong>可能</strong>需要回顾学校知识，为 <strong>10 月中下旬</strong> 的期中考做准备。</li>
+</ul>
+</li>
 </ol>
 
 
@@ -276,15 +384,15 @@
     <ul class="post-tags">
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://sheep44044.github.io/daily/2025-09-23-daily1/">
+  <a class="prev" href="https://sheep44044.github.io/daily/2025-09-28-daily3/">
     <span class="title">« Prev</span>
     <br>
-    <span>巴拉巴拉</span>
+    <span>愚蠢的我和GitHub教育</span>
   </a>
-  <a class="next" href="https://sheep44044.github.io/posts/2025-09-19-interface/">
+  <a class="next" href="https://sheep44044.github.io/daily/2025-09-26-daily2/">
     <span class="title">Next »</span>
     <br>
-    <span>Golang之接口</span>
+    <span>fuck gin</span>
   </a>
 </nav>
 

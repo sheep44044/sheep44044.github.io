@@ -6,8 +6,37 @@
     <description>Recent content in Daily on sheep44044的小站</description>
     <generator>Hugo -- 0.147.4</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 11 Sep 2025 20:24:30 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 29 Sep 2025 09:33:43 +0800</lastBuildDate>
     <atom:link href="https://sheep44044.github.io/daily/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>愚蠢的我和GitHub教育</title>
+      <link>https://sheep44044.github.io/daily/2025-09-28-daily3/</link>
+      <pubDate>Mon, 29 Sep 2025 09:33:43 +0800</pubDate>
+      <guid>https://sheep44044.github.io/daily/2025-09-28-daily3/</guid>
+      <description>&lt;p&gt;这个GitHub教育原来只是AI审核啊，怪不得我之前说了这么多人话，它都一秒给我拒了，我真是服了。这个AI太tm蠢了，怎么中文看不懂的，枉费我找了我的学生卡、学生证、录取通知书一点用都没有，还说了一大段话说我不用VPN连不上GitHub。&lt;/p&gt;
+&lt;p&gt;最后还是在B站上取得真经。在备忘录里打了一段英文的话，说国庆节去旅游了所以ip在香港。最后，竟然过了。 哈哈哈～😂&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>fuck gin</title>
+      <link>https://sheep44044.github.io/daily/2025-09-26-daily2/</link>
+      <pubDate>Fri, 26 Sep 2025 20:56:41 +0800</pubDate>
+      <guid>https://sheep44044.github.io/daily/2025-09-26-daily2/</guid>
+      <description>&lt;p&gt;woc,这个gin的文档怎么这么傻逼啊，它的example的例子竟然是tm安照首字母排序的！我真的🙃蚌不住了，真的好笑，我🤡tm看了A开头的AsciiJSON半天，没搞懂gin的基础和它有什么关系。我还看了下面有什么自定义HTTP配置，日志文件什么的，我以为是我没怎么学net/http包的问题。屮，谁知道我前面几个都看不懂的无助感，真以为要被技术文档阻挡下来了，要中道崩殂了。&lt;/p&gt;
+&lt;p&gt;幸好😅我问了ai，发现基础的是在后面的使用HTTP方法。复活了😑，耶🫠&amp;hellip;&lt;/p&gt;
+&lt;p&gt;点&amp;mdash;&amp;gt;&lt;a href=&#34;https://gin-gonic.com/zh-cn/docs/&#34;&gt;🤡&lt;/a&gt;&amp;lt;&amp;mdash;击&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;好吧，其实我后面看了一下，它似乎是在quick start这里是正常的，按知识难度从基础到困难排的，不过它的注释是英文的，谷歌翻译翻译不到他，所以 一样&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>巴拉巴拉</title>
+      <link>https://sheep44044.github.io/daily/2025-09-23-daily1/</link>
+      <pubDate>Tue, 23 Sep 2025 09:00:36 +0800</pubDate>
+      <guid>https://sheep44044.github.io/daily/2025-09-23-daily1/</guid>
+      <description>&lt;p&gt;woc，这个string 和 rune怎么这么麻烦😡，我有点看不懂了，以后再看吧👀&lt;/p&gt;
+&lt;p&gt;现在先标记一下吧，以后看看(不过go的博客确实不赖，不过我现在太菜了，看不懂)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://gobyexample.com/strings-and-runes&#34;&gt;gobyexample的字符串&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://go.dev/blog/strings&#34;&gt;Go 中的字符串、字节、符文和字符&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>My First Post</title>
       <link>https://sheep44044.github.io/daily/my-first-post/</link>

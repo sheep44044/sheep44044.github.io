@@ -6,8 +6,65 @@
     <description>Recent content in Weekly on sheep44044的小站</description>
     <generator>Hugo -- 0.147.4</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 22 Sep 2025 08:04:18 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 29 Sep 2025 08:25:14 +0800</lastBuildDate>
     <atom:link href="https://sheep44044.github.io/weekly/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第三周总结</title>
+      <link>https://sheep44044.github.io/weekly/2025-09-29-weekly3/</link>
+      <pubDate>Mon, 29 Sep 2025 08:25:14 +0800</pubDate>
+      <guid>https://sheep44044.github.io/weekly/2025-09-29-weekly3/</guid>
+      <description>&lt;h1 id=&#34;第三周学习总结&#34;&gt;第三周学习总结&lt;/h1&gt;
+&lt;h2 id=&#34;已完成事项&#34;&gt;已完成事项&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Go 语言学习&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;完成了 &lt;code&gt;Tour of Go&lt;/code&gt; 的大部分练习。&lt;/li&gt;
+&lt;li&gt;但是也跳过了一些练习，&lt;code&gt;image&lt;/code&gt; 接口等内容目前不急需；&lt;code&gt;二叉查找树&lt;/code&gt; 等概念需要继续沉淀。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Go by Example 推进&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;已学习到 &lt;code&gt;goroutine&lt;/code&gt; 的 &lt;code&gt;rate-limiting&lt;/code&gt; 部分。&lt;/li&gt;
+&lt;li&gt;重点学习了&lt;code&gt;闭包&lt;/code&gt;和&lt;code&gt;goroutine&lt;/code&gt;及其&lt;code&gt;timer&lt;/code&gt;、&lt;code&gt;tickers&lt;/code&gt;、&lt;code&gt;waitgroup&lt;/code&gt; 等内容。&lt;/li&gt;
+&lt;li&gt;但是也跳过了 &lt;code&gt;范型&lt;/code&gt;、&lt;code&gt;枚举&lt;/code&gt;、&lt;code&gt;迭代器的 range&lt;/code&gt; 等目前不会的内容。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;项目开发 - 智能笔记&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;开始完成智能笔记项目，准备一边学一边开发。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;迈出第一步&lt;/strong&gt;：成功让 API 服务运行起来。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Gin 框架学习&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;初步开始Gin的学习，掌握了 &lt;code&gt;HTTP 方法&lt;/code&gt;、&lt;code&gt;路由&lt;/code&gt;、&lt;code&gt;路由参数&lt;/code&gt;、&lt;code&gt;JSON&lt;/code&gt;、&lt;code&gt;Query&lt;/code&gt; 和 &lt;code&gt;Post Form&lt;/code&gt; 的使用。&lt;/li&gt;
+&lt;li&gt;计划在后续开发 &lt;code&gt;JWT&lt;/code&gt;、&lt;code&gt;日志&lt;/code&gt; 等功能时进行更深入的学习。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;工具与环境&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;安装了 &lt;code&gt;Postman&lt;/code&gt;、&lt;code&gt;MySQL&lt;/code&gt; 等开发工具。&lt;/li&gt;
+&lt;li&gt;成功申请了 &lt;code&gt;GitHub 教育福利&lt;/code&gt;（费了我好大劲，在使用 VPN 的情况下）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;下周计划-可能&#34;&gt;下周计划 (可能)&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;项目开发继续&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;学习 &lt;code&gt;SQL&lt;/code&gt; 基础语法。&lt;/li&gt;
+&lt;li&gt;初步学习 &lt;code&gt;Gorm&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;实现笔记的完整 &lt;strong&gt;CRUD&lt;/strong&gt; 功能。&lt;/li&gt;
+&lt;li&gt;实现数据持久化，接入 &lt;code&gt;MySQL&lt;/code&gt; 数据库。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;学校课业（可能）&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;可能&lt;/strong&gt;需要回顾学校知识，为 &lt;strong&gt;10 月中下旬&lt;/strong&gt; 的期中考做准备。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
     <item>
       <title>第二周总结</title>
       <link>https://sheep44044.github.io/weekly/2025-09-22-weekly2/</link>

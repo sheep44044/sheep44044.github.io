@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Golang的之接口 | sheep44044的小站</title>
+<title>Golang之接口 | sheep44044的小站</title>
 <meta name="keywords" content="">
 <meta name="description" content="Golang之接口
 接口是我在tour of go上遇到的第一个难点，因此我打算再开一篇来着重记录，不仅是当下对此的沉淀与思考，也是对未来的提醒与照应。为了方便自己的查看，便独立于之前的知识碎片。
@@ -88,7 +88,7 @@ fmt.Printf(&#34;(%v, %T)\n&#34;, s, s) // 输出：({Rex}, main.Dog)
     </style>
 </noscript><meta property="og:url" content="https://sheep44044.github.io/posts/2025-09-19-interface/">
   <meta property="og:site_name" content="sheep44044的小站">
-  <meta property="og:title" content="Golang的之接口">
+  <meta property="og:title" content="Golang之接口">
   <meta property="og:description" content="Golang之接口 接口是我在tour of go上遇到的第一个难点，因此我打算再开一篇来着重记录，不仅是当下对此的沉淀与思考，也是对未来的提醒与照应。为了方便自己的查看，便独立于之前的知识碎片。
 接口（interface） 接口的定义 接口（Interface）本质上就是定义了一组方法签名（Method Signatures）的集合。它只关心**“做什么”，而不关心“怎么做”**。
 它规定：“任何类型，只要你实现了我的合同里规定的所有这些方法，那我就认为你实现了这个接口。”
@@ -106,7 +106,7 @@ type 接口类型名 interface{ 方法名1( 参数列表1 ) 返回值列表1 方
     <meta property="article:published_time" content="2025-09-20T13:33:54+08:00">
     <meta property="article:modified_time" content="2025-09-20T13:33:54+08:00">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Golang的之接口">
+<meta name="twitter:title" content="Golang之接口">
 <meta name="twitter:description" content="Golang之接口
 接口是我在tour of go上遇到的第一个难点，因此我打算再开一篇来着重记录，不仅是当下对此的沉淀与思考，也是对未来的提醒与照应。为了方便自己的查看，便独立于之前的知识碎片。
 接口（interface）
@@ -155,7 +155,7 @@ fmt.Printf(&#34;(%v, %T)\n&#34;, s, s) // 输出：({Rex}, main.Dog)
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "Golang的之接口",
+      "name": "Golang之接口",
       "item": "https://sheep44044.github.io/posts/2025-09-19-interface/"
     }
   ]
@@ -165,8 +165,8 @@ fmt.Printf(&#34;(%v, %T)\n&#34;, s, s) // 输出：({Rex}, main.Dog)
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Golang的之接口",
-  "name": "Golang的之接口",
+  "headline": "Golang之接口",
+  "name": "Golang之接口",
   "description": "Golang之接口 接口是我在tour of go上遇到的第一个难点，因此我打算再开一篇来着重记录，不仅是当下对此的沉淀与思考，也是对未来的提醒与照应。为了方便自己的查看，便独立于之前的知识碎片。\n接口（interface） 接口的定义 接口（Interface）本质上就是定义了一组方法签名（Method Signatures）的集合。它只关心**“做什么”，而不关心“怎么做”**。\n它规定：“任何类型，只要你实现了我的合同里规定的所有这些方法，那我就认为你实现了这个接口。”\n每个接口类型由任意个方法签名组成，接口的定义格式如下：\ntype 接口类型名 interface{ 方法名1( 参数列表1 ) 返回值列表1 方法名2( 参数列表2 ) 返回值列表2 … } 如何实现接口？（“隐式实现”） Go 接口的实现是 “隐式” 的。这意味着你不需要像 Java 那样明确地写 implements Speaker。只需要让这个类型拥有接口里规定的所有方法，它就自动实现了该接口！\n这是 Go 的哲学——“鸭子类型”（如果它走起来像鸭子，叫起来像鸭子，那它就是鸭子）。\n接口值 接口也是值。它们可以像其它值一样传递。\n接口值可以用作函数的参数或返回值。\n接口值可以看作两部分具体类型和该类型的值。\n可以把接口值想象成一个特殊的“盒子”。\n这个盒子上贴着一个标签，写着里面装的东西的类型（*main.Dog）。 盒子里装着实际的值（一个 Dog 结构体的实例）。 var s Speaker // 接口变量 s，此时它是一个空的“盒子”，里面是 nil s = Dog{Name: \u0026#34;Rex\u0026#34;} // 赋值后，s 这个“盒子”里： // - 标签：main.Dog // - 值：{Rex} fmt.Printf(\u0026#34;(%v, %T)\\n\u0026#34;, s, s) // 输出：({Rex}, main.Dog) // 值部分 和 类型部分 当你调用 s.Speak() 时，Go 会打开这个“盒子”，根据标签找到类型 Dog，然后执行 Dog 的 Speak 方法。\n",
   "keywords": [
     
@@ -270,7 +270,7 @@ fmt.Printf(&#34;(%v, %T)\n&#34;, s, s) // 输出：({Rex}, main.Dog)
   <header class="post-header">
     
     <h1 class="post-title entry-hint-parent">
-      Golang的之接口
+      Golang之接口
     </h1>
     <div class="post-meta"><span title='2025-09-20 13:33:54 +0800 CST'>September 20, 2025</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Sheep44044
 
