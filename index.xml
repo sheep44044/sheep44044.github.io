@@ -6,8 +6,79 @@
     <description>Recent content on sheep44044的小站</description>
     <generator>Hugo -- 0.147.4</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 29 Sep 2025 09:33:43 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 30 Sep 2025 00:40:06 +0800</lastBuildDate>
     <atom:link href="https://sheep44044.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>面向对象编程感悟</title>
+      <link>https://sheep44044.github.io/posts/2025-09-30-oop/</link>
+      <pubDate>Tue, 30 Sep 2025 00:40:06 +0800</pubDate>
+      <guid>https://sheep44044.github.io/posts/2025-09-30-oop/</guid>
+      <description>&lt;p&gt;面向对象，不知从何时起盘旋在我的脑海中，或许是学习Java，亦或是更早。不过，我一直都没特别理解这个东西，更不要说封装、继承等概念了，是我脑海中不断徘徊的乌云。直到现在，我重新审视，通过B站、知乎等网站，我终于有所感悟和理解，于是写下这篇文章。&lt;/p&gt;
+&lt;p&gt;这里不着重于结构体和方法的理解和实现，只是单纯谈谈这个思想罢了👌&lt;/p&gt;
+&lt;p&gt;+++&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;OOP即面向对象编程(Object Oriented Programming)&lt;/strong&gt;，与之相对的是面向过程编程。面向过程和面向对象的区别，用我在知乎上看到的一句话说就是——&lt;strong&gt;面向过程是编年体，面向对象是纪传体&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;面向过程&lt;/strong&gt;，关注的是做事，关注的是&amp;quot;步骤&amp;quot;。把要实现的事情，拆分成一个个步骤，依次完成。解决问题时，思考的是&amp;quot;先做什么，再做什么，最后做什么&amp;quot;。在我看来这个视角类似于实施者，由于生活中我们就是以这种思想来生活，所以不可避免的更熟悉和理解面向过程编程。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;面向对象&lt;/strong&gt;则不一样，它关注的是对象，是找人。解决问题时，思考的是&amp;quot;这个问题中有哪些&lt;strong&gt;参与者&lt;/strong&gt;？这些参与者有哪些&lt;strong&gt;属性&lt;/strong&gt;和&lt;strong&gt;行为&lt;/strong&gt;？它们之间如何&lt;strong&gt;交互&lt;/strong&gt;？&amp;ldquo;在这里，面向对象先把事务分解到对象身上，描述各个对象的作用，然后才是他们之间的交互。这里的视角类似于管理者。&lt;/p&gt;
+&lt;p&gt;基于这一思想，面向对象发展出&lt;strong&gt;封装、继承和多态&lt;/strong&gt;这三大特性。&lt;/p&gt;
+&lt;p&gt;关于OOP的三特性形象化理解，假设你有一台洗衣机，要用它洗衣服，你关心它内部是怎么洗的么？你不关心，你只要按一个按钮就好了，这就是&lt;strong&gt;封装&lt;/strong&gt;。不同型号的洗衣机洗衣方式不同，但是都能洗衣，而且你也只关心洗衣机的这个洗衣功能而已，所以你可以将全部洗衣机进行抽象，最终抽象出一个接口洗衣机，它有一个方法洗衣，这就是&lt;strong&gt;多态&lt;/strong&gt;。相同品牌或者系列的洗衣机可能有类似的内部细节，这些细节可以组成一个模板，作为基类或者父类，而具体的某款产品则是子类，这是&lt;strong&gt;继承&lt;/strong&gt;。 使用时，你通过上下文取得洗衣机接口的一个实例，调用其的洗衣方法，你就可以完成洗衣服操作了。至于它是如何洗衣服的你压根不关心。这就是OOP。&lt;/p&gt;
+&lt;p&gt;在面向对象编程的概念中，类、对象、方法和属性在Java中体现的尤为明显，在Golang中则有不同的实现方式。&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;传统OOP概念&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;Go中的实现&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;类(Class)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;结构体(Struct)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;对象(Object)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;结构体实例(Struct Instance)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;方法(Method)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;带有接收者的函数(Method)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;属性(Fields)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;结构体字段(Struct Fields)&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;1-封装&#34;&gt;1. 封装&lt;/h3&gt;
+&lt;p&gt;Go使用结构体和方法实现封装：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// 定义结构体（类似类）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Person&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// 私有字段（小写开头）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;Age&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// 公共字段（大写开头）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// 结构体方法（接收者）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Person&lt;/span&gt;) &lt;span style=&#34;color:#a6e22e&#34;&gt;GetName&lt;/span&gt;() &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Person&lt;/span&gt;) &lt;span style=&#34;color:#a6e22e&#34;&gt;SetName&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Person&lt;/span&gt;{}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;SetName&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Alice&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Age&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;GetName&lt;/span&gt;()) &lt;span style=&#34;color:#75715e&#34;&gt;// 输出: Alice&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Age&lt;/span&gt;)       &lt;span style=&#34;color:#75715e&#34;&gt;// 输出: 30&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;2-组合替代继承&#34;&gt;2. 组合（替代继承）&lt;/h3&gt;
+&lt;p&gt;Go使用组合而不是继承来实现代码复用：&lt;/p&gt;</description>
+    </item>
     <item>
       <title>愚蠢的我和GitHub教育</title>
       <link>https://sheep44044.github.io/daily/2025-09-28-daily3/</link>
@@ -127,12 +198,12 @@
 &lt;p&gt;接口（Interface）本质上就是&lt;strong&gt;定义了一组方法签名（Method Signatures）的集合&lt;/strong&gt;。它只关心**“做什么”&lt;strong&gt;，而不关心&lt;/strong&gt;“怎么做”**。&lt;/p&gt;
 &lt;p&gt;它规定：&lt;strong&gt;“任何类型，只要你实现了我的合同里规定的所有这些方法，那我就认为你实现了这个接口。”&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;每个接口类型由任意个方法签名组成，接口的定义格式如下：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;type 接口类型名 interface{
-    方法名1( 参数列表1 ) 返回值列表1
-    方法名2( 参数列表2 ) 返回值列表2
-    …
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;如何实现接口隐式实现&#34;&gt;如何实现接口？（“隐式实现”）&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;接口类型名&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;interface&lt;/span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;方法名1&lt;/span&gt;( &lt;span style=&#34;color:#a6e22e&#34;&gt;参数列表1&lt;/span&gt; ) &lt;span style=&#34;color:#a6e22e&#34;&gt;返回值列表1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;方法名2&lt;/span&gt;( &lt;span style=&#34;color:#a6e22e&#34;&gt;参数列表2&lt;/span&gt; ) &lt;span style=&#34;color:#a6e22e&#34;&gt;返回值列表2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;…&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;如何实现接口隐式实现&#34;&gt;如何实现接口？（“隐式实现”）&lt;/h3&gt;
 &lt;p&gt;Go 接口的实现是 &lt;strong&gt;“隐式”&lt;/strong&gt; 的。这意味着你&lt;strong&gt;不需要&lt;/strong&gt;像 Java 那样明确地写 &lt;code&gt;implements Speaker&lt;/code&gt;。只需要让这个类型拥有接口里规定的所有方法，它就自动实现了该接口！&lt;/p&gt;
 &lt;p&gt;这是 Go 的哲学——“鸭子类型”（如果它走起来像鸭子，叫起来像鸭子，那它就是鸭子）。&lt;/p&gt;
 &lt;h2 id=&#34;接口值&#34;&gt;接口值&lt;/h2&gt;
@@ -144,14 +215,14 @@
 &lt;li&gt;这个盒子上贴着一个&lt;strong&gt;标签&lt;/strong&gt;，写着里面装的东西的类型（&lt;code&gt;*main.Dog&lt;/code&gt;）。&lt;/li&gt;
 &lt;li&gt;盒子里装着&lt;strong&gt;实际的值&lt;/strong&gt;（一个 &lt;code&gt;Dog&lt;/code&gt; 结构体的实例）。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var s Speaker      // 接口变量 s，此时它是一个空的“盒子”，里面是 nil
-s = Dog{Name: &amp;#34;Rex&amp;#34;} // 赋值后，s 这个“盒子”里：
-                     // - 标签：main.Dog
-                     // - 值：{Rex}
-
-fmt.Printf(&amp;#34;(%v, %T)\n&amp;#34;, s, s) // 输出：({Rex}, main.Dog)
-                               // 值部分 和 类型部分
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;当你调用 &lt;code&gt;s.Speak()&lt;/code&gt; 时，Go 会打开这个“盒子”，根据标签找到类型 &lt;code&gt;Dog&lt;/code&gt;，然后执行 &lt;code&gt;Dog&lt;/code&gt; 的 &lt;code&gt;Speak&lt;/code&gt; 方法。&lt;/p&gt;</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Speaker&lt;/span&gt;      &lt;span style=&#34;color:#75715e&#34;&gt;// 接口变量 s，此时它是一个空的“盒子”，里面是 nil&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;Dog&lt;/span&gt;{&lt;span style=&#34;color:#a6e22e&#34;&gt;Name&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Rex&amp;#34;&lt;/span&gt;} &lt;span style=&#34;color:#75715e&#34;&gt;// 赋值后，s 这个“盒子”里：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                     &lt;span style=&#34;color:#75715e&#34;&gt;// - 标签：main.Dog&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                     &lt;span style=&#34;color:#75715e&#34;&gt;// - 值：{Rex}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;(%v, %T)\n&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;// 输出：({Rex}, main.Dog)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                               &lt;span style=&#34;color:#75715e&#34;&gt;// 值部分 和 类型部分&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;当你调用 &lt;code&gt;s.Speak()&lt;/code&gt; 时，Go 会打开这个“盒子”，根据标签找到类型 &lt;code&gt;Dog&lt;/code&gt;，然后执行 &lt;code&gt;Dog&lt;/code&gt; 的 &lt;code&gt;Speak&lt;/code&gt; 方法。&lt;/p&gt;</description>
     </item>
     <item>
       <title>Golang的知识碎片（基础篇）</title>
@@ -176,15 +247,15 @@ fmt.Printf(&amp;#34;(%v, %T)\n&amp;#34;, s, s) // 输出：({Rex}, main.Dog)
 &lt;p&gt;&lt;strong&gt;3.条件语句前简短语句&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;for和&lt;code&gt;if&lt;/code&gt; 语句可以在条件表达式前执行一个简短语句&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;4.无条件的switch(类似于if-else)&lt;/strong&gt;&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;switch {
-case x &amp;lt; 0:
-    fmt.Println(&amp;#34;Negative&amp;#34;)
-case x == 0:
-    fmt.Println(&amp;#34;Zero&amp;#34;)
-default:
-    fmt.Println(&amp;#34;Positive&amp;#34;)
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;5.defer推迟/defer栈&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;switch&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt; &amp;lt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Negative&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Zero&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Positive&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;5.defer推迟/defer栈&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;defer&lt;/code&gt; 语句会将函数调用推迟到外层函数返回之后执行&lt;/li&gt;
 &lt;li&gt;被推迟的函数调用会被压入一个&lt;strong&gt;栈&lt;/strong&gt;中，当外层函数返回时，被推迟的函数会按照&lt;strong&gt;后进先出&lt;/strong&gt;（LIFO）的顺序执行&lt;/li&gt;
@@ -211,7 +282,9 @@ default:
 &lt;p&gt;2.提高效率，每次方法调用时，Go 需要将整个结构体的数据&lt;strong&gt;复制&lt;/strong&gt;一份给方法使用。如果结构体非常大，这个复制操作的开销会很大。而Go 只需要复制一个&lt;strong&gt;指针&lt;/strong&gt;（通常是一个机器字长的大小，如 8 字节），开销极小。&lt;/p&gt;
 &lt;p&gt;所以，大部分的时候使用指针&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;tips&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;对于一个特定的类型，你应该决定是使用值接收者还是指针接收者，并&lt;strong&gt;为该类型的所有方法保持一致&lt;/strong&gt;。&lt;/p&gt;</description>
+&lt;p&gt;对于一个特定的类型，你应该决定是使用值接收者还是指针接收者，并&lt;strong&gt;为该类型的所有方法保持一致&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;9.值类型/引用类型&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这是 Go 语言中一个非常重要的概念，决定了变量如何被分配内存、如何被赋值以及如何被传递给函数。&lt;/p&gt;</description>
     </item>
     <item>
       <title>第一周总结</title>

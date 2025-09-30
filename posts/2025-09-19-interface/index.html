@@ -339,12 +339,12 @@ fmt.Printf(&#34;(%v, %T)\n&#34;, s, s) // 输出：({Rex}, main.Dog)
 <p>接口（Interface）本质上就是<strong>定义了一组方法签名（Method Signatures）的集合</strong>。它只关心**“做什么”<strong>，而不关心</strong>“怎么做”**。</p>
 <p>它规定：<strong>“任何类型，只要你实现了我的合同里规定的所有这些方法，那我就认为你实现了这个接口。”</strong></p>
 <p>每个接口类型由任意个方法签名组成，接口的定义格式如下：</p>
-<pre tabindex="0"><code>type 接口类型名 interface{
-    方法名1( 参数列表1 ) 返回值列表1
-    方法名2( 参数列表2 ) 返回值列表2
-    …
-}
-</code></pre><h3 id="如何实现接口隐式实现">如何实现接口？（“隐式实现”）<a hidden class="anchor" aria-hidden="true" href="#如何实现接口隐式实现">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">接口类型名</span> <span style="color:#66d9ef">interface</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">方法名1</span>( <span style="color:#a6e22e">参数列表1</span> ) <span style="color:#a6e22e">返回值列表1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">方法名2</span>( <span style="color:#a6e22e">参数列表2</span> ) <span style="color:#a6e22e">返回值列表2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">…</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="如何实现接口隐式实现">如何实现接口？（“隐式实现”）<a hidden class="anchor" aria-hidden="true" href="#如何实现接口隐式实现">#</a></h3>
 <p>Go 接口的实现是 <strong>“隐式”</strong> 的。这意味着你<strong>不需要</strong>像 Java 那样明确地写 <code>implements Speaker</code>。只需要让这个类型拥有接口里规定的所有方法，它就自动实现了该接口！</p>
 <p>这是 Go 的哲学——“鸭子类型”（如果它走起来像鸭子，叫起来像鸭子，那它就是鸭子）。</p>
 <h2 id="接口值">接口值<a hidden class="anchor" aria-hidden="true" href="#接口值">#</a></h2>
@@ -356,14 +356,14 @@ fmt.Printf(&#34;(%v, %T)\n&#34;, s, s) // 输出：({Rex}, main.Dog)
 <li>这个盒子上贴着一个<strong>标签</strong>，写着里面装的东西的类型（<code>*main.Dog</code>）。</li>
 <li>盒子里装着<strong>实际的值</strong>（一个 <code>Dog</code> 结构体的实例）。</li>
 </ul>
-<pre tabindex="0"><code>var s Speaker      // 接口变量 s，此时它是一个空的“盒子”，里面是 nil
-s = Dog{Name: &#34;Rex&#34;} // 赋值后，s 这个“盒子”里：
-                     // - 标签：main.Dog
-                     // - 值：{Rex}
-
-fmt.Printf(&#34;(%v, %T)\n&#34;, s, s) // 输出：({Rex}, main.Dog)
-                               // 值部分 和 类型部分
-</code></pre><p>当你调用 <code>s.Speak()</code> 时，Go 会打开这个“盒子”，根据标签找到类型 <code>Dog</code>，然后执行 <code>Dog</code> 的 <code>Speak</code> 方法。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> <span style="color:#a6e22e">Speaker</span>      <span style="color:#75715e">// 接口变量 s，此时它是一个空的“盒子”，里面是 nil</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">s</span> = <span style="color:#a6e22e">Dog</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Rex&#34;</span>} <span style="color:#75715e">// 赋值后，s 这个“盒子”里：</span>
+</span></span><span style="display:flex;"><span>                     <span style="color:#75715e">// - 标签：main.Dog</span>
+</span></span><span style="display:flex;"><span>                     <span style="color:#75715e">// - 值：{Rex}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;(%v, %T)\n&#34;</span>, <span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">s</span>) <span style="color:#75715e">// 输出：({Rex}, main.Dog)</span>
+</span></span><span style="display:flex;"><span>                               <span style="color:#75715e">// 值部分 和 类型部分</span>
+</span></span></code></pre></div><p>当你调用 <code>s.Speak()</code> 时，Go 会打开这个“盒子”，根据标签找到类型 <code>Dog</code>，然后执行 <code>Dog</code> 的 <code>Speak</code> 方法。</p>
 <h2 id="底层值为-nil-的接口值">底层值为 nil 的接口值<a hidden class="anchor" aria-hidden="true" href="#底层值为-nil-的接口值">#</a></h2>
 <p>即便接口内的具体值为 nil，方法仍然会被 nil 接收者调用。保存了 nil 具体值的接口其自身并不为 nil。</p>
 <h2 id="nil-接口值">nil 接口值<a hidden class="anchor" aria-hidden="true" href="#nil-接口值">#</a></h2>
@@ -379,8 +379,8 @@ fmt.Printf(&#34;(%v, %T)\n&#34;, s, s) // 输出：({Rex}, main.Dog)
 <h2 id="类型断言">类型断言<a hidden class="anchor" aria-hidden="true" href="#类型断言">#</a></h2>
 <p>由于接口变量可以持有任意实现它的类型的值，有时我们需要知道它背后具体的实际值是什么。</p>
 <p>在 Go 语言中，接口断言是一种检查接口变量是否具有特定具体类型的方法。接口断言的基本语法如下：</p>
-<pre tabindex="0"><code>value, ok := interfaceVariable.(Type)
-</code></pre><p>其中：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">interfaceVariable</span>.(<span style="color:#a6e22e">Type</span>)
+</span></span></code></pre></div><p>其中：</p>
 <ul>
 <li><code>interfaceVariable</code> 是一个接口类型的变量</li>
 <li><code>Type</code> 是你想要断言的具体类型</li>
@@ -390,105 +390,105 @@ fmt.Printf(&#34;(%v, %T)\n&#34;, s, s) // 输出：({Rex}, main.Dog)
 <h2 id="类型选择">类型选择<a hidden class="anchor" aria-hidden="true" href="#类型选择">#</a></h2>
 <p><strong>类型选择</strong> 是一种按顺序从几个类型断言中选择分支的结构。</p>
 <p>类型选择与一般的 switch 语句相似，不过类型选择中的 case 为类型（而非值）， 它们针对给定接口值所存储的值的类型进行比较。</p>
-<pre tabindex="0"><code>switch v := i.(type) {
-case T:
-    // v 的类型为 T
-case S:
-    // v 的类型为 S
-default:
-    // 没有匹配，v 与 i 的类型相同
-}
-</code></pre><p>类型选择中的声明与类型断言 <code>i.(T)</code> 的语法相同，只是具体类型 <code>T</code> 被替换成了关键字 <code>type</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span>.(<span style="color:#66d9ef">type</span>) {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">case</span> <span style="color:#a6e22e">T</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// v 的类型为 T</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">case</span> <span style="color:#a6e22e">S</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// v 的类型为 S</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">default</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 没有匹配，v 与 i 的类型相同</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>类型选择中的声明与类型断言 <code>i.(T)</code> 的语法相同，只是具体类型 <code>T</code> 被替换成了关键字 <code>type</code>。</p>
 <h3 id="多态实现">多态实现<a hidden class="anchor" aria-hidden="true" href="#多态实现">#</a></h3>
 <p>接口变量可以持有任意实现它的类型的值</p>
 <p><strong>多态（Polymorphism）</strong> 指的是一个接口的调用方式，可以在运行时根据其底层实际类型的不同而表现出不同的行为</p>
 <p><strong>核心思想：</strong> 不同结构体只要实现了相同的接口，它们就可以被当作同一种类型（接口类型）来处理，但在执行接口方法时，会执行各自具体的实现。</p>
 <p><strong>经典例子：</strong></p>
-<pre tabindex="0"><code>package main
-
-import &#34;fmt&#34;
-
-// 定义一个支付接口
-type Payment interface {
-    Pay(amount float64) string
-}
-
-// 实现两种不同的支付方式
-type Alipay struct {
-    Account string
-}
-
-func (a Alipay) Pay(amount float64) string {
-    return fmt.Sprintf(&#34;使用支付宝 %s 支付了 %.2f 元&#34;, a.Account, amount)
-}
-
-type WechatPay struct {
-    OpenID string
-}
-
-func (w WechatPay) Pay(amount float64) string {
-    return fmt.Sprintf(&#34;使用微信 %s 支付了 %.2f 元&#34;, w.OpenID, amount)
-}
-
-// 一个通用的支付函数，它只关心传入的对象是否实现了 Payment 接口
-func ProcessPayment(p Payment, amount float64) {
-    result := p.Pay(amount)
-    fmt.Println(result)
-}
-
-func main() {
-    a := Alipay{Account: &#34;zhangsan@alipay.com&#34;}
-    w := WechatPay{OpenID: &#34;wx_abcdef123456&#34;}
-
-    // 多态的体现：ProcessPayment 函数不需要知道具体是哪种支付方式
-    // 它只需要调用 Pay 方法，而具体执行哪个版本的 Pay，由运行时 p 的实际类型决定
-    ProcessPayment(a, 100.5)
-    ProcessPayment(w, 200.0)
-
-    // 也可以将不同的实现放入同一个切片（接口类型切片）
-    payments := []Payment{a, w}
-    for _, payer := range payments {
-        ProcessPayment(payer, 50.0)
-    }
-}
-</code></pre><p><strong>输出：</strong></p>
-<pre tabindex="0"><code>使用支付宝 zhangsan@alipay.com 支付了 100.50 元
-使用微信 wx_abcdef123456 支付了 200.00 元
-使用支付宝 zhangsan@alipay.com 支付了 50.00 元
-使用微信 wx_abcdef123456 支付了 50.00 元
-</code></pre><h3 id="go的继承">Go的&quot;继承&quot;<a hidden class="anchor" aria-hidden="true" href="#go的继承">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 定义一个支付接口</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Payment</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Pay</span>(<span style="color:#a6e22e">amount</span> <span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 实现两种不同的支付方式</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Alipay</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Account</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#a6e22e">Alipay</span>) <span style="color:#a6e22e">Pay</span>(<span style="color:#a6e22e">amount</span> <span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;使用支付宝 %s 支付了 %.2f 元&#34;</span>, <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Account</span>, <span style="color:#a6e22e">amount</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">WechatPay</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">OpenID</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">WechatPay</span>) <span style="color:#a6e22e">Pay</span>(<span style="color:#a6e22e">amount</span> <span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;使用微信 %s 支付了 %.2f 元&#34;</span>, <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">OpenID</span>, <span style="color:#a6e22e">amount</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 一个通用的支付函数，它只关心传入的对象是否实现了 Payment 接口</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ProcessPayment</span>(<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Payment</span>, <span style="color:#a6e22e">amount</span> <span style="color:#66d9ef">float64</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Pay</span>(<span style="color:#a6e22e">amount</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">result</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Alipay</span>{<span style="color:#a6e22e">Account</span>: <span style="color:#e6db74">&#34;zhangsan@alipay.com&#34;</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">w</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">WechatPay</span>{<span style="color:#a6e22e">OpenID</span>: <span style="color:#e6db74">&#34;wx_abcdef123456&#34;</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 多态的体现：ProcessPayment 函数不需要知道具体是哪种支付方式</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 它只需要调用 Pay 方法，而具体执行哪个版本的 Pay，由运行时 p 的实际类型决定</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ProcessPayment</span>(<span style="color:#a6e22e">a</span>, <span style="color:#ae81ff">100.5</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ProcessPayment</span>(<span style="color:#a6e22e">w</span>, <span style="color:#ae81ff">200.0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 也可以将不同的实现放入同一个切片（接口类型切片）</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">payments</span> <span style="color:#f92672">:=</span> []<span style="color:#a6e22e">Payment</span>{<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">w</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">payer</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">payments</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">ProcessPayment</span>(<span style="color:#a6e22e">payer</span>, <span style="color:#ae81ff">50.0</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>输出：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">使用支付宝</span> <span style="color:#a6e22e">zhangsan</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">alipay</span>.<span style="color:#a6e22e">com</span> <span style="color:#a6e22e">支付了</span> <span style="color:#ae81ff">100.50</span> <span style="color:#a6e22e">元</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">使用微信</span> <span style="color:#a6e22e">wx_abcdef123456</span> <span style="color:#a6e22e">支付了</span> <span style="color:#ae81ff">200.00</span> <span style="color:#a6e22e">元</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">使用支付宝</span> <span style="color:#a6e22e">zhangsan</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">alipay</span>.<span style="color:#a6e22e">com</span> <span style="color:#a6e22e">支付了</span> <span style="color:#ae81ff">50.00</span> <span style="color:#a6e22e">元</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">使用微信</span> <span style="color:#a6e22e">wx_abcdef123456</span> <span style="color:#a6e22e">支付了</span> <span style="color:#ae81ff">50.00</span> <span style="color:#a6e22e">元</span>
+</span></span></code></pre></div><h3 id="go的继承">Go的&quot;继承&quot;<a hidden class="anchor" aria-hidden="true" href="#go的继承">#</a></h3>
 <p>Go 语言设计者认为传统的类继承（尤其是多重继承）模型复杂且容易出错。因此，Go 彻底摒弃了 <code>class</code> 和 <code>extends</code> 的概念。</p>
 <p><strong>Go 的“继承”是通过结构体的嵌套（Embedding）来实现的，这本质上是“组合”。</strong></p>
-<pre tabindex="0"><code>// “父类”（基类）
-type Animal struct {
-    name string
-}
-
-func (a *Animal) Speak() {
-    fmt.Println(&#34;我是:&#34;, a.name)
-}
-
-// “子类”（派生类），通过嵌入 Animal 来“继承”它的字段和方法
-type Dog struct {
-    Animal        // 嵌入 Animal，实现了组合
-    Breed  string // 子类自己的字段
-}
-
-// 子类可以重写父类的方法
-func (d *Dog) Speak() {
-    d.Animal.Speak() // 可以调用“父类”的方法
-    fmt.Println(&#34;汪汪汪！&#34;)
-}
-
-func main() {
-    d := Dog{
-        Animal: Animal{name: &#34;旺财&#34;}, // 初始化嵌入的结构体
-        Breed:  &#34;柯基&#34;,
-    }
-    d.Speak()       // 调用子类重写后的方法
-    d.Animal.Speak() // 仍然可以显式调用父类的方法
-}
-</code></pre><p><strong>这种组合的优势：</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// “父类”（基类）</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Animal</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Animal</span>) <span style="color:#a6e22e">Speak</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;我是:&#34;</span>, <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">name</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// “子类”（派生类），通过嵌入 Animal 来“继承”它的字段和方法</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Dog</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Animal</span>        <span style="color:#75715e">// 嵌入 Animal，实现了组合</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Breed</span>  <span style="color:#66d9ef">string</span> <span style="color:#75715e">// 子类自己的字段</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 子类可以重写父类的方法</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">d</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Dog</span>) <span style="color:#a6e22e">Speak</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Animal</span>.<span style="color:#a6e22e">Speak</span>() <span style="color:#75715e">// 可以调用“父类”的方法</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;汪汪汪！&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Dog</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Animal</span>: <span style="color:#a6e22e">Animal</span>{<span style="color:#a6e22e">name</span>: <span style="color:#e6db74">&#34;旺财&#34;</span>}, <span style="color:#75715e">// 初始化嵌入的结构体</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Breed</span>:  <span style="color:#e6db74">&#34;柯基&#34;</span>,
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Speak</span>()       <span style="color:#75715e">// 调用子类重写后的方法</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Animal</span>.<span style="color:#a6e22e">Speak</span>() <span style="color:#75715e">// 仍然可以显式调用父类的方法</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>这种组合的优势：</strong></p>
 <ol>
 <li><strong>清晰简单</strong>：没有复杂的继承链。</li>
 <li><strong>解耦</strong>：<code>Dog</code> 和 <code>Animal</code> 是两个独立的类型，<code>Dog</code> 只是使用了 <code>Animal</code> 的功能。</li>
@@ -497,41 +497,41 @@ func main() {
 <h2 id="常见的接口">常见的接口<a hidden class="anchor" aria-hidden="true" href="#常见的接口">#</a></h2>
 <h3 id="1stringer">1.Stringer<a hidden class="anchor" aria-hidden="true" href="#1stringer">#</a></h3>
 <p><a href="https://go-zh.org/pkg/fmt/"><code>fmt</code></a> 包中定义的 <a href="https://go-zh.org/pkg/fmt/#Stringer"><code>Stringer</code></a> 是最普遍的接口之一。</p>
-<pre tabindex="0"><code>type Stringer interface {
-    String() string
-}
-</code></pre><p><code>Stringer</code> 是一个可以用字符串描述自己的类型。<code>fmt</code> 包（还有很多包）都通过此接口来打印值。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Stringer</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">String</span>() <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>Stringer</code> 是一个可以用字符串描述自己的类型。<code>fmt</code> 包（还有很多包）都通过此接口来打印值。</p>
 <h3 id="2error">2.error<a hidden class="anchor" aria-hidden="true" href="#2error">#</a></h3>
 <p>Go 程序使用 <code>error</code> 值来表示错误状态。</p>
 <p>与 <code>fmt.Stringer</code> 类似，<code>error</code> 类型是一个内建接口：</p>
-<pre tabindex="0"><code>type error interface {
-    Error() string
-}
-</code></pre><p>（与 <code>fmt.Stringer</code> 类似，<code>fmt</code> 包也会根据对 <code>error</code> 的实现来打印值。）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#66d9ef">error</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Error</span>() <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>（与 <code>fmt.Stringer</code> 类似，<code>fmt</code> 包也会根据对 <code>error</code> 的实现来打印值。）</p>
 <p>通常函数会返回一个 <code>error</code> 值，调用它的代码应当判断这个错误是否等于 <code>nil</code> 来进行错误处理。</p>
-<pre tabindex="0"><code>i, err := strconv.Atoi(&#34;42&#34;)
-if err != nil {
-    fmt.Printf(&#34;couldn&#39;t convert number: %v\n&#34;, err)
-    return
-}
-fmt.Println(&#34;Converted integer:&#34;, i)
-</code></pre><p><code>error</code> 为 nil 时表示成功；非 nil 的 <code>error</code> 表示失败。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Atoi</span>(<span style="color:#e6db74">&#34;42&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;couldn&#39;t convert number: %v\n&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Converted integer:&#34;</span>, <span style="color:#a6e22e">i</span>)
+</span></span></code></pre></div><p><code>error</code> 为 nil 时表示成功；非 nil 的 <code>error</code> 表示失败。</p>
 <h3 id="3readers">3.Readers<a hidden class="anchor" aria-hidden="true" href="#3readers">#</a></h3>
 <p><code>io</code> 包指定了 <code>io.Reader</code> 接口，它表示数据流的读取端。</p>
 <p>Go 标准库包含了该接口的<a href="https://cs.opensource.google/search?q=Read(%5Cw%2B%5Cs%5B%5Dbyte)&amp;ss=go%2Fgo">许多实现</a>，包括文件、网络连接、压缩和加密等等。</p>
 <p><code>io.Reader</code> 接口有一个 <code>Read</code> 方法：</p>
-<pre tabindex="0"><code>func (T) Read(b []byte) (n int, err error)
-</code></pre><p><code>Read</code> 用数据填充给定的字节切片并返回填充的字节数和错误值。在遇到数据流的结尾时，它会返回一个 <code>io.EOF</code> 错误。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">T</span>) <span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">b</span> []<span style="color:#66d9ef">byte</span>) (<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>)
+</span></span></code></pre></div><p><code>Read</code> 用数据填充给定的字节切片并返回填充的字节数和错误值。在遇到数据流的结尾时，它会返回一个 <code>io.EOF</code> 错误。</p>
 <h3 id="4image">4.Image<a hidden class="anchor" aria-hidden="true" href="#4image">#</a></h3>
 <p><a href="https://go-zh.org/pkg/image/#Image"><code>image</code></a> 包定义了 <code>Image</code> 接口：</p>
-<pre tabindex="0"><code>package image
-
-type Image interface {
-    ColorModel() color.Model
-    Bounds() Rectangle
-    At(x, y int) color.Color
-}
-</code></pre><p><strong>注意:</strong> <code>Bounds</code> 方法的返回值 <code>Rectangle</code> 实际上是一个 <a href="https://go-zh.org/pkg/image/#Rectangle"><code>image.Rectangle</code></a>，它在 <code>image</code> 包中声明。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">image</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Image</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ColorModel</span>() <span style="color:#a6e22e">color</span>.<span style="color:#a6e22e">Model</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Bounds</span>() <span style="color:#a6e22e">Rectangle</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">At</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">int</span>) <span style="color:#a6e22e">color</span>.<span style="color:#a6e22e">Color</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>注意:</strong> <code>Bounds</code> 方法的返回值 <code>Rectangle</code> 实际上是一个 <a href="https://go-zh.org/pkg/image/#Rectangle"><code>image.Rectangle</code></a>，它在 <code>image</code> 包中声明。</p>
 
 
   </div>
