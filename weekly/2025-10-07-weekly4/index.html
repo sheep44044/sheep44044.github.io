@@ -5,25 +5,37 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>第二周总结 | sheep44044的小站</title>
+<title>第四周总结 | sheep44044的小站</title>
 <meta name="keywords" content="">
-<meta name="description" content="第二周总结
-完成事项
+<meta name="description" content="第四周学习总结
+由于上一周经历了国庆假期，星期一又是中秋节 🎑，所以拖着拖着，到了周二才开始写周报。不过，由于国庆假期摆烂的原因，也没什么好写的。但为了每周一份的周报，我还是在中秋节前夕，在 AI 的帮助下完成了一些内容，辅助着国庆前的老本，堪堪写一些内容。
+已完成事项
 
-解决了上周博客留下来的问题，有了一个简陋但功能完备的网站 🥳。
-在 Tour of Go 上基本完成了所有内容的学习，包括切片、接口、并发等知识点。
-持续推进 Go by Example 的学习，目前完成 switch 部分，进入数组相关内容（不得不说gobyexample确实不赖，对于这些基础知识我也能学到新的特性）。
-做了一些学习笔记。
+学习了 SQL 的语法，在 sql 之母上完成了十几道题目，对 SQL 有了基本的了解
+学习了 Gorm 的概述、模型声明和 CRUD 接口等比较基础和简单的内容（自我感觉查询因为类似于 SQL 语法，更易懂点）
+完成了智能笔记项目的 CRUD 内容，并连接上了 MySQL 数据库
+
+下周计划 (可能)
+
+项目开发继续
+
+分层项目结构
+统一响应与错误处理
+.env 环境变量管理
+结构化日志
+&hellip;
 
 
-下周计划（可能）
+根据项目继续学习相关知识
 
-巩固已学知识，搞懂 Tour of Go 中的练习题。✅
-继续学习 Go by Example 的后续内容。✅
-（可能）了解一些常用标准库包的基本用法。
+Go 语言：错误处理、包管理、环境变量&hellip;
+Gin：路由分组、中间件&hellip;
+Gorm：tag、错误处理&hellip;
+
+
 ">
 <meta name="author" content="Sheep44044">
-<link rel="canonical" href="https://sheep44044.github.io/weekly/2025-09-22-weekly2/">
+<link rel="canonical" href="https://sheep44044.github.io/weekly/2025-10-07-weekly4/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" integrity="sha256-IhHKMWS&#43;eDACT2qtKzouUghDpk&#43;PBIRFw0AcEkmqBR0=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://sheep44044.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://sheep44044.github.io/favicon-16x16.png">
@@ -32,7 +44,7 @@
 <link rel="mask-icon" href="https://sheep44044.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://sheep44044.github.io/weekly/2025-09-22-weekly2/">
+<link rel="alternate" hreflang="en" href="https://sheep44044.github.io/weekly/2025-10-07-weekly4/">
 <noscript>
     <style>
         #theme-toggle,
@@ -69,31 +81,44 @@
         }
 
     </style>
-</noscript><meta property="og:url" content="https://sheep44044.github.io/weekly/2025-09-22-weekly2/">
+</noscript><meta property="og:url" content="https://sheep44044.github.io/weekly/2025-10-07-weekly4/">
   <meta property="og:site_name" content="sheep44044的小站">
-  <meta property="og:title" content="第二周总结">
-  <meta property="og:description" content="第二周总结 完成事项 解决了上周博客留下来的问题，有了一个简陋但功能完备的网站 🥳。 在 Tour of Go 上基本完成了所有内容的学习，包括切片、接口、并发等知识点。 持续推进 Go by Example 的学习，目前完成 switch 部分，进入数组相关内容（不得不说gobyexample确实不赖，对于这些基础知识我也能学到新的特性）。 做了一些学习笔记。 下周计划（可能） 巩固已学知识，搞懂 Tour of Go 中的练习题。✅ 继续学习 Go by Example 的后续内容。✅ （可能）了解一些常用标准库包的基本用法。 ">
+  <meta property="og:title" content="第四周总结">
+  <meta property="og:description" content="第四周学习总结 由于上一周经历了国庆假期，星期一又是中秋节 🎑，所以拖着拖着，到了周二才开始写周报。不过，由于国庆假期摆烂的原因，也没什么好写的。但为了每周一份的周报，我还是在中秋节前夕，在 AI 的帮助下完成了一些内容，辅助着国庆前的老本，堪堪写一些内容。
+已完成事项 学习了 SQL 的语法，在 sql 之母上完成了十几道题目，对 SQL 有了基本的了解 学习了 Gorm 的概述、模型声明和 CRUD 接口等比较基础和简单的内容（自我感觉查询因为类似于 SQL 语法，更易懂点） 完成了智能笔记项目的 CRUD 内容，并连接上了 MySQL 数据库 下周计划 (可能) 项目开发继续 分层项目结构 统一响应与错误处理 .env 环境变量管理 结构化日志 … 根据项目继续学习相关知识 Go 语言：错误处理、包管理、环境变量… Gin：路由分组、中间件… Gorm：tag、错误处理… ">
   <meta property="og:locale" content="zh-CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="weekly">
-    <meta property="article:published_time" content="2025-09-22T08:04:18+08:00">
-    <meta property="article:modified_time" content="2025-09-22T08:04:18+08:00">
+    <meta property="article:published_time" content="2025-10-07T13:08:49+08:00">
+    <meta property="article:modified_time" content="2025-10-07T13:08:49+08:00">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第二周总结">
-<meta name="twitter:description" content="第二周总结
-完成事项
+<meta name="twitter:title" content="第四周总结">
+<meta name="twitter:description" content="第四周学习总结
+由于上一周经历了国庆假期，星期一又是中秋节 🎑，所以拖着拖着，到了周二才开始写周报。不过，由于国庆假期摆烂的原因，也没什么好写的。但为了每周一份的周报，我还是在中秋节前夕，在 AI 的帮助下完成了一些内容，辅助着国庆前的老本，堪堪写一些内容。
+已完成事项
 
-解决了上周博客留下来的问题，有了一个简陋但功能完备的网站 🥳。
-在 Tour of Go 上基本完成了所有内容的学习，包括切片、接口、并发等知识点。
-持续推进 Go by Example 的学习，目前完成 switch 部分，进入数组相关内容（不得不说gobyexample确实不赖，对于这些基础知识我也能学到新的特性）。
-做了一些学习笔记。
+学习了 SQL 的语法，在 sql 之母上完成了十几道题目，对 SQL 有了基本的了解
+学习了 Gorm 的概述、模型声明和 CRUD 接口等比较基础和简单的内容（自我感觉查询因为类似于 SQL 语法，更易懂点）
+完成了智能笔记项目的 CRUD 内容，并连接上了 MySQL 数据库
+
+下周计划 (可能)
+
+项目开发继续
+
+分层项目结构
+统一响应与错误处理
+.env 环境变量管理
+结构化日志
+&hellip;
 
 
-下周计划（可能）
+根据项目继续学习相关知识
 
-巩固已学知识，搞懂 Tour of Go 中的练习题。✅
-继续学习 Go by Example 的后续内容。✅
-（可能）了解一些常用标准库包的基本用法。
+Go 语言：错误处理、包管理、环境变量&hellip;
+Gin：路由分组、中间件&hellip;
+Gorm：tag、错误处理&hellip;
+
+
 ">
 
 
@@ -111,8 +136,8 @@
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "第二周总结",
-      "item": "https://sheep44044.github.io/weekly/2025-09-22-weekly2/"
+      "name": "第四周总结",
+      "item": "https://sheep44044.github.io/weekly/2025-10-07-weekly4/"
     }
   ]
 }
@@ -121,24 +146,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "第二周总结",
-  "name": "第二周总结",
-  "description": "第二周总结 完成事项 解决了上周博客留下来的问题，有了一个简陋但功能完备的网站 🥳。 在 Tour of Go 上基本完成了所有内容的学习，包括切片、接口、并发等知识点。 持续推进 Go by Example 的学习，目前完成 switch 部分，进入数组相关内容（不得不说gobyexample确实不赖，对于这些基础知识我也能学到新的特性）。 做了一些学习笔记。 下周计划（可能） 巩固已学知识，搞懂 Tour of Go 中的练习题。✅ 继续学习 Go by Example 的后续内容。✅ （可能）了解一些常用标准库包的基本用法。 ",
+  "headline": "第四周总结",
+  "name": "第四周总结",
+  "description": "第四周学习总结 由于上一周经历了国庆假期，星期一又是中秋节 🎑，所以拖着拖着，到了周二才开始写周报。不过，由于国庆假期摆烂的原因，也没什么好写的。但为了每周一份的周报，我还是在中秋节前夕，在 AI 的帮助下完成了一些内容，辅助着国庆前的老本，堪堪写一些内容。\n已完成事项 学习了 SQL 的语法，在 sql 之母上完成了十几道题目，对 SQL 有了基本的了解 学习了 Gorm 的概述、模型声明和 CRUD 接口等比较基础和简单的内容（自我感觉查询因为类似于 SQL 语法，更易懂点） 完成了智能笔记项目的 CRUD 内容，并连接上了 MySQL 数据库 下周计划 (可能) 项目开发继续 分层项目结构 统一响应与错误处理 .env 环境变量管理 结构化日志 \u0026hellip; 根据项目继续学习相关知识 Go 语言：错误处理、包管理、环境变量\u0026hellip; Gin：路由分组、中间件\u0026hellip; Gorm：tag、错误处理\u0026hellip; ",
   "keywords": [
     
   ],
-  "articleBody": "第二周总结 完成事项 解决了上周博客留下来的问题，有了一个简陋但功能完备的网站 🥳。 在 Tour of Go 上基本完成了所有内容的学习，包括切片、接口、并发等知识点。 持续推进 Go by Example 的学习，目前完成 switch 部分，进入数组相关内容（不得不说gobyexample确实不赖，对于这些基础知识我也能学到新的特性）。 做了一些学习笔记。 下周计划（可能） 巩固已学知识，搞懂 Tour of Go 中的练习题。✅ 继续学习 Go by Example 的后续内容。✅ （可能）了解一些常用标准库包的基本用法。 ",
-  "wordCount" : "29",
+  "articleBody": "第四周学习总结 由于上一周经历了国庆假期，星期一又是中秋节 🎑，所以拖着拖着，到了周二才开始写周报。不过，由于国庆假期摆烂的原因，也没什么好写的。但为了每周一份的周报，我还是在中秋节前夕，在 AI 的帮助下完成了一些内容，辅助着国庆前的老本，堪堪写一些内容。\n已完成事项 学习了 SQL 的语法，在 sql 之母上完成了十几道题目，对 SQL 有了基本的了解 学习了 Gorm 的概述、模型声明和 CRUD 接口等比较基础和简单的内容（自我感觉查询因为类似于 SQL 语法，更易懂点） 完成了智能笔记项目的 CRUD 内容，并连接上了 MySQL 数据库 下周计划 (可能) 项目开发继续 分层项目结构 统一响应与错误处理 .env 环境变量管理 结构化日志 … 根据项目继续学习相关知识 Go 语言：错误处理、包管理、环境变量… Gin：路由分组、中间件… Gorm：tag、错误处理… ",
+  "wordCount" : "39",
   "inLanguage": "en",
-  "datePublished": "2025-09-22T08:04:18+08:00",
-  "dateModified": "2025-09-22T08:04:18+08:00",
+  "datePublished": "2025-10-07T13:08:49+08:00",
+  "dateModified": "2025-10-07T13:08:49+08:00",
   "author":{
     "@type": "Person",
     "name": "Sheep44044"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://sheep44044.github.io/weekly/2025-09-22-weekly2/"
+    "@id": "https://sheep44044.github.io/weekly/2025-10-07-weekly4/"
   },
   "publisher": {
     "@type": "Organization",
@@ -226,9 +251,9 @@
   <header class="post-header">
     
     <h1 class="post-title entry-hint-parent">
-      第二周总结
+      第四周总结
     </h1>
-    <div class="post-meta"><span title='2025-09-22 08:04:18 +0800 CST'>September 22, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044
+    <div class="post-meta"><span title='2025-10-07 13:08:49 +0800 CST'>October 7, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044
 
 </div>
   </header> <div class="toc">
@@ -239,12 +264,12 @@
 
         <div class="inner"><ul>
                 <li>
-                    <a href="#%e7%ac%ac%e4%ba%8c%e5%91%a8%e6%80%bb%e7%bb%93" aria-label="第二周总结">第二周总结</a><ul>
+                    <a href="#%e7%ac%ac%e5%9b%9b%e5%91%a8%e5%ad%a6%e4%b9%a0%e6%80%bb%e7%bb%93" aria-label="第四周学习总结">第四周学习总结</a><ul>
                         
                 <li>
-                    <a href="#%e5%ae%8c%e6%88%90%e4%ba%8b%e9%a1%b9" aria-label="完成事项">完成事项</a></li>
+                    <a href="#%e5%b7%b2%e5%ae%8c%e6%88%90%e4%ba%8b%e9%a1%b9" aria-label="已完成事项">已完成事项</a></li>
                 <li>
-                    <a href="#%e4%b8%8b%e5%91%a8%e8%ae%a1%e5%88%92%e5%8f%af%e8%83%bd" aria-label="下周计划（可能）">下周计划（可能）</a>
+                    <a href="#%e4%b8%8b%e5%91%a8%e8%ae%a1%e5%88%92-%e5%8f%af%e8%83%bd" aria-label="下周计划 (可能)">下周计划 (可能)</a>
                 </li>
             </ul>
             </li>
@@ -253,20 +278,32 @@
     </details>
 </div>
 
-  <div class="post-content"><h1 id="第二周总结">第二周总结<a hidden class="anchor" aria-hidden="true" href="#第二周总结">#</a></h1>
-<h2 id="完成事项">完成事项<a hidden class="anchor" aria-hidden="true" href="#完成事项">#</a></h2>
+  <div class="post-content"><h1 id="第四周学习总结">第四周学习总结<a hidden class="anchor" aria-hidden="true" href="#第四周学习总结">#</a></h1>
+<p>由于上一周经历了国庆假期，星期一又是中秋节 🎑，所以拖着拖着，到了周二才开始写周报。不过，由于国庆假期摆烂的原因，也没什么好写的。但为了每周一份的周报，我还是在中秋节前夕，在 AI 的帮助下完成了一些内容，辅助着国庆前的老本，堪堪写一些内容。</p>
+<h2 id="已完成事项">已完成事项<a hidden class="anchor" aria-hidden="true" href="#已完成事项">#</a></h2>
 <ol>
-<li>解决了上周博客留下来的问题，有了一个简陋但功能完备的网站 🥳。</li>
-<li>在 <a href="https://tour.go-zh.org/">Tour of Go</a> 上基本完成了所有内容的学习，包括切片、接口、并发等知识点。</li>
-<li>持续推进 <a href="https://gobyexample.com/">Go by Example</a> 的学习，目前完成 <code>switch</code> 部分，进入数组相关内容（不得不说gobyexample确实不赖，对于这些基础知识我也能学到新的特性）。</li>
-<li>做了一些学习笔记。</li>
+<li>学习了 SQL 的语法，在 sql 之母上完成了十几道题目，对 SQL 有了基本的了解</li>
+<li>学习了 Gorm 的概述、模型声明和 CRUD 接口等比较基础和简单的内容（自我感觉查询因为类似于 SQL 语法，更易懂点）</li>
+<li>完成了智能笔记项目的 CRUD 内容，并连接上了 MySQL 数据库</li>
 </ol>
-<hr>
-<h2 id="下周计划可能">下周计划（可能）<a hidden class="anchor" aria-hidden="true" href="#下周计划可能">#</a></h2>
+<h2 id="下周计划-可能">下周计划 (可能)<a hidden class="anchor" aria-hidden="true" href="#下周计划-可能">#</a></h2>
 <ol>
-<li>巩固已学知识，搞懂 Tour of Go 中的练习题。✅</li>
-<li>继续学习 Go by Example 的后续内容。✅</li>
-<li>（可能）了解一些常用标准库包的基本用法。</li>
+<li><strong>项目开发继续</strong>
+<ul>
+<li>分层项目结构</li>
+<li>统一响应与错误处理</li>
+<li>.env 环境变量管理</li>
+<li>结构化日志</li>
+<li>&hellip;</li>
+</ul>
+</li>
+<li><strong>根据项目继续学习相关知识</strong>
+<ul>
+<li>Go 语言：错误处理、包管理、环境变量&hellip;</li>
+<li>Gin：路由分组、中间件&hellip;</li>
+<li>Gorm：tag、错误处理&hellip;</li>
+</ul>
+</li>
 </ol>
 
 
@@ -276,15 +313,10 @@
     <ul class="post-tags">
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://sheep44044.github.io/daily/2025-09-23-daily1/">
-    <span class="title">« Prev</span>
-    <br>
-    <span>巴拉巴拉</span>
-  </a>
-  <a class="next" href="https://sheep44044.github.io/posts/2025-09-19-interface/">
+  <a class="next" href="https://sheep44044.github.io/posts/2025-09-30-oop/">
     <span class="title">Next »</span>
     <br>
-    <span>Golang之接口</span>
+    <span>面向对象编程感悟</span>
   </a>
 </nav>
 

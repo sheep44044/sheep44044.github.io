@@ -6,8 +6,41 @@
     <description>Recent content in Weekly on sheep44044的小站</description>
     <generator>Hugo -- 0.147.4</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 29 Sep 2025 08:25:14 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 07 Oct 2025 13:08:49 +0800</lastBuildDate>
     <atom:link href="https://sheep44044.github.io/weekly/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第四周总结</title>
+      <link>https://sheep44044.github.io/weekly/2025-10-07-weekly4/</link>
+      <pubDate>Tue, 07 Oct 2025 13:08:49 +0800</pubDate>
+      <guid>https://sheep44044.github.io/weekly/2025-10-07-weekly4/</guid>
+      <description>&lt;h1 id=&#34;第四周学习总结&#34;&gt;第四周学习总结&lt;/h1&gt;
+&lt;p&gt;由于上一周经历了国庆假期，星期一又是中秋节 🎑，所以拖着拖着，到了周二才开始写周报。不过，由于国庆假期摆烂的原因，也没什么好写的。但为了每周一份的周报，我还是在中秋节前夕，在 AI 的帮助下完成了一些内容，辅助着国庆前的老本，堪堪写一些内容。&lt;/p&gt;
+&lt;h2 id=&#34;已完成事项&#34;&gt;已完成事项&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;学习了 SQL 的语法，在 sql 之母上完成了十几道题目，对 SQL 有了基本的了解&lt;/li&gt;
+&lt;li&gt;学习了 Gorm 的概述、模型声明和 CRUD 接口等比较基础和简单的内容（自我感觉查询因为类似于 SQL 语法，更易懂点）&lt;/li&gt;
+&lt;li&gt;完成了智能笔记项目的 CRUD 内容，并连接上了 MySQL 数据库&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;下周计划-可能&#34;&gt;下周计划 (可能)&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;项目开发继续&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;分层项目结构&lt;/li&gt;
+&lt;li&gt;统一响应与错误处理&lt;/li&gt;
+&lt;li&gt;.env 环境变量管理&lt;/li&gt;
+&lt;li&gt;结构化日志&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;根据项目继续学习相关知识&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;Go 语言：错误处理、包管理、环境变量&amp;hellip;&lt;/li&gt;
+&lt;li&gt;Gin：路由分组、中间件&amp;hellip;&lt;/li&gt;
+&lt;li&gt;Gorm：tag、错误处理&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
     <item>
       <title>第三周总结</title>
       <link>https://sheep44044.github.io/weekly/2025-09-29-weekly3/</link>
@@ -50,7 +83,7 @@
 &lt;/ol&gt;
 &lt;h2 id=&#34;下周计划-可能&#34;&gt;下周计划 (可能)&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;项目开发继续&lt;/strong&gt;
+&lt;li&gt;&lt;strong&gt;项目开发继续&lt;/strong&gt;✅
 &lt;ul&gt;
 &lt;li&gt;学习 &lt;code&gt;SQL&lt;/code&gt; 基础语法。&lt;/li&gt;
 &lt;li&gt;初步学习 &lt;code&gt;Gorm&lt;/code&gt;。&lt;/li&gt;
@@ -81,8 +114,8 @@
 &lt;hr&gt;
 &lt;h2 id=&#34;下周计划可能&#34;&gt;下周计划（可能）&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;巩固已学知识，搞懂 Tour of Go 中的练习题。&lt;/li&gt;
-&lt;li&gt;继续学习 Go by Example 的后续内容。&lt;/li&gt;
+&lt;li&gt;巩固已学知识，搞懂 Tour of Go 中的练习题。✅&lt;/li&gt;
+&lt;li&gt;继续学习 Go by Example 的后续内容。✅&lt;/li&gt;
 &lt;li&gt;（可能）了解一些常用标准库包的基本用法。&lt;/li&gt;
 &lt;/ol&gt;</description>
     </item>
@@ -119,7 +152,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;下周计划可能&#34;&gt;下周计划（可能）&lt;/h2&gt;
+&lt;h2 id=&#34;下周计划可能&#34;&gt;下周计划（可能）✅&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;解决博客的一个小问题：博客在互联网上登入时会错误跳转到本地。&lt;/li&gt;
 &lt;li&gt;复习 Golang 的知识。&lt;/li&gt;
