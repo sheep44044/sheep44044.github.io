@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Cookie Session Token理解笔记 | sheep44044的小站</title>
+<meta name="keywords" content="">
+<meta name="description" content="作为初学者，之前对于cookie、session和token的概念老是搞不清楚，现在搞懂了一些，就赶紧记下这一刻的知识，方便以后的查询。
+
+历史的演进是：Cookie -&gt; Session (基于Cookie) -&gt; Token (尤其是JWT)。
+1. Cookie
+Cookie 本身不进行验证，它只是一个存储和传输机制，一个携带信息的工具。在session出现之前，Cookie直接存储用户信息，十分不安全。
+2. Session
+session一般结合cookie使用，是存储在服务器，它会在服务器储存相关信息，设置session并返回sessionid，sessionid存储在客户端，每次登陆用cookie带上sessionid，去寻找session验证。
+Session 验证：类似于“查账本”的方式。服务器收到Session ID后，需要去数据库或内存中查找这个ID对应的Session数据。
+因为需要为每个活跃用户存储一份数据，所以存储量 = 用户数量 × 每个用户的数据大小，所以导致了技术上的限制：
+
+Session数据存储在单个服务器的内存中
+在集群环境中，请求可能被负载均衡到不同服务器
+除非所有服务器共享Session存储（如Redis），否则无法识别用户
+
+3. Token
+token是存储在客户端的，相关信息存储在token的payload上，服务器只储存一个统一的密匙，用密匙进行验证。
+token验证：类似于“验证人民币”的方式。服务器中的密匙，根据token的header和payload验证签名。（header上的算法类似于开锁方法和说明书，密匙相当于那把钥匙，算法不等于密匙）
+因为只存储一份统一的密匙，所以存储量是个常量，天生符合分布式系统。
+4.安全性
+关于安全方面，不太清楚，就直接贴一下，AI的回答吧。
+
+Session 的安全核心是：Session ID 的保密性。一旦泄露，攻击者可以完全冒充用户，直到服务器端主动使其失效。
+Token 的安全核心是：签名验证和短生命周期。它的设计一定程度上接受了“令牌可能会被偷”的现实，但通过技术手段限制其破坏力。
+">
+<meta name="author" content="Sheep44044">
+<link rel="canonical" href="https://sheep44044.github.io/posts/2025-10-19-cookie/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" integrity="sha256-IhHKMWS&#43;eDACT2qtKzouUghDpk&#43;PBIRFw0AcEkmqBR0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://sheep44044.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://sheep44044.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://sheep44044.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://sheep44044.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://sheep44044.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://sheep44044.github.io/posts/2025-10-19-cookie/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://sheep44044.github.io/posts/2025-10-19-cookie/">
+  <meta property="og:site_name" content="sheep44044的小站">
+  <meta property="og:title" content="Cookie Session Token理解笔记">
+  <meta property="og:description" content="作为初学者，之前对于cookie、session和token的概念老是搞不清楚，现在搞懂了一些，就赶紧记下这一刻的知识，方便以后的查询。
+历史的演进是：Cookie -&gt; Session (基于Cookie) -&gt; Token (尤其是JWT)。
+1. Cookie Cookie 本身不进行验证，它只是一个存储和传输机制，一个携带信息的工具。在session出现之前，Cookie直接存储用户信息，十分不安全。
+2. Session session一般结合cookie使用，是存储在服务器，它会在服务器储存相关信息，设置session并返回sessionid，sessionid存储在客户端，每次登陆用cookie带上sessionid，去寻找session验证。
+Session 验证：类似于“查账本”的方式。服务器收到Session ID后，需要去数据库或内存中查找这个ID对应的Session数据。
+因为需要为每个活跃用户存储一份数据，所以存储量 = 用户数量 × 每个用户的数据大小，所以导致了技术上的限制：
+Session数据存储在单个服务器的内存中 在集群环境中，请求可能被负载均衡到不同服务器 除非所有服务器共享Session存储（如Redis），否则无法识别用户 3. Token token是存储在客户端的，相关信息存储在token的payload上，服务器只储存一个统一的密匙，用密匙进行验证。
+token验证：类似于“验证人民币”的方式。服务器中的密匙，根据token的header和payload验证签名。（header上的算法类似于开锁方法和说明书，密匙相当于那把钥匙，算法不等于密匙）
+因为只存储一份统一的密匙，所以存储量是个常量，天生符合分布式系统。
+4.安全性 关于安全方面，不太清楚，就直接贴一下，AI的回答吧。
+Session 的安全核心是：Session ID 的保密性。一旦泄露，攻击者可以完全冒充用户，直到服务器端主动使其失效。 Token 的安全核心是：签名验证和短生命周期。它的设计一定程度上接受了“令牌可能会被偷”的现实，但通过技术手段限制其破坏力。 ">
+  <meta property="og:locale" content="zh-CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-10-19T14:42:57+08:00">
+    <meta property="article:modified_time" content="2025-10-19T14:42:57+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cookie Session Token理解笔记">
+<meta name="twitter:description" content="作为初学者，之前对于cookie、session和token的概念老是搞不清楚，现在搞懂了一些，就赶紧记下这一刻的知识，方便以后的查询。
+
+历史的演进是：Cookie -&gt; Session (基于Cookie) -&gt; Token (尤其是JWT)。
+1. Cookie
+Cookie 本身不进行验证，它只是一个存储和传输机制，一个携带信息的工具。在session出现之前，Cookie直接存储用户信息，十分不安全。
+2. Session
+session一般结合cookie使用，是存储在服务器，它会在服务器储存相关信息，设置session并返回sessionid，sessionid存储在客户端，每次登陆用cookie带上sessionid，去寻找session验证。
+Session 验证：类似于“查账本”的方式。服务器收到Session ID后，需要去数据库或内存中查找这个ID对应的Session数据。
+因为需要为每个活跃用户存储一份数据，所以存储量 = 用户数量 × 每个用户的数据大小，所以导致了技术上的限制：
+
+Session数据存储在单个服务器的内存中
+在集群环境中，请求可能被负载均衡到不同服务器
+除非所有服务器共享Session存储（如Redis），否则无法识别用户
+
+3. Token
+token是存储在客户端的，相关信息存储在token的payload上，服务器只储存一个统一的密匙，用密匙进行验证。
+token验证：类似于“验证人民币”的方式。服务器中的密匙，根据token的header和payload验证签名。（header上的算法类似于开锁方法和说明书，密匙相当于那把钥匙，算法不等于密匙）
+因为只存储一份统一的密匙，所以存储量是个常量，天生符合分布式系统。
+4.安全性
+关于安全方面，不太清楚，就直接贴一下，AI的回答吧。
+
+Session 的安全核心是：Session ID 的保密性。一旦泄露，攻击者可以完全冒充用户，直到服务器端主动使其失效。
+Token 的安全核心是：签名验证和短生命周期。它的设计一定程度上接受了“令牌可能会被偷”的现实，但通过技术手段限制其破坏力。
+">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://sheep44044.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Cookie Session Token理解笔记",
+      "item": "https://sheep44044.github.io/posts/2025-10-19-cookie/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Cookie Session Token理解笔记",
+  "name": "Cookie Session Token理解笔记",
+  "description": "作为初学者，之前对于cookie、session和token的概念老是搞不清楚，现在搞懂了一些，就赶紧记下这一刻的知识，方便以后的查询。\n历史的演进是：Cookie -\u0026gt; Session (基于Cookie) -\u0026gt; Token (尤其是JWT)。\n1. Cookie Cookie 本身不进行验证，它只是一个存储和传输机制，一个携带信息的工具。在session出现之前，Cookie直接存储用户信息，十分不安全。\n2. Session session一般结合cookie使用，是存储在服务器，它会在服务器储存相关信息，设置session并返回sessionid，sessionid存储在客户端，每次登陆用cookie带上sessionid，去寻找session验证。\nSession 验证：类似于“查账本”的方式。服务器收到Session ID后，需要去数据库或内存中查找这个ID对应的Session数据。\n因为需要为每个活跃用户存储一份数据，所以存储量 = 用户数量 × 每个用户的数据大小，所以导致了技术上的限制：\nSession数据存储在单个服务器的内存中 在集群环境中，请求可能被负载均衡到不同服务器 除非所有服务器共享Session存储（如Redis），否则无法识别用户 3. Token token是存储在客户端的，相关信息存储在token的payload上，服务器只储存一个统一的密匙，用密匙进行验证。\ntoken验证：类似于“验证人民币”的方式。服务器中的密匙，根据token的header和payload验证签名。（header上的算法类似于开锁方法和说明书，密匙相当于那把钥匙，算法不等于密匙）\n因为只存储一份统一的密匙，所以存储量是个常量，天生符合分布式系统。\n4.安全性 关于安全方面，不太清楚，就直接贴一下，AI的回答吧。\nSession 的安全核心是：Session ID 的保密性。一旦泄露，攻击者可以完全冒充用户，直到服务器端主动使其失效。 Token 的安全核心是：签名验证和短生命周期。它的设计一定程度上接受了“令牌可能会被偷”的现实，但通过技术手段限制其破坏力。 ",
+  "keywords": [
+    
+  ],
+  "articleBody": "作为初学者，之前对于cookie、session和token的概念老是搞不清楚，现在搞懂了一些，就赶紧记下这一刻的知识，方便以后的查询。\n历史的演进是：Cookie -\u003e Session (基于Cookie) -\u003e Token (尤其是JWT)。\n1. Cookie Cookie 本身不进行验证，它只是一个存储和传输机制，一个携带信息的工具。在session出现之前，Cookie直接存储用户信息，十分不安全。\n2. Session session一般结合cookie使用，是存储在服务器，它会在服务器储存相关信息，设置session并返回sessionid，sessionid存储在客户端，每次登陆用cookie带上sessionid，去寻找session验证。\nSession 验证：类似于“查账本”的方式。服务器收到Session ID后，需要去数据库或内存中查找这个ID对应的Session数据。\n因为需要为每个活跃用户存储一份数据，所以存储量 = 用户数量 × 每个用户的数据大小，所以导致了技术上的限制：\nSession数据存储在单个服务器的内存中 在集群环境中，请求可能被负载均衡到不同服务器 除非所有服务器共享Session存储（如Redis），否则无法识别用户 3. Token token是存储在客户端的，相关信息存储在token的payload上，服务器只储存一个统一的密匙，用密匙进行验证。\ntoken验证：类似于“验证人民币”的方式。服务器中的密匙，根据token的header和payload验证签名。（header上的算法类似于开锁方法和说明书，密匙相当于那把钥匙，算法不等于密匙）\n因为只存储一份统一的密匙，所以存储量是个常量，天生符合分布式系统。\n4.安全性 关于安全方面，不太清楚，就直接贴一下，AI的回答吧。\nSession 的安全核心是：Session ID 的保密性。一旦泄露，攻击者可以完全冒充用户，直到服务器端主动使其失效。 Token 的安全核心是：签名验证和短生命周期。它的设计一定程度上接受了“令牌可能会被偷”的现实，但通过技术手段限制其破坏力。 ",
+  "wordCount" : "39",
+  "inLanguage": "en",
+  "datePublished": "2025-10-19T14:42:57+08:00",
+  "dateModified": "2025-10-19T14:42:57+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Sheep44044"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://sheep44044.github.io/posts/2025-10-19-cookie/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "sheep44044的小站",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sheep44044.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://sheep44044.github.io/" accesskey="h" title="sheep44044的小站 (Alt + H)">sheep44044的小站</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://sheep44044.github.io/" title="主页">
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sheep44044.github.io/about/" title="个人">
+                    <span>个人</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sheep44044.github.io/posts/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sheep44044.github.io/daily/" title="日常">
+                    <span>日常</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sheep44044.github.io/weekly/" title="周报">
+                    <span>周报</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Cookie Session Token理解笔记
+    </h1>
+    <div class="post-meta"><span title='2025-10-19 14:42:57 +0800 CST'>October 19, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#1-cookie" aria-label="1. Cookie">1. Cookie</a></li>
+                <li>
+                    <a href="#2-session" aria-label="2. Session">2. Session</a></li>
+                <li>
+                    <a href="#3-token" aria-label="3. Token">3. Token</a><ul>
+                        
+                <li>
+                    <a href="#4%e5%ae%89%e5%85%a8%e6%80%a7" aria-label="4.安全性">4.安全性</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>作为初学者，之前对于cookie、session和token的概念老是搞不清楚，现在搞懂了一些，就赶紧记下这一刻的知识，方便以后的查询。</p>
+<hr>
+<p>历史的演进是：<code>Cookie -&gt; Session (基于Cookie) -&gt; Token (尤其是JWT)</code>。</p>
+<h2 id="1-cookie">1. Cookie<a hidden class="anchor" aria-hidden="true" href="#1-cookie">#</a></h2>
+<p>Cookie 本身不进行验证，它只是一个存储和传输机制，一个携带信息的工具。在session出现之前，Cookie直接存储用户信息，十分不安全。</p>
+<h2 id="2-session">2. Session<a hidden class="anchor" aria-hidden="true" href="#2-session">#</a></h2>
+<p>session一般结合cookie使用，是存储在服务器，它会在服务器储存相关信息，设置session并返回sessionid，sessionid存储在客户端，每次登陆用cookie带上sessionid，去寻找session验证。</p>
+<p><strong>Session 验证</strong>：类似于“<strong>查账本</strong>”的方式。服务器收到Session ID后，需要去数据库或内存中<strong>查找</strong>这个ID对应的Session数据。</p>
+<p>因为需要为每个活跃用户存储一份数据，所以<strong>存储量 = 用户数量 × 每个用户的数据大小</strong>，所以导致了技术上的限制：</p>
+<ul>
+<li>Session数据存储在<strong>单个服务器</strong>的内存中</li>
+<li>在集群环境中，请求可能被负载均衡到不同服务器</li>
+<li>除非所有服务器共享Session存储（如Redis），否则无法识别用户</li>
+</ul>
+<h2 id="3-token">3. Token<a hidden class="anchor" aria-hidden="true" href="#3-token">#</a></h2>
+<p>token是存储在客户端的，相关信息存储在token的payload上，服务器只储存一个统一的密匙，用密匙进行验证。</p>
+<p><strong>token验证</strong>：类似于“<strong>验证人民币</strong>”的方式。服务器中的密匙，根据token的header和payload验证签名。（header上的算法类似于开锁方法和说明书，密匙相当于那把钥匙，<strong>算法不等于密匙</strong>）</p>
+<p>因为只<strong>存储一份统一的密匙</strong>，所以存储量是个常量，天生符合分布式系统。</p>
+<h3 id="4安全性">4.安全性<a hidden class="anchor" aria-hidden="true" href="#4安全性">#</a></h3>
+<p>关于安全方面，不太清楚，就直接贴一下，AI的回答吧。</p>
+<ul>
+<li><strong>Session 的安全核心</strong>是：Session ID 的<strong>保密性</strong>。一旦泄露，攻击者可以完全冒充用户，直到服务器端主动使其失效。</li>
+<li><strong>Token 的安全核心</strong>是：<strong>签名验证</strong>和<strong>短生命周期</strong>。它的设计一定程度上接受了“令牌可能会被偷”的现实，但通过技术手段限制其破坏力。</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://sheep44044.github.io/weekly/2025-10-13-weekly5/">
+    <span class="title">Next »</span>
+    <br>
+    <span>第五周总结</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://sheep44044.github.io/">sheep44044的小站</a></span> · 
+        © 2025 我的网站 | <a href="/privacy">隐私政策</a> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
