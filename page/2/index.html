@@ -155,6 +155,29 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Golang之接口
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Golang之接口 接口是我在tour of go上遇到的第一个难点，因此我打算再开一篇来着重记录，不仅是当下对此的沉淀与思考，也是对未来的提醒与照应。为了方便自己的查看，便独立于之前的知识碎片。
+接口（interface） 接口的定义 接口（Interface）本质上就是定义了一组方法签名（Method Signatures）的集合。它只关心**“做什么”，而不关心“怎么做”**。
+它规定：“任何类型，只要你实现了我的合同里规定的所有这些方法，那我就认为你实现了这个接口。”
+每个接口类型由任意个方法签名组成，接口的定义格式如下：
+type 接口类型名 interface{ 方法名1( 参数列表1 ) 返回值列表1 方法名2( 参数列表2 ) 返回值列表2 … } 如何实现接口？（“隐式实现”） Go 接口的实现是 “隐式” 的。这意味着你不需要像 Java 那样明确地写 implements Speaker。只需要让这个类型拥有接口里规定的所有方法，它就自动实现了该接口！
+这是 Go 的哲学——“鸭子类型”（如果它走起来像鸭子，叫起来像鸭子，那它就是鸭子）。
+接口值 接口也是值。它们可以像其它值一样传递。
+接口值可以用作函数的参数或返回值。
+接口值可以看作两部分具体类型和该类型的值。
+可以把接口值想象成一个特殊的“盒子”。
+这个盒子上贴着一个标签，写着里面装的东西的类型（*main.Dog）。 盒子里装着实际的值（一个 Dog 结构体的实例）。 var s Speaker // 接口变量 s，此时它是一个空的“盒子”，里面是 nil s = Dog{Name: &#34;Rex&#34;} // 赋值后，s 这个“盒子”里： // - 标签：main.Dog // - 值：{Rex} fmt.Printf(&#34;(%v, %T)\n&#34;, s, s) // 输出：({Rex}, main.Dog) // 值部分 和 类型部分 当你调用 s.Speak() 时，Go 会打开这个“盒子”，根据标签找到类型 Dog，然后执行 Dog 的 Speak 方法。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-09-20 13:33:54 +0800 CST'>September 20, 2025</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Sheep44044</footer>
+  <a class="entry-link" aria-label="post link to Golang之接口" href="https://sheep44044.github.io/posts/2025-09-19-interface/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Golang的知识碎片（基础篇）
     </h2>
   </header>
@@ -197,11 +220,11 @@ tips
     </h2>
   </header>
   <div class="entry-content">
-    <p>第一周总结 本周主要完成了以下三件事情：
+    <p>本周主要完成了以下三件事情：
 完成事项 熟悉 Mac 并配置软件环境
 开始熟悉 macOS 操作系统。 使用 Jetbrans Toolbox 安装 Goland 等开发工具。 通过 Homebrew 包管理器安装并管理 Git、Typora 等软件。 学习并使用 Git
 通过教程网站 learngitbranching.js.org 的git小游戏来学习和练习 Git 操作。 成功配置 Git 并与我的 GitHub 账户进行关联。 实现了在 Goland IDE 中集成并使用 Git。 利用 Hugo 搭建博客
-使用 Hugo 静态网站生成器初步搭建了个人博客。 实现了基本功能：主页文章展示、包含“文章”和“周报”等菜单的导航栏。 下周计划 ✅ 解决博客的一个小问题：博客在互联网上登入时会错误跳转到本地。 复习 Golang 的知识。 </p>
+使用 Hugo 静态网站生成器初步搭建了个人博客。 实现了基本功能：主页文章展示、包含“文章”和“周报”等菜单的导航栏。 下周计划 解决博客的一个小问题：博客在互联网上登入时会错误跳转到本地。✅ 复习 Golang 的知识。✅ </p>
   </div>
   <footer class="entry-footer"><span title='2025-09-13 15:29:49 +0800 CST'>September 13, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
   <a class="entry-link" aria-label="post link to 第一周总结" href="https://sheep44044.github.io/weekly/weekly-1/"></a>

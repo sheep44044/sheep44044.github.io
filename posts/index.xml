@@ -31,7 +31,7 @@
 &lt;p&gt;token是存储在客户端的，相关信息存储在token的payload上，服务器只储存一个统一的密匙，用密匙进行验证。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;token验证&lt;/strong&gt;：类似于“&lt;strong&gt;验证人民币&lt;/strong&gt;”的方式。服务器中的密匙，根据token的header和payload验证签名。（header上的算法类似于开锁方法和说明书，密匙相当于那把钥匙，&lt;strong&gt;算法不等于密匙&lt;/strong&gt;）&lt;/p&gt;
 &lt;p&gt;因为只&lt;strong&gt;存储一份统一的密匙&lt;/strong&gt;，所以存储量是个常量，天生符合分布式系统。&lt;/p&gt;
-&lt;h3 id=&#34;4安全性&#34;&gt;4.安全性&lt;/h3&gt;
+&lt;h2 id=&#34;4-安全性&#34;&gt;4. 安全性&lt;/h2&gt;
 &lt;p&gt;关于安全方面，不太清楚，就直接贴一下，AI的回答吧。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Session 的安全核心&lt;/strong&gt;是：Session ID 的&lt;strong&gt;保密性&lt;/strong&gt;。一旦泄露，攻击者可以完全冒充用户，直到服务器端主动使其失效。&lt;/li&gt;

@@ -177,6 +177,19 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">第六周总结
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>这一周原本是大复特习的节奏，不过由于学校期中考的离谱安排，大学物理与概率论隔了两周时间，所以我就继续边学习边完成项目了。不过，有一说一，我觉得之前缺乏学习热情导致的原因还是陌生导致的，觉得很难，其实tag和原本的没什么不同，加个many2many，修改一下原本对tag的支持就基本完成了。
+已完成事项 完成了物理知识的复习（刷题之后再说吧） 完成了tag系统，并学习了Gorm的相关知识：many2many，关联模式的association()、replace()等 了解了cookie、session和token的知识概念，并在post记录了下来 了解了jwt的知识概念，跟着csdn上的一篇博客https://blog.csdn.net/hsuhwsb/article/details/149157912初步学习了利用 jwt 包实现 web 鉴权 下周计划 数据结构刷点题（要考试了）🫠 学习Viper来进行配置管理 仿着csdn的那篇博客， 来实现 JWT 工具、编写登录/注册接口和编写鉴权中间件 </p>
+  </div>
+  <footer class="entry-footer"><span title='2025-10-20 08:01:01 +0800 CST'>October 20, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
+  <a class="entry-link" aria-label="post link to 第六周总结" href="https://sheep44044.github.io/weekly/2025-10-20-weekly6/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Cookie Session Token理解笔记
     </h2>
   </header>
@@ -190,7 +203,7 @@ Session 验证：类似于“查账本”的方式。服务器收到Session ID�
 Session数据存储在单个服务器的内存中 在集群环境中，请求可能被负载均衡到不同服务器 除非所有服务器共享Session存储（如Redis），否则无法识别用户 3. Token token是存储在客户端的，相关信息存储在token的payload上，服务器只储存一个统一的密匙，用密匙进行验证。
 token验证：类似于“验证人民币”的方式。服务器中的密匙，根据token的header和payload验证签名。（header上的算法类似于开锁方法和说明书，密匙相当于那把钥匙，算法不等于密匙）
 因为只存储一份统一的密匙，所以存储量是个常量，天生符合分布式系统。
-4.安全性 关于安全方面，不太清楚，就直接贴一下，AI的回答吧。
+4. 安全性 关于安全方面，不太清楚，就直接贴一下，AI的回答吧。
 Session 的安全核心是：Session ID 的保密性。一旦泄露，攻击者可以完全冒充用户，直到服务器端主动使其失效。 Token 的安全核心是：签名验证和短生命周期。它的设计一定程度上接受了“令牌可能会被偷”的现实，但通过技术手段限制其破坏力。 </p>
   </div>
   <footer class="entry-footer"><span title='2025-10-19 14:42:57 +0800 CST'>October 19, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
@@ -203,8 +216,8 @@ Session 的安全核心是：Session ID 的保密性。一旦泄露，攻击者�
     </h2>
   </header>
   <div class="entry-content">
-    <p>第五周学习总结 这一周可以以国庆为界可以分为两部分，第一部分是国企时期的对项目的推进即相关知识的学习。不过不知道是因为项目变复杂了，还是学习时间太久，感觉有点倦怠了🫩，于是，我便开始第二段是对期中考的学习。
-已完成事项 对 Gin 的继续学习，主要学习了路由组、使用中间件、自定义中间件、使用 BasicAuth 中间件的内容、JSON 的模型绑定和验证和自定义响应格式（不过现在有点忘了是什么了🫠） 对上周 Gorm 的复习，感觉基础的 Gorm 就是在 db.delete() 这些基础方法再加上 model()、where() 等来实现更多的、更准确的功能，也学习了 iserror 的错误判断 在 AI 的帮助下，实现了基本的分层项目结构，基本完成了上周的预期目标，理解了相关的内容（但是感觉如果自己独立写有点虚🫠） 开始期中考的学习，数据结构的知识基本学习完成（不过做题效果不是很好），通过蜂考学习大学物理的电磁学内容（至高斯定理部分），刚选择好概率论的 b 站视频😇 下周计划 继续期中考知识的学习 如果学的快的话，会给项目写一个 tag 系统，为了从零搭建的实践，就像前面说的，感觉自己独立写有点虚🫠。不改变内容，转换成 md 格式 </p>
+    <p>这一周可以以国庆为界可以分为两部分，第一部分是国企时期的对项目的推进即相关知识的学习。不过不知道是因为项目变复杂了，还是学习时间太久，感觉有点倦怠了🫩，于是，我便开始第二段是对期中考的学习。
+已完成事项 对 Gin 的继续学习，主要学习了路由组、使用中间件、自定义中间件、使用 BasicAuth 中间件的内容、JSON 的模型绑定和验证和自定义响应格式（不过现在有点忘了是什么了🫠） 对上周 Gorm 的复习，感觉基础的 Gorm 就是在 db.delete() 这些基础方法再加上 model()、where() 等来实现更多的、更准确的功能，也学习了 iserror 的错误判断 在 AI 的帮助下，实现了基本的分层项目结构，基本完成了上周的预期目标，理解了相关的内容（但是感觉如果自己独立写有点虚🫠） 开始期中考的学习，数据结构的知识基本学习完成（不过做题效果不是很好），通过蜂考学习大学物理的电磁学内容（至高斯定理部分），刚选择好概率论的 b 站视频😇 下周计划 继续期中考知识的学习✅ 如果学的快的话，会给项目写一个 tag 系统，为了从零搭建的实践，就像前面说的，感觉自己独立写有点虚🫠。✅ </p>
   </div>
   <footer class="entry-footer"><span title='2025-10-13 09:01:39 +0800 CST'>October 13, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
   <a class="entry-link" aria-label="post link to 第五周总结" href="https://sheep44044.github.io/weekly/2025-10-13-weekly5/"></a>
@@ -216,7 +229,7 @@ Session 的安全核心是：Session ID 的保密性。一旦泄露，攻击者�
     </h2>
   </header>
   <div class="entry-content">
-    <p>第四周学习总结 由于上一周经历了国庆假期，星期一又是中秋节 🎑，所以拖着拖着，到了周二才开始写周报。不过，由于国庆假期摆烂的原因，也没什么好写的。但为了每周一份的周报，我还是在中秋节前夕，在 AI 的帮助下完成了一些内容，辅助着国庆前的老本，堪堪写一些内容。
+    <p>由于上一周经历了国庆假期，星期一又是中秋节 🎑，所以拖着拖着，到了周二才开始写周报。不过，由于国庆假期摆烂的原因，也没什么好写的。但为了每周一份的周报，我还是在中秋节前夕，在 AI 的帮助下完成了一些内容，辅助着国庆前的老本，堪堪写一些内容。
 已完成事项 学习了 SQL 的语法，在 sql 之母上完成了十几道题目，对 SQL 有了基本的了解 学习了 Gorm 的概述、模型声明和 CRUD 接口等比较基础和简单的内容（自我感觉查询因为类似于 SQL 语法，更易懂点） 完成了智能笔记项目的 CRUD 内容，并连接上了 MySQL 数据库 下周计划 项目开发继续✅ 分层项目结构 统一响应与错误处理 .env 环境变量管理 结构化日志 … 根据项目继续学习相关知识 Go 语言：错误处理、包管理、环境变量… Gin：路由分组、中间件…✅ Gorm：tag、错误处理…✅ </p>
   </div>
   <footer class="entry-footer"><span title='2025-10-07 13:08:49 +0800 CST'>October 7, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
@@ -265,7 +278,7 @@ package main import &#34;fmt&#34; // 定义结构体（类似类） type Person 
     </h2>
   </header>
   <div class="entry-content">
-    <p>第三周学习总结 已完成事项 Go 语言学习 完成了 Tour of Go 的大部分练习。 但是也跳过了一些练习，image 接口等内容目前不急需；二叉查找树 等概念需要继续沉淀。 Go by Example 推进 已学习到 goroutine 的 rate-limiting 部分。 重点学习了闭包和goroutine及其timer、tickers、waitgroup 等内容。 但是也跳过了 范型、枚举、迭代器的 range 等目前不会的内容。 项目开发 - 智能笔记 开始完成智能笔记项目，准备一边学一边开发。 迈出第一步：成功让 API 服务运行起来。 Gin 框架学习 初步开始Gin的学习，掌握了 HTTP 方法、路由、路由参数、JSON、Query 和 Post Form 的使用。 计划在后续开发 JWT、日志 等功能时进行更深入的学习。 工具与环境 安装了 Postman、MySQL 等开发工具。 成功申请了 GitHub 教育福利（费了我好大劲，在使用 VPN 的情况下）。 下周计划 项目开发继续✅ 学习 SQL 基础语法。 初步学习 Gorm。 实现笔记的完整 CRUD 功能。 实现数据持久化，接入 MySQL 数据库。 学校课业（可能） 可能需要回顾学校知识，为 10 月中下旬 的期中考做准备。 </p>
+    <p>已完成事项 Go 语言学习 完成了 Tour of Go 的大部分练习。 但是也跳过了一些练习，image 接口等内容目前不急需；二叉查找树 等概念需要继续沉淀。 Go by Example 推进 已学习到 goroutine 的 rate-limiting 部分。 重点学习了闭包和goroutine及其timer、tickers、waitgroup 等内容。 但是也跳过了 范型、枚举、迭代器的 range 等目前不会的内容。 项目开发 - 智能笔记 开始完成智能笔记项目，准备一边学一边开发。 迈出第一步：成功让 API 服务运行起来。 Gin 框架学习 初步开始Gin的学习，掌握了 HTTP 方法、路由、路由参数、JSON、Query 和 Post Form 的使用。 计划在后续开发 JWT、日志 等功能时进行更深入的学习。 工具与环境 安装了 Postman、MySQL 等开发工具。 成功申请了 GitHub 教育福利（费了我好大劲，在使用 VPN 的情况下）。 下周计划 项目开发继续✅ 学习 SQL 基础语法。 初步学习 Gorm。 实现笔记的完整 CRUD 功能。 实现数据持久化，接入 MySQL 数据库。 学校课业（可能） 可能需要回顾学校知识，为 10 月中下旬 的期中考做准备。 </p>
   </div>
   <footer class="entry-footer"><span title='2025-09-29 08:25:14 +0800 CST'>September 29, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
   <a class="entry-link" aria-label="post link to 第三周总结" href="https://sheep44044.github.io/weekly/2025-09-29-weekly3/"></a>
@@ -309,33 +322,10 @@ Go 中的字符串、字节、符文和字符
     </h2>
   </header>
   <div class="entry-content">
-    <p>第二周总结 完成事项 解决了上周博客留下来的问题，有了一个简陋但功能完备的网站 🥳。 在 Tour of Go 上基本完成了所有内容的学习，包括切片、接口、并发等知识点。 持续推进 Go by Example 的学习，目前完成 switch 部分，进入数组相关内容（不得不说gobyexample确实不赖，对于这些基础知识我也能学到新的特性）。 做了一些学习笔记。 下周计划 巩固已学知识，搞懂 Tour of Go 中的练习题。✅ 继续学习 Go by Example 的后续内容。✅ （可能）了解一些常用标准库包的基本用法。 </p>
+    <p>完成事项 解决了上周博客留下来的问题，有了一个简陋但功能完备的网站 🥳。 在 Tour of Go 上基本完成了所有内容的学习，包括切片、接口、并发等知识点。 持续推进 Go by Example 的学习，目前完成 switch 部分，进入数组相关内容（不得不说gobyexample确实不赖，对于这些基础知识我也能学到新的特性）。 做了一些学习笔记。 下周计划 巩固已学知识，搞懂 Tour of Go 中的练习题。✅ 继续学习 Go by Example 的后续内容。✅ （可能）了解一些常用标准库包的基本用法。 </p>
   </div>
   <footer class="entry-footer"><span title='2025-09-22 08:04:18 +0800 CST'>September 22, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
   <a class="entry-link" aria-label="post link to 第二周总结" href="https://sheep44044.github.io/weekly/2025-09-22-weekly2/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Golang之接口
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Golang之接口 接口是我在tour of go上遇到的第一个难点，因此我打算再开一篇来着重记录，不仅是当下对此的沉淀与思考，也是对未来的提醒与照应。为了方便自己的查看，便独立于之前的知识碎片。
-接口（interface） 接口的定义 接口（Interface）本质上就是定义了一组方法签名（Method Signatures）的集合。它只关心**“做什么”，而不关心“怎么做”**。
-它规定：“任何类型，只要你实现了我的合同里规定的所有这些方法，那我就认为你实现了这个接口。”
-每个接口类型由任意个方法签名组成，接口的定义格式如下：
-type 接口类型名 interface{ 方法名1( 参数列表1 ) 返回值列表1 方法名2( 参数列表2 ) 返回值列表2 … } 如何实现接口？（“隐式实现”） Go 接口的实现是 “隐式” 的。这意味着你不需要像 Java 那样明确地写 implements Speaker。只需要让这个类型拥有接口里规定的所有方法，它就自动实现了该接口！
-这是 Go 的哲学——“鸭子类型”（如果它走起来像鸭子，叫起来像鸭子，那它就是鸭子）。
-接口值 接口也是值。它们可以像其它值一样传递。
-接口值可以用作函数的参数或返回值。
-接口值可以看作两部分具体类型和该类型的值。
-可以把接口值想象成一个特殊的“盒子”。
-这个盒子上贴着一个标签，写着里面装的东西的类型（*main.Dog）。 盒子里装着实际的值（一个 Dog 结构体的实例）。 var s Speaker // 接口变量 s，此时它是一个空的“盒子”，里面是 nil s = Dog{Name: &#34;Rex&#34;} // 赋值后，s 这个“盒子”里： // - 标签：main.Dog // - 值：{Rex} fmt.Printf(&#34;(%v, %T)\n&#34;, s, s) // 输出：({Rex}, main.Dog) // 值部分 和 类型部分 当你调用 s.Speak() 时，Go 会打开这个“盒子”，根据标签找到类型 Dog，然后执行 Dog 的 Speak 方法。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-09-20 13:33:54 +0800 CST'>September 20, 2025</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Sheep44044</footer>
-  <a class="entry-link" aria-label="post link to Golang之接口" href="https://sheep44044.github.io/posts/2025-09-19-interface/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
