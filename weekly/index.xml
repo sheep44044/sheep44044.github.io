@@ -13,13 +13,13 @@
       <link>https://sheep44044.github.io/weekly/2025-10-20-weekly6/</link>
       <pubDate>Mon, 20 Oct 2025 08:01:01 +0800</pubDate>
       <guid>https://sheep44044.github.io/weekly/2025-10-20-weekly6/</guid>
-      <description>&lt;p&gt;这一周原本是大复特习的节奏，不过由于学校期中考的离谱安排，大学物理与概率论隔了两周时间，所以我就继续边学习边完成项目了。不过，有一说一，我觉得之前缺乏学习热情导致的原因还是陌生导致的，觉得很难，其实tag和原本的没什么不同，加个many2many，修改一下原本对tag的支持就基本完成了。&lt;/p&gt;
+      <description>&lt;p&gt;​	这一周原本是大复特习的节奏，不过由于学校期中考的离谱安排，大学物理与概率论隔了两周时间，所以我就继续边学习边完成项目了。不过，有一说一，我觉得之前缺乏学习热情导致的原因还是陌生导致的，觉得很难，其实tag和原本的没什么不同，加个many2many，修改一下原本对tag的支持就基本完成了。&lt;/p&gt;
 &lt;h2 id=&#34;已完成事项&#34;&gt;已完成事项&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;完成了物理知识的复习（刷题之后再说吧）&lt;/li&gt;
 &lt;li&gt;完成了tag系统，并学习了Gorm的相关知识：many2many，关联模式的association()、replace()等&lt;/li&gt;
 &lt;li&gt;了解了cookie、session和token的知识概念，并在post记录了下来&lt;/li&gt;
-&lt;li&gt;了解了jwt的知识概念，跟着csdn上的一篇博客https://blog.csdn.net/hsuhwsb/article/details/149157912初步学习了利用 jwt 包实现 web 鉴权&lt;/li&gt;
+&lt;li&gt;了解了jwt的知识概念，跟着csdn上的一篇博客&lt;a href=&#34;https://blog.csdn.net/hsuhwsb/article/details/149157912&#34;&gt;Gin 框架中如何实现 JWT 鉴权中间件&lt;/a&gt;初步学习了利用 jwt 包实现 web 鉴权&lt;/li&gt;
 &lt;/ol&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;下周计划&#34;&gt;下周计划&lt;/h2&gt;
@@ -34,7 +34,7 @@
       <link>https://sheep44044.github.io/weekly/2025-10-13-weekly5/</link>
       <pubDate>Mon, 13 Oct 2025 09:01:39 +0800</pubDate>
       <guid>https://sheep44044.github.io/weekly/2025-10-13-weekly5/</guid>
-      <description>&lt;p&gt;这一周可以以国庆为界可以分为两部分，第一部分是国企时期的对项目的推进即相关知识的学习。不过不知道是因为项目变复杂了，还是学习时间太久，感觉有点倦怠了🫩，于是，我便开始第二段是对期中考的学习。&lt;/p&gt;
+      <description>&lt;p&gt;​	这一周可以以国庆为界可以分为两部分，第一部分是国企时期的对项目的推进即相关知识的学习。不过不知道是因为项目变复杂了，还是学习时间太久，感觉有点倦怠了🫩，于是，我便开始第二段是对期中考的学习。&lt;/p&gt;
 &lt;h2 id=&#34;已完成事项&#34;&gt;已完成事项&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;对 Gin 的继续学习，主要学习了路由组、使用中间件、自定义中间件、使用 BasicAuth 中间件的内容、JSON 的模型绑定和验证和自定义响应格式（不过现在有点忘了是什么了🫠）&lt;/li&gt;
@@ -54,7 +54,7 @@
       <link>https://sheep44044.github.io/weekly/2025-10-07-weekly4/</link>
       <pubDate>Tue, 07 Oct 2025 13:08:49 +0800</pubDate>
       <guid>https://sheep44044.github.io/weekly/2025-10-07-weekly4/</guid>
-      <description>&lt;p&gt;由于上一周经历了国庆假期，星期一又是中秋节 🎑，所以拖着拖着，到了周二才开始写周报。不过，由于国庆假期摆烂的原因，也没什么好写的。但为了每周一份的周报，我还是在中秋节前夕，在 AI 的帮助下完成了一些内容，辅助着国庆前的老本，堪堪写一些内容。&lt;/p&gt;
+      <description>&lt;p&gt;​	由于上一周经历了国庆假期，星期一又是中秋节 🎑，所以拖着拖着，到了周二才开始写周报。不过，由于国庆假期摆烂的原因，也没什么好写的。但为了每周一份的周报，我还是在中秋节前夕，在 AI 的帮助下完成了一些内容，辅助着国庆前的老本，堪堪写一些内容。&lt;/p&gt;
 &lt;h2 id=&#34;已完成事项&#34;&gt;已完成事项&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;学习了 SQL 的语法，在 sql 之母上完成了十几道题目，对 SQL 有了基本的了解&lt;/li&gt;

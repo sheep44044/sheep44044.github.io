@@ -6,8 +6,34 @@
     <description>Recent content in Daily on sheep44044的小站</description>
     <generator>Hugo -- 0.147.4</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 29 Sep 2025 09:33:43 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 26 Oct 2025 20:45:46 +0800</lastBuildDate>
     <atom:link href="https://sheep44044.github.io/daily/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>焦虑随想</title>
+      <link>https://sheep44044.github.io/daily/2025-10-26-daily4/</link>
+      <pubDate>Sun, 26 Oct 2025 20:45:46 +0800</pubDate>
+      <guid>https://sheep44044.github.io/daily/2025-10-26-daily4/</guid>
+      <description>&lt;p&gt;可能是因为我渴望完美，却又深感自己的不足，所以我发现自己是个很喜欢听鸡汤的人——希望用那些励志的话语同时麻痹和激励自己。记得曾听过这样一句话：“人们总是高估短时间内的努力，又低估长时间的努力。”&lt;/p&gt;
+&lt;p&gt;最近看到一位技术大神在他的博客中写道：“在准备一个能帮我找到第一段实习的项目，再配一个工作室的小程序可能差不多？之后就得复习八股文准备面试了。但感觉在此之前，还有好多东西没学，像最近流行的agent技术，还有一直想学的k8s也只是浅尝辄止。或许，还是我太着急了吧。”&lt;/p&gt;
+&lt;p&gt;我不知道他的焦虑是否真实，但这些话确实引发了我的焦虑。同样处于大二上学期，当别人已经掌握了那么多技术时，我还在学习如何使用viper和zap这样基础的工具来完成一个小项目。诚然，别人从大一甚至更早就开始学习Golang，而我真正学习这门语言，不过一个半月而已。&lt;/p&gt;
+&lt;p&gt;但现实不像游戏存档，它不会看你单位时间内的成长速度，只会在同一时间轴上比较每个人的成就，然后毫不留情地展示出我的弱小。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;最近因杨振宁先生逝世，我在知乎上了解到了他的老师费米的故事。费米曾在一门课程的导论中写道：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;加州理工是座优秀的大学，它必须不断筛选学生。能够来到这里的学生无不是优秀的。但在加州理工有这么一个现实问题：&lt;strong&gt;总有一半的同学会位于后50%&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;对于这个问题，有人觉得可笑，但这确实是个需要正视的问题。费米认为，这里的学生最大的挑战其实是心理问题。&lt;/p&gt;
+&lt;p&gt;如果有位排名后20%的学生来找他，说自己无论如何都学不会这门课，不知该怎么办。费米会这样回答：&lt;/p&gt;
+&lt;p&gt;“你能够来到加州理工，说明你已经从几十上百名同辈中脱颖而出。现在你在这里排名后20%，你可以选择接受这个现实，这无可厚非。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;或者，你可以不理性地看待现状&lt;/strong&gt;——虽然你位于后20%，但在这个群体中你可能是前几名。避免让现状影响你的心态，同时理性地继续努力。最终，你或许会成为前面的几名。”&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;就像这个故事所说，虽然我身在一所双非院校，无法与加州理工相提并论，但我同样可以用这种“不理性”来暂时麻痹自己：牛客上确实有人在几个月内抱佛脚成功，小黑盒上类似的例子更是数不胜数……&lt;/p&gt;
+&lt;p&gt;但我知道，焦虑不会就此消失。毕竟我已经大二了——大二的同辈有一年的学习积累，大一的新生又潜力无限。时间，终究不是站在我这边的&amp;hellip;&lt;/p&gt;
+&lt;p&gt;我不是《凡人修仙传》里的韩立，我没有小绿瓶，我也没有什么机缘，我只是一名普通的邮兵。我只能继续学习啊&amp;hellip;也许等未来我成为了一名架构师，维护着上亿人使用的app时，也会焦虑吧&amp;hellip;&lt;/p&gt;
+&lt;p&gt;不过现在的我身处迷雾之中，而未来又在何方呢？&lt;/p&gt;
+&lt;p&gt;焦虑啊，焦虑啊&amp;hellip;&lt;/p&gt;
+&lt;p&gt;也许成长就是这样——&lt;strong&gt;一边焦虑，一边向前&lt;/strong&gt;&amp;hellip;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;写于 2025年10月26日 晚&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>愚蠢的我和GitHub教育</title>
       <link>https://sheep44044.github.io/daily/2025-09-28-daily3/</link>
