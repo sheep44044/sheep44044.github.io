@@ -6,8 +6,28 @@
     <description>Recent content in Weekly on sheep44044的小站</description>
     <generator>Hugo -- 0.147.4</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 20 Oct 2025 08:01:01 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 27 Oct 2025 08:38:15 +0800</lastBuildDate>
     <atom:link href="https://sheep44044.github.io/weekly/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第七周总结</title>
+      <link>https://sheep44044.github.io/weekly/2025-10-27-weekly7/</link>
+      <pubDate>Mon, 27 Oct 2025 08:38:15 +0800</pubDate>
+      <guid>https://sheep44044.github.io/weekly/2025-10-27-weekly7/</guid>
+      <description>&lt;p&gt;这一周我感觉过得挺失败的☹️，虽然顺利完成了数据结构的考试，也在项目上更进一步（虽然依靠了AI的帮助），但是感觉效率不是很高，有点焦虑和倦怠。正如我在之前吐槽到别人真的太强了，我还在吭哧吭哧学习。不过这里就不多焦虑了。下周有大学物理和离散结构的考试，主要是复习，有机会的话理解回顾一下代码（有些ai生成的没理解）和学习一下bcrypt加密。&lt;/p&gt;
+&lt;h2 id=&#34;已完成事项&#34;&gt;已完成事项&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;成功完成数据结构考试&lt;/li&gt;
+&lt;li&gt;Viper来进行配置管理&lt;/li&gt;
+&lt;li&gt;实现jwt的鉴权&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;下周计划&#34;&gt;下周计划&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;复习大学物理&lt;/li&gt;
+&lt;li&gt;复习离散结构&lt;/li&gt;
+&lt;li&gt;完成用户的登陆和注册，学习使用bcrypt加密&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
     <item>
       <title>第六周总结</title>
       <link>https://sheep44044.github.io/weekly/2025-10-20-weekly6/</link>
@@ -24,8 +44,8 @@
 &lt;hr&gt;
 &lt;h2 id=&#34;下周计划&#34;&gt;下周计划&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;数据结构刷点题（要考试了）🫠&lt;/li&gt;
-&lt;li&gt;学习Viper来进行配置管理&lt;/li&gt;
+&lt;li&gt;数据结构刷点题（要考试了）🫠✅&lt;/li&gt;
+&lt;li&gt;学习Viper来进行配置管理✅&lt;/li&gt;
 &lt;li&gt;仿着csdn的那篇博客， 来实现 JWT 工具、编写登录/注册接口和编写鉴权中间件&lt;/li&gt;
 &lt;/ol&gt;</description>
     </item>
