@@ -6,8 +6,26 @@
     <description>Recent content on sheep44044的小站</description>
     <generator>Hugo -- 0.147.4</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 27 Oct 2025 08:38:15 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 03 Nov 2025 14:48:16 +0800</lastBuildDate>
     <atom:link href="https://sheep44044.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第八周总结</title>
+      <link>https://sheep44044.github.io/weekly/2025-11-03-weekly8/</link>
+      <pubDate>Mon, 03 Nov 2025 14:48:16 +0800</pubDate>
+      <guid>https://sheep44044.github.io/weekly/2025-11-03-weekly8/</guid>
+      <description>&lt;p&gt;这一周就是哼哧哼哧地复习大学物理和离散，考完期中考，并度过了一个很爽的周末，在鸭科夫里大搜特搜，大赚特赚。在瓦里又上了一段。喔吼～不过也确实没什么好说的，这周就是这么简单。&lt;/p&gt;
+&lt;h2 id=&#34;已完成事项&#34;&gt;已完成事项&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;考完离散&lt;/li&gt;
+&lt;li&gt;考完大物&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;下周计划&#34;&gt;下周计划&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;看一下之前的代码（有点不记得了）&lt;/li&gt;
+&lt;li&gt;完成用户的登陆和注册，学习使用bcrypt加密（上周的计划）&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
     <item>
       <title>第七周总结</title>
       <link>https://sheep44044.github.io/weekly/2025-10-27-weekly7/</link>
@@ -23,8 +41,8 @@
 &lt;hr&gt;
 &lt;h2 id=&#34;下周计划&#34;&gt;下周计划&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;复习大学物理&lt;/li&gt;
-&lt;li&gt;复习离散结构&lt;/li&gt;
+&lt;li&gt;复习大学物理✅&lt;/li&gt;
+&lt;li&gt;复习离散结构✅&lt;/li&gt;
 &lt;li&gt;完成用户的登陆和注册，学习使用bcrypt加密&lt;/li&gt;
 &lt;/ol&gt;</description>
     </item>
