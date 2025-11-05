@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Bcrypt和盐 | sheep44044的小站</title>
+<meta name="keywords" content="">
+<meta name="description" content="bcrypt 是一种结合了盐值机制的自适应哈希函数。与普通哈希算法的根本区别在于，bcrypt 在设计上内置了盐值的使用，从而显著提升了密码存储的安全性。
+普通哈希算法存在一个关键缺陷：对于相同的输入，始终产生相同的输出。这意味着如果多个用户使用相同密码（例如“123456”），其哈希值也会完全相同，系统因此容易受到彩虹表攻击。
+彩虹表攻击：彩虹表就是一张升级版的储存常见明文密码和哈希值的表。它通过链式结构和规约函数解决了存储空间的问题，平衡了空间和时间。
+盐（Salt） 就是为了解决这个问题而生的。
+
+定义：盐是一段随机生成的、足够长的字符串。
+工作方式：在哈希密码之前，系统会先为每个用户生成一个独一无二的盐，然后把这个盐拼接在用户的密码后面，再对**“密码&#43;盐”** 这个组合进行哈希。
+存储：最终，系统将哈希结果和盐值本身一起存储到数据库中
+
+由于每个用户拥有独特的盐值，即使密码相同，最终得到的哈希结果也会完全不同。这意味着攻击者无法使用同一张彩虹表破解所有用户密码，而必须为每个盐值单独建立破解表，这使得攻击成本急剧上升，在实际中几乎不可行。
+此外，bcrypt 被刻意设计为计算缓慢且内存密集，这种“故意低效”的设计大幅增加了暴力破解和彩虹表构建所需的时间和资源开销。
+总结来说，bcrypt = 故意缓慢的哈希算法 &#43; 自动强盐机制 &#43; 可配置的计算成本。
+bcrypt的使用在Golang中则是比较简单，具体可以见bcrypt文档
+下面简单说一下：
+1.生成密码哈希
+func GenerateFromPassword(password []byte, cost int) ([]byte, error)
+2.验证密码
+func CompareHashAndPassword(hashedPassword, password []byte) error
+3.获取哈希成本
+func Cost(hashedPassword []byte) (int, error)
+tips：bcrypt 最多处理 72 字节的密码">
+<meta name="author" content="Sheep44044">
+<link rel="canonical" href="https://sheep44044.github.io/posts/2025-11-05-bcrypt/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" integrity="sha256-IhHKMWS&#43;eDACT2qtKzouUghDpk&#43;PBIRFw0AcEkmqBR0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://sheep44044.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://sheep44044.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://sheep44044.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://sheep44044.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://sheep44044.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://sheep44044.github.io/posts/2025-11-05-bcrypt/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://sheep44044.github.io/posts/2025-11-05-bcrypt/">
+  <meta property="og:site_name" content="sheep44044的小站">
+  <meta property="og:title" content="Bcrypt和盐">
+  <meta property="og:description" content="bcrypt 是一种结合了盐值机制的自适应哈希函数。与普通哈希算法的根本区别在于，bcrypt 在设计上内置了盐值的使用，从而显著提升了密码存储的安全性。
+普通哈希算法存在一个关键缺陷：对于相同的输入，始终产生相同的输出。这意味着如果多个用户使用相同密码（例如“123456”），其哈希值也会完全相同，系统因此容易受到彩虹表攻击。
+彩虹表攻击：彩虹表就是一张升级版的储存常见明文密码和哈希值的表。它通过链式结构和规约函数解决了存储空间的问题，平衡了空间和时间。
+盐（Salt） 就是为了解决这个问题而生的。
+定义：盐是一段随机生成的、足够长的字符串。 工作方式：在哈希密码之前，系统会先为每个用户生成一个独一无二的盐，然后把这个盐拼接在用户的密码后面，再对**“密码&#43;盐”** 这个组合进行哈希。 存储：最终，系统将哈希结果和盐值本身一起存储到数据库中 由于每个用户拥有独特的盐值，即使密码相同，最终得到的哈希结果也会完全不同。这意味着攻击者无法使用同一张彩虹表破解所有用户密码，而必须为每个盐值单独建立破解表，这使得攻击成本急剧上升，在实际中几乎不可行。
+此外，bcrypt 被刻意设计为计算缓慢且内存密集，这种“故意低效”的设计大幅增加了暴力破解和彩虹表构建所需的时间和资源开销。
+总结来说，bcrypt = 故意缓慢的哈希算法 &#43; 自动强盐机制 &#43; 可配置的计算成本。
+bcrypt的使用在Golang中则是比较简单，具体可以见bcrypt文档
+下面简单说一下：
+1.生成密码哈希
+func GenerateFromPassword(password []byte, cost int) ([]byte, error) 2.验证密码
+func CompareHashAndPassword(hashedPassword, password []byte) error 3.获取哈希成本
+func Cost(hashedPassword []byte) (int, error) tips：bcrypt 最多处理 72 字节的密码">
+  <meta property="og:locale" content="zh-CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-11-05T16:16:45+08:00">
+    <meta property="article:modified_time" content="2025-11-05T16:16:45+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bcrypt和盐">
+<meta name="twitter:description" content="bcrypt 是一种结合了盐值机制的自适应哈希函数。与普通哈希算法的根本区别在于，bcrypt 在设计上内置了盐值的使用，从而显著提升了密码存储的安全性。
+普通哈希算法存在一个关键缺陷：对于相同的输入，始终产生相同的输出。这意味着如果多个用户使用相同密码（例如“123456”），其哈希值也会完全相同，系统因此容易受到彩虹表攻击。
+彩虹表攻击：彩虹表就是一张升级版的储存常见明文密码和哈希值的表。它通过链式结构和规约函数解决了存储空间的问题，平衡了空间和时间。
+盐（Salt） 就是为了解决这个问题而生的。
+
+定义：盐是一段随机生成的、足够长的字符串。
+工作方式：在哈希密码之前，系统会先为每个用户生成一个独一无二的盐，然后把这个盐拼接在用户的密码后面，再对**“密码&#43;盐”** 这个组合进行哈希。
+存储：最终，系统将哈希结果和盐值本身一起存储到数据库中
+
+由于每个用户拥有独特的盐值，即使密码相同，最终得到的哈希结果也会完全不同。这意味着攻击者无法使用同一张彩虹表破解所有用户密码，而必须为每个盐值单独建立破解表，这使得攻击成本急剧上升，在实际中几乎不可行。
+此外，bcrypt 被刻意设计为计算缓慢且内存密集，这种“故意低效”的设计大幅增加了暴力破解和彩虹表构建所需的时间和资源开销。
+总结来说，bcrypt = 故意缓慢的哈希算法 &#43; 自动强盐机制 &#43; 可配置的计算成本。
+bcrypt的使用在Golang中则是比较简单，具体可以见bcrypt文档
+下面简单说一下：
+1.生成密码哈希
+func GenerateFromPassword(password []byte, cost int) ([]byte, error)
+2.验证密码
+func CompareHashAndPassword(hashedPassword, password []byte) error
+3.获取哈希成本
+func Cost(hashedPassword []byte) (int, error)
+tips：bcrypt 最多处理 72 字节的密码">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://sheep44044.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Bcrypt和盐",
+      "item": "https://sheep44044.github.io/posts/2025-11-05-bcrypt/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Bcrypt和盐",
+  "name": "Bcrypt和盐",
+  "description": "bcrypt 是一种结合了盐值机制的自适应哈希函数。与普通哈希算法的根本区别在于，bcrypt 在设计上内置了盐值的使用，从而显著提升了密码存储的安全性。\n普通哈希算法存在一个关键缺陷：对于相同的输入，始终产生相同的输出。这意味着如果多个用户使用相同密码（例如“123456”），其哈希值也会完全相同，系统因此容易受到彩虹表攻击。\n彩虹表攻击：彩虹表就是一张升级版的储存常见明文密码和哈希值的表。它通过链式结构和规约函数解决了存储空间的问题，平衡了空间和时间。\n盐（Salt） 就是为了解决这个问题而生的。\n定义：盐是一段随机生成的、足够长的字符串。 工作方式：在哈希密码之前，系统会先为每个用户生成一个独一无二的盐，然后把这个盐拼接在用户的密码后面，再对**“密码+盐”** 这个组合进行哈希。 存储：最终，系统将哈希结果和盐值本身一起存储到数据库中 由于每个用户拥有独特的盐值，即使密码相同，最终得到的哈希结果也会完全不同。这意味着攻击者无法使用同一张彩虹表破解所有用户密码，而必须为每个盐值单独建立破解表，这使得攻击成本急剧上升，在实际中几乎不可行。\n此外，bcrypt 被刻意设计为计算缓慢且内存密集，这种“故意低效”的设计大幅增加了暴力破解和彩虹表构建所需的时间和资源开销。\n总结来说，bcrypt = 故意缓慢的哈希算法 + 自动强盐机制 + 可配置的计算成本。\nbcrypt的使用在Golang中则是比较简单，具体可以见bcrypt文档\n下面简单说一下：\n1.生成密码哈希\nfunc GenerateFromPassword(password []byte, cost int) ([]byte, error) 2.验证密码\nfunc CompareHashAndPassword(hashedPassword, password []byte) error 3.获取哈希成本\nfunc Cost(hashedPassword []byte) (int, error) tips：bcrypt 最多处理 72 字节的密码\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "bcrypt 是一种结合了盐值机制的自适应哈希函数。与普通哈希算法的根本区别在于，bcrypt 在设计上内置了盐值的使用，从而显著提升了密码存储的安全性。\n普通哈希算法存在一个关键缺陷：对于相同的输入，始终产生相同的输出。这意味着如果多个用户使用相同密码（例如“123456”），其哈希值也会完全相同，系统因此容易受到彩虹表攻击。\n彩虹表攻击：彩虹表就是一张升级版的储存常见明文密码和哈希值的表。它通过链式结构和规约函数解决了存储空间的问题，平衡了空间和时间。\n盐（Salt） 就是为了解决这个问题而生的。\n定义：盐是一段随机生成的、足够长的字符串。 工作方式：在哈希密码之前，系统会先为每个用户生成一个独一无二的盐，然后把这个盐拼接在用户的密码后面，再对**“密码+盐”** 这个组合进行哈希。 存储：最终，系统将哈希结果和盐值本身一起存储到数据库中 由于每个用户拥有独特的盐值，即使密码相同，最终得到的哈希结果也会完全不同。这意味着攻击者无法使用同一张彩虹表破解所有用户密码，而必须为每个盐值单独建立破解表，这使得攻击成本急剧上升，在实际中几乎不可行。\n此外，bcrypt 被刻意设计为计算缓慢且内存密集，这种“故意低效”的设计大幅增加了暴力破解和彩虹表构建所需的时间和资源开销。\n总结来说，bcrypt = 故意缓慢的哈希算法 + 自动强盐机制 + 可配置的计算成本。\nbcrypt的使用在Golang中则是比较简单，具体可以见bcrypt文档\n下面简单说一下：\n1.生成密码哈希\nfunc GenerateFromPassword(password []byte, cost int) ([]byte, error) 2.验证密码\nfunc CompareHashAndPassword(hashedPassword, password []byte) error 3.获取哈希成本\nfunc Cost(hashedPassword []byte) (int, error) tips：bcrypt 最多处理 72 字节的密码\n",
+  "wordCount" : "47",
+  "inLanguage": "en",
+  "datePublished": "2025-11-05T16:16:45+08:00",
+  "dateModified": "2025-11-05T16:16:45+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Sheep44044"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://sheep44044.github.io/posts/2025-11-05-bcrypt/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "sheep44044的小站",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sheep44044.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://sheep44044.github.io/" accesskey="h" title="sheep44044的小站 (Alt + H)">sheep44044的小站</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://sheep44044.github.io/" title="主页">
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sheep44044.github.io/about/" title="个人">
+                    <span>个人</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sheep44044.github.io/posts/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sheep44044.github.io/daily/" title="日常">
+                    <span>日常</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sheep44044.github.io/weekly/" title="周报">
+                    <span>周报</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Bcrypt和盐
+    </h1>
+    <div class="post-meta"><span title='2025-11-05 16:16:45 +0800 CST'>November 5, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044
+
+</div>
+  </header> 
+
+  <div class="post-content"><p><strong>bcrypt</strong> 是一种结合了盐值机制的自适应哈希函数。与普通哈希算法的根本区别在于，bcrypt 在设计上内置了盐值的使用，从而显著提升了密码存储的安全性。</p>
+<p>普通哈希算法存在一个关键缺陷：对于相同的输入，始终产生相同的输出。这意味着如果多个用户使用相同密码（例如“123456”），其哈希值也会完全相同，系统因此容易受到彩虹表攻击。</p>
+<p>彩虹表攻击：彩虹表就是一张升级版的储存常见明文密码和哈希值的表。它通过链式结构和规约函数解决了存储空间的问题，平衡了空间和时间。</p>
+<p><strong>盐（Salt）</strong> 就是为了解决这个问题而生的。</p>
+<ul>
+<li><strong>定义</strong>：盐是一段随机生成的、足够长的字符串。</li>
+<li><strong>工作方式</strong>：在哈希密码之前，系统会先为每个用户生成一个独一无二的盐，然后把这个盐拼接在用户的密码后面，再对**“密码+盐”** 这个组合进行哈希。</li>
+<li><strong>存储</strong>：最终，系统将<strong>哈希结果</strong>和<strong>盐值本身</strong>一起存储到数据库中</li>
+</ul>
+<p>由于每个用户拥有独特的盐值，即使密码相同，最终得到的哈希结果也会完全不同。这意味着攻击者无法使用同一张彩虹表破解所有用户密码，而必须为每个盐值单独建立破解表，这使得攻击成本急剧上升，在实际中几乎不可行。</p>
+<p>此外，bcrypt 被刻意设计为计算缓慢且内存密集，这种“故意低效”的设计大幅增加了暴力破解和彩虹表构建所需的时间和资源开销。</p>
+<p><strong>总结来说，bcrypt = 故意缓慢的哈希算法 + 自动强盐机制 + 可配置的计算成本</strong>。</p>
+<p>bcrypt的使用在Golang中则是比较简单，具体可以见<a href="https://pkg.go.dev/golang.org/x/crypto/bcrypt">bcrypt文档</a></p>
+<p>下面简单说一下：</p>
+<p>1.生成密码哈希</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GenerateFromPassword</span>(<span style="color:#a6e22e">password</span> []<span style="color:#66d9ef">byte</span>, <span style="color:#a6e22e">cost</span> <span style="color:#66d9ef">int</span>) ([]<span style="color:#66d9ef">byte</span>, <span style="color:#66d9ef">error</span>)
+</span></span></code></pre></div><p>2.验证密码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">CompareHashAndPassword</span>(<span style="color:#a6e22e">hashedPassword</span>, <span style="color:#a6e22e">password</span> []<span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">error</span>
+</span></span></code></pre></div><p>3.获取哈希成本</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Cost</span>(<span style="color:#a6e22e">hashedPassword</span> []<span style="color:#66d9ef">byte</span>) (<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">error</span>)
+</span></span></code></pre></div><p>tips：bcrypt 最多处理 72 字节的密码</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://sheep44044.github.io/weekly/2025-11-03-weekly8/">
+    <span class="title">Next »</span>
+    <br>
+    <span>第八周总结</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://sheep44044.github.io/">sheep44044的小站</a></span> · 
+        © 2025 我的网站 | <a href="/privacy">隐私政策</a> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

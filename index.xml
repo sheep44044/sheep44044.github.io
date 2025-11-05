@@ -6,8 +6,35 @@
     <description>Recent content on sheep44044的小站</description>
     <generator>Hugo -- 0.147.4</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 03 Nov 2025 14:48:16 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 05 Nov 2025 16:16:45 +0800</lastBuildDate>
     <atom:link href="https://sheep44044.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bcrypt和盐</title>
+      <link>https://sheep44044.github.io/posts/2025-11-05-bcrypt/</link>
+      <pubDate>Wed, 05 Nov 2025 16:16:45 +0800</pubDate>
+      <guid>https://sheep44044.github.io/posts/2025-11-05-bcrypt/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;bcrypt&lt;/strong&gt; 是一种结合了盐值机制的自适应哈希函数。与普通哈希算法的根本区别在于，bcrypt 在设计上内置了盐值的使用，从而显著提升了密码存储的安全性。&lt;/p&gt;
+&lt;p&gt;普通哈希算法存在一个关键缺陷：对于相同的输入，始终产生相同的输出。这意味着如果多个用户使用相同密码（例如“123456”），其哈希值也会完全相同，系统因此容易受到彩虹表攻击。&lt;/p&gt;
+&lt;p&gt;彩虹表攻击：彩虹表就是一张升级版的储存常见明文密码和哈希值的表。它通过链式结构和规约函数解决了存储空间的问题，平衡了空间和时间。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;盐（Salt）&lt;/strong&gt; 就是为了解决这个问题而生的。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：盐是一段随机生成的、足够长的字符串。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;工作方式&lt;/strong&gt;：在哈希密码之前，系统会先为每个用户生成一个独一无二的盐，然后把这个盐拼接在用户的密码后面，再对**“密码+盐”** 这个组合进行哈希。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;存储&lt;/strong&gt;：最终，系统将&lt;strong&gt;哈希结果&lt;/strong&gt;和&lt;strong&gt;盐值本身&lt;/strong&gt;一起存储到数据库中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由于每个用户拥有独特的盐值，即使密码相同，最终得到的哈希结果也会完全不同。这意味着攻击者无法使用同一张彩虹表破解所有用户密码，而必须为每个盐值单独建立破解表，这使得攻击成本急剧上升，在实际中几乎不可行。&lt;/p&gt;
+&lt;p&gt;此外，bcrypt 被刻意设计为计算缓慢且内存密集，这种“故意低效”的设计大幅增加了暴力破解和彩虹表构建所需的时间和资源开销。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;总结来说，bcrypt = 故意缓慢的哈希算法 + 自动强盐机制 + 可配置的计算成本&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;bcrypt的使用在Golang中则是比较简单，具体可以见&lt;a href=&#34;https://pkg.go.dev/golang.org/x/crypto/bcrypt&#34;&gt;bcrypt文档&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下面简单说一下：&lt;/p&gt;
+&lt;p&gt;1.生成密码哈希&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;GenerateFromPassword&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;password&lt;/span&gt; []&lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;cost&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;) ([]&lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;error&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2.验证密码&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;CompareHashAndPassword&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;hashedPassword&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;password&lt;/span&gt; []&lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;error&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;3.获取哈希成本&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Cost&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;hashedPassword&lt;/span&gt; []&lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;) (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;error&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;tips：bcrypt 最多处理 72 字节的密码&lt;/p&gt;</description>
+    </item>
     <item>
       <title>第八周总结</title>
       <link>https://sheep44044.github.io/weekly/2025-11-03-weekly8/</link>
