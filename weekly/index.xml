@@ -6,8 +6,27 @@
     <description>Recent content in Weekly on sheep44044的小站</description>
     <generator>Hugo -- 0.147.4</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 03 Nov 2025 14:48:16 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 10 Nov 2025 11:15:31 +0800</lastBuildDate>
     <atom:link href="https://sheep44044.github.io/weekly/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第九周总结</title>
+      <link>https://sheep44044.github.io/weekly/2025-11-10-weekly9/</link>
+      <pubDate>Mon, 10 Nov 2025 11:15:31 +0800</pubDate>
+      <guid>https://sheep44044.github.io/weekly/2025-11-10-weekly9/</guid>
+      <description>&lt;p&gt;这一周，我在爽玩鸭科夫的基础上，算是顺利的完成了上周的学习了bcrypt包的密码加密，并完成了用户的登陆和注册(不过用户登陆使用的jwt内容有点忘记，下周考完试在回顾一下)。虽然有考试的原因，但感觉最近几周有点懈怠了，周报都没什么好写（想当初我左学gin，右学gorm，还有时间学习大物，真是物是人非啊🫠）&lt;/p&gt;
+&lt;h2 id=&#34;已完成事项&#34;&gt;已完成事项&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;学习bcrypt包的密码加密&lt;/li&gt;
+&lt;li&gt;用bcrypt和jwt完成了用户的登陆和注册&lt;/li&gt;
+&lt;li&gt;稍微看了一些redis&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;下周计划&#34;&gt;下周计划&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;复习概率论&lt;/li&gt;
+&lt;li&gt;还有时间的话，学习redis并部署&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
     <item>
       <title>第八周总结</title>
       <link>https://sheep44044.github.io/weekly/2025-11-03-weekly8/</link>
@@ -22,8 +41,8 @@
 &lt;hr&gt;
 &lt;h2 id=&#34;下周计划&#34;&gt;下周计划&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;看一下之前的代码（有点不记得了）&lt;/li&gt;
-&lt;li&gt;完成用户的登陆和注册，学习使用bcrypt加密（上周的计划）&lt;/li&gt;
+&lt;li&gt;看一下之前的代码（有点不记得了）✅&lt;/li&gt;
+&lt;li&gt;完成用户的登陆和注册，学习使用bcrypt加密（上周的计划）✅&lt;/li&gt;
 &lt;/ol&gt;</description>
     </item>
     <item>
