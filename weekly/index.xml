@@ -6,8 +6,26 @@
     <description>Recent content in Weekly on sheep44044的小站</description>
     <generator>Hugo -- 0.147.4</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 10 Nov 2025 11:15:31 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 17 Nov 2025 08:49:49 +0800</lastBuildDate>
     <atom:link href="https://sheep44044.github.io/weekly/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第十周总结</title>
+      <link>https://sheep44044.github.io/weekly/2025-11-17-weekly10/</link>
+      <pubDate>Mon, 17 Nov 2025 08:49:49 +0800</pubDate>
+      <guid>https://sheep44044.github.io/weekly/2025-11-17-weekly10/</guid>
+      <description>&lt;p&gt;这周就是准备和完成了这次概率论的期中考，其次主要是进行第一次的pr，虽然只是简单地修改了格式错误，但是看到自己的头像出现在contributors这一栏中还是很有成就感的😍。现在已经是第十一周了，距离期末考就一个半月的时间了，在这期间继续努力吧。&lt;/p&gt;
+&lt;h2 id=&#34;已完成事项&#34;&gt;已完成事项&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;完成概率论期中考&lt;/li&gt;
+&lt;li&gt;进行了一次开源尝试，提交了一次pr&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;下周计划&#34;&gt;下周计划&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;学习并部署redis&lt;/li&gt;
+&lt;li&gt;不知道&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
     <item>
       <title>第九周总结</title>
       <link>https://sheep44044.github.io/weekly/2025-11-10-weekly9/</link>
