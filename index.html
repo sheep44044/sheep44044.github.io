@@ -177,6 +177,28 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">并发
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>并发 什么是并发？我的理解是并发是关于如何让一个系统在面对多个任务时，既能高效地利用资源，又能正确地协调它们之间的交互。在《戴森球计划》等游戏运行时，CPU满载运行时渲染的蓝色洪流，我认为是对并发/并行最完美的具象化呈现。
+先说进程。 进程是一个正在运行的程序实例，Chrome浏览器和Word文档，它们就是两个不同的进程。操作系统会为每个进程分配彼此隔离的用户空间，并把它们交给 CPU 调度执行。一个应用可以只开一个进程，也可以开很多个，这取决于应用自身；对操作系统来说，进程之间没有啥区别，它只负责把要跑的活儿交给 CPU。
+那一颗 CPU 怎么“同时”跑这么多东西？ 关键在于“时间片”。单个 CPU 核心同一时刻只能执行一个任务，但操作系统会把时间切成很细的片段，轮流把这些时间片分给不同的可运行实体。每个时间片到了就切换到下一个，如此快速轮转，让我们主观上感觉“所有程序都在同时跑”。这就是并发，宏观上，微观上
+再说线程。线程是操作系统调度的最小单位，线程通常对应一个功能。一个进程至少包含一个线程；所谓“调度进程”本质上是在调度进程里的线程。同一进程中的线程共享进程的资源，但各自拥有独立的栈（栈主要是负责存局部变量和函数调用栈等数据的）。
+线程大致分两类：
+内核级线程：创建、销毁、调度与上下文切换由内核完成，需要系统调用，开销相对更高。 用户级线程(协程)：在线程库/运行时于用户态完成调度与切换，通常只在必要时与少量内核线程关联，因而切换开销更小。 goroutine 就是一种用户级线程 它由 Go 运行时在用户态调度，创建成本低、切换轻量，还配有按需增长的栈。运行时采用 M:N 调度（后面可以了解一下 GMP 模型），把大量 goroutine 映射到少量内核线程上，从而在保持高并发的同时控制系统调用与上下文切换的成本。
+Goroutine Go语言中使用goroutine非常简单，只需要在调用函数的时候在前面加上go关键字，就可以为一个函数创建一个goroutine。一个goroutine必定对应一个函数，可以创建多个goroutine去执行相同的函数。
+我们想要实现一下用 10 个协程去累加一个数字，每个协程将这个变量自增 10w 次，我们期望得到 100w 的结果
+package main import ( &#34;fmt&#34; &#34;time&#34; ) func main() { sum := 0 for range 10 { go func() { for range 100000 { sum &#43;= 1 } }() } time.Sleep(1 * time.Second) fmt.Println(sum) } 结果呢？
+root@RINAI-SWORD:/project/lanshan/count# go run ./ 569738 root@RINAI-SWORD:/project/lanshan/count# go run ./ 503786 root@RINAI-SWORD:/project/lanshan/count# go run ./ 595125 得到是不确定的数字，可能有人觉得奇怪，但是在现实中，这才是符合预期的，你如果把数值调小，让多个线程累加到 100 或者 1000，你的结果可能正是你期望的，但是仅仅是因为样本数量太少而没有引发多线程出现的问题。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-11-18 09:33:11 +0800 CST'>November 18, 2025</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Sheep44044</footer>
+  <a class="entry-link" aria-label="post link to 并发" href="https://sheep44044.github.io/posts/2025-11-18-%E5%B9%B6%E5%8F%91/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">第十周总结
     </h2>
   </header>
@@ -327,19 +349,6 @@ Session 的安全核心是：Session ID 的保密性。一旦泄露，攻击者�
   </div>
   <footer class="entry-footer"><span title='2025-10-13 09:01:39 +0800 CST'>October 13, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
   <a class="entry-link" aria-label="post link to 第五周总结" href="https://sheep44044.github.io/weekly/2025-10-13-weekly5/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">第四周总结
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p> ​	由于上一周经历了国庆假期，星期一又是中秋节 🎑，所以拖着拖着，到了周二才开始写周报。不过，由于国庆假期摆烂的原因，也没什么好写的。但为了每周一份的周报，我还是在中秋节前夕，在 AI 的帮助下完成了一些内容，辅助着国庆前的老本，堪堪写一些内容。
-已完成事项 学习了 SQL 的语法，在 sql 之母上完成了十几道题目，对 SQL 有了基本的了解 学习了 Gorm 的概述、模型声明和 CRUD 接口等比较基础和简单的内容（自我感觉查询因为类似于 SQL 语法，更易懂点） 完成了智能笔记项目的 CRUD 内容，并连接上了 MySQL 数据库 下周计划 项目开发继续✅ 分层项目结构 统一响应与错误处理 .env 环境变量管理 结构化日志 … 根据项目继续学习相关知识 Go 语言：错误处理、包管理、环境变量… Gin：路由分组、中间件…✅ Gorm：tag、错误处理…✅ </p>
-  </div>
-  <footer class="entry-footer"><span title='2025-10-07 13:08:49 +0800 CST'>October 7, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
-  <a class="entry-link" aria-label="post link to 第四周总结" href="https://sheep44044.github.io/weekly/2025-10-07-weekly4/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

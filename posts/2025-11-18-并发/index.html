@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>并发 | sheep44044的小站</title>
+<meta name="keywords" content="">
+<meta name="description" content="并发
+什么是并发？我的理解是并发是关于如何让一个系统在面对多个任务时，既能高效地利用资源，又能正确地协调它们之间的交互。在《戴森球计划》等游戏运行时，CPU满载运行时渲染的蓝色洪流，我认为是对并发/并行最完美的具象化呈现。
+先说进程。 进程是一个正在运行的程序实例，Chrome浏览器和Word文档，它们就是两个不同的进程。操作系统会为每个进程分配彼此隔离的用户空间，并把它们交给 CPU 调度执行。一个应用可以只开一个进程，也可以开很多个，这取决于应用自身；对操作系统来说，进程之间没有啥区别，它只负责把要跑的活儿交给 CPU。
+那一颗 CPU 怎么“同时”跑这么多东西？ 关键在于“时间片”。单个 CPU 核心同一时刻只能执行一个任务，但操作系统会把时间切成很细的片段，轮流把这些时间片分给不同的可运行实体。每个时间片到了就切换到下一个，如此快速轮转，让我们主观上感觉“所有程序都在同时跑”。这就是并发，宏观上，微观上
+再说线程。线程是操作系统调度的最小单位，线程通常对应一个功能。一个进程至少包含一个线程；所谓“调度进程”本质上是在调度进程里的线程。同一进程中的线程共享进程的资源，但各自拥有独立的栈（栈主要是负责存局部变量和函数调用栈等数据的）。
+线程大致分两类：
+
+内核级线程：创建、销毁、调度与上下文切换由内核完成，需要系统调用，开销相对更高。
+用户级线程(协程)：在线程库/运行时于用户态完成调度与切换，通常只在必要时与少量内核线程关联，因而切换开销更小。
+
+goroutine 就是一种用户级线程 它由 Go 运行时在用户态调度，创建成本低、切换轻量，还配有按需增长的栈。运行时采用 M:N 调度（后面可以了解一下 GMP 模型），把大量 goroutine 映射到少量内核线程上，从而在保持高并发的同时控制系统调用与上下文切换的成本。
+Goroutine
+Go语言中使用goroutine非常简单，只需要在调用函数的时候在前面加上go关键字，就可以为一个函数创建一个goroutine。一个goroutine必定对应一个函数，可以创建多个goroutine去执行相同的函数。
+我们想要实现一下用 10 个协程去累加一个数字，每个协程将这个变量自增 10w 次，我们期望得到 100w 的结果
+package main
+
+import (
+    &#34;fmt&#34;
+    &#34;time&#34;
+)
+
+func main() {
+    sum := 0
+    for range 10 {
+        go func() {
+            for range 100000 {
+                sum &#43;= 1
+            }
+        }()
+    }
+    time.Sleep(1 * time.Second)
+    fmt.Println(sum)
+}
+结果呢？
+root@RINAI-SWORD:/project/lanshan/count# go run ./
+569738
+root@RINAI-SWORD:/project/lanshan/count# go run ./
+503786
+root@RINAI-SWORD:/project/lanshan/count# go run ./
+595125
+得到是不确定的数字，可能有人觉得奇怪，但是在现实中，这才是符合预期的，你如果把数值调小，让多个线程累加到 100 或者 1000，你的结果可能正是你期望的，但是仅仅是因为样本数量太少而没有引发多线程出现的问题。">
+<meta name="author" content="Sheep44044">
+<link rel="canonical" href="https://sheep44044.github.io/posts/2025-11-18-%E5%B9%B6%E5%8F%91/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" integrity="sha256-IhHKMWS&#43;eDACT2qtKzouUghDpk&#43;PBIRFw0AcEkmqBR0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://sheep44044.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://sheep44044.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://sheep44044.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://sheep44044.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://sheep44044.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://sheep44044.github.io/posts/2025-11-18-%E5%B9%B6%E5%8F%91/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://sheep44044.github.io/posts/2025-11-18-%E5%B9%B6%E5%8F%91/">
+  <meta property="og:site_name" content="sheep44044的小站">
+  <meta property="og:title" content="并发">
+  <meta property="og:description" content="并发 什么是并发？我的理解是并发是关于如何让一个系统在面对多个任务时，既能高效地利用资源，又能正确地协调它们之间的交互。在《戴森球计划》等游戏运行时，CPU满载运行时渲染的蓝色洪流，我认为是对并发/并行最完美的具象化呈现。
+先说进程。 进程是一个正在运行的程序实例，Chrome浏览器和Word文档，它们就是两个不同的进程。操作系统会为每个进程分配彼此隔离的用户空间，并把它们交给 CPU 调度执行。一个应用可以只开一个进程，也可以开很多个，这取决于应用自身；对操作系统来说，进程之间没有啥区别，它只负责把要跑的活儿交给 CPU。
+那一颗 CPU 怎么“同时”跑这么多东西？ 关键在于“时间片”。单个 CPU 核心同一时刻只能执行一个任务，但操作系统会把时间切成很细的片段，轮流把这些时间片分给不同的可运行实体。每个时间片到了就切换到下一个，如此快速轮转，让我们主观上感觉“所有程序都在同时跑”。这就是并发，宏观上，微观上
+再说线程。线程是操作系统调度的最小单位，线程通常对应一个功能。一个进程至少包含一个线程；所谓“调度进程”本质上是在调度进程里的线程。同一进程中的线程共享进程的资源，但各自拥有独立的栈（栈主要是负责存局部变量和函数调用栈等数据的）。
+线程大致分两类：
+内核级线程：创建、销毁、调度与上下文切换由内核完成，需要系统调用，开销相对更高。 用户级线程(协程)：在线程库/运行时于用户态完成调度与切换，通常只在必要时与少量内核线程关联，因而切换开销更小。 goroutine 就是一种用户级线程 它由 Go 运行时在用户态调度，创建成本低、切换轻量，还配有按需增长的栈。运行时采用 M:N 调度（后面可以了解一下 GMP 模型），把大量 goroutine 映射到少量内核线程上，从而在保持高并发的同时控制系统调用与上下文切换的成本。
+Goroutine Go语言中使用goroutine非常简单，只需要在调用函数的时候在前面加上go关键字，就可以为一个函数创建一个goroutine。一个goroutine必定对应一个函数，可以创建多个goroutine去执行相同的函数。
+我们想要实现一下用 10 个协程去累加一个数字，每个协程将这个变量自增 10w 次，我们期望得到 100w 的结果
+package main import ( &#34;fmt&#34; &#34;time&#34; ) func main() { sum := 0 for range 10 { go func() { for range 100000 { sum &#43;= 1 } }() } time.Sleep(1 * time.Second) fmt.Println(sum) } 结果呢？
+root@RINAI-SWORD:/project/lanshan/count# go run ./ 569738 root@RINAI-SWORD:/project/lanshan/count# go run ./ 503786 root@RINAI-SWORD:/project/lanshan/count# go run ./ 595125 得到是不确定的数字，可能有人觉得奇怪，但是在现实中，这才是符合预期的，你如果把数值调小，让多个线程累加到 100 或者 1000，你的结果可能正是你期望的，但是仅仅是因为样本数量太少而没有引发多线程出现的问题。">
+  <meta property="og:locale" content="zh-CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-11-18T09:33:11+08:00">
+    <meta property="article:modified_time" content="2025-11-18T09:33:11+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="并发">
+<meta name="twitter:description" content="并发
+什么是并发？我的理解是并发是关于如何让一个系统在面对多个任务时，既能高效地利用资源，又能正确地协调它们之间的交互。在《戴森球计划》等游戏运行时，CPU满载运行时渲染的蓝色洪流，我认为是对并发/并行最完美的具象化呈现。
+先说进程。 进程是一个正在运行的程序实例，Chrome浏览器和Word文档，它们就是两个不同的进程。操作系统会为每个进程分配彼此隔离的用户空间，并把它们交给 CPU 调度执行。一个应用可以只开一个进程，也可以开很多个，这取决于应用自身；对操作系统来说，进程之间没有啥区别，它只负责把要跑的活儿交给 CPU。
+那一颗 CPU 怎么“同时”跑这么多东西？ 关键在于“时间片”。单个 CPU 核心同一时刻只能执行一个任务，但操作系统会把时间切成很细的片段，轮流把这些时间片分给不同的可运行实体。每个时间片到了就切换到下一个，如此快速轮转，让我们主观上感觉“所有程序都在同时跑”。这就是并发，宏观上，微观上
+再说线程。线程是操作系统调度的最小单位，线程通常对应一个功能。一个进程至少包含一个线程；所谓“调度进程”本质上是在调度进程里的线程。同一进程中的线程共享进程的资源，但各自拥有独立的栈（栈主要是负责存局部变量和函数调用栈等数据的）。
+线程大致分两类：
+
+内核级线程：创建、销毁、调度与上下文切换由内核完成，需要系统调用，开销相对更高。
+用户级线程(协程)：在线程库/运行时于用户态完成调度与切换，通常只在必要时与少量内核线程关联，因而切换开销更小。
+
+goroutine 就是一种用户级线程 它由 Go 运行时在用户态调度，创建成本低、切换轻量，还配有按需增长的栈。运行时采用 M:N 调度（后面可以了解一下 GMP 模型），把大量 goroutine 映射到少量内核线程上，从而在保持高并发的同时控制系统调用与上下文切换的成本。
+Goroutine
+Go语言中使用goroutine非常简单，只需要在调用函数的时候在前面加上go关键字，就可以为一个函数创建一个goroutine。一个goroutine必定对应一个函数，可以创建多个goroutine去执行相同的函数。
+我们想要实现一下用 10 个协程去累加一个数字，每个协程将这个变量自增 10w 次，我们期望得到 100w 的结果
+package main
+
+import (
+    &#34;fmt&#34;
+    &#34;time&#34;
+)
+
+func main() {
+    sum := 0
+    for range 10 {
+        go func() {
+            for range 100000 {
+                sum &#43;= 1
+            }
+        }()
+    }
+    time.Sleep(1 * time.Second)
+    fmt.Println(sum)
+}
+结果呢？
+root@RINAI-SWORD:/project/lanshan/count# go run ./
+569738
+root@RINAI-SWORD:/project/lanshan/count# go run ./
+503786
+root@RINAI-SWORD:/project/lanshan/count# go run ./
+595125
+得到是不确定的数字，可能有人觉得奇怪，但是在现实中，这才是符合预期的，你如果把数值调小，让多个线程累加到 100 或者 1000，你的结果可能正是你期望的，但是仅仅是因为样本数量太少而没有引发多线程出现的问题。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://sheep44044.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "并发",
+      "item": "https://sheep44044.github.io/posts/2025-11-18-%E5%B9%B6%E5%8F%91/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "并发",
+  "name": "并发",
+  "description": "并发 什么是并发？我的理解是并发是关于如何让一个系统在面对多个任务时，既能高效地利用资源，又能正确地协调它们之间的交互。在《戴森球计划》等游戏运行时，CPU满载运行时渲染的蓝色洪流，我认为是对并发/并行最完美的具象化呈现。\n先说进程。 进程是一个正在运行的程序实例，Chrome浏览器和Word文档，它们就是两个不同的进程。操作系统会为每个进程分配彼此隔离的用户空间，并把它们交给 CPU 调度执行。一个应用可以只开一个进程，也可以开很多个，这取决于应用自身；对操作系统来说，进程之间没有啥区别，它只负责把要跑的活儿交给 CPU。\n那一颗 CPU 怎么“同时”跑这么多东西？ 关键在于“时间片”。单个 CPU 核心同一时刻只能执行一个任务，但操作系统会把时间切成很细的片段，轮流把这些时间片分给不同的可运行实体。每个时间片到了就切换到下一个，如此快速轮转，让我们主观上感觉“所有程序都在同时跑”。这就是并发，宏观上，微观上\n再说线程。线程是操作系统调度的最小单位，线程通常对应一个功能。一个进程至少包含一个线程；所谓“调度进程”本质上是在调度进程里的线程。同一进程中的线程共享进程的资源，但各自拥有独立的栈（栈主要是负责存局部变量和函数调用栈等数据的）。\n线程大致分两类：\n内核级线程：创建、销毁、调度与上下文切换由内核完成，需要系统调用，开销相对更高。 用户级线程(协程)：在线程库/运行时于用户态完成调度与切换，通常只在必要时与少量内核线程关联，因而切换开销更小。 goroutine 就是一种用户级线程 它由 Go 运行时在用户态调度，创建成本低、切换轻量，还配有按需增长的栈。运行时采用 M:N 调度（后面可以了解一下 GMP 模型），把大量 goroutine 映射到少量内核线程上，从而在保持高并发的同时控制系统调用与上下文切换的成本。\nGoroutine Go语言中使用goroutine非常简单，只需要在调用函数的时候在前面加上go关键字，就可以为一个函数创建一个goroutine。一个goroutine必定对应一个函数，可以创建多个goroutine去执行相同的函数。\n我们想要实现一下用 10 个协程去累加一个数字，每个协程将这个变量自增 10w 次，我们期望得到 100w 的结果\npackage main import ( \u0026#34;fmt\u0026#34; \u0026#34;time\u0026#34; ) func main() { sum := 0 for range 10 { go func() { for range 100000 { sum += 1 } }() } time.Sleep(1 * time.Second) fmt.Println(sum) } 结果呢？\nroot@RINAI-SWORD:/project/lanshan/count# go run ./ 569738 root@RINAI-SWORD:/project/lanshan/count# go run ./ 503786 root@RINAI-SWORD:/project/lanshan/count# go run ./ 595125 得到是不确定的数字，可能有人觉得奇怪，但是在现实中，这才是符合预期的，你如果把数值调小，让多个线程累加到 100 或者 1000，你的结果可能正是你期望的，但是仅仅是因为样本数量太少而没有引发多线程出现的问题。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "并发 什么是并发？我的理解是并发是关于如何让一个系统在面对多个任务时，既能高效地利用资源，又能正确地协调它们之间的交互。在《戴森球计划》等游戏运行时，CPU满载运行时渲染的蓝色洪流，我认为是对并发/并行最完美的具象化呈现。\n先说进程。 进程是一个正在运行的程序实例，Chrome浏览器和Word文档，它们就是两个不同的进程。操作系统会为每个进程分配彼此隔离的用户空间，并把它们交给 CPU 调度执行。一个应用可以只开一个进程，也可以开很多个，这取决于应用自身；对操作系统来说，进程之间没有啥区别，它只负责把要跑的活儿交给 CPU。\n那一颗 CPU 怎么“同时”跑这么多东西？ 关键在于“时间片”。单个 CPU 核心同一时刻只能执行一个任务，但操作系统会把时间切成很细的片段，轮流把这些时间片分给不同的可运行实体。每个时间片到了就切换到下一个，如此快速轮转，让我们主观上感觉“所有程序都在同时跑”。这就是并发，宏观上，微观上\n再说线程。线程是操作系统调度的最小单位，线程通常对应一个功能。一个进程至少包含一个线程；所谓“调度进程”本质上是在调度进程里的线程。同一进程中的线程共享进程的资源，但各自拥有独立的栈（栈主要是负责存局部变量和函数调用栈等数据的）。\n线程大致分两类：\n内核级线程：创建、销毁、调度与上下文切换由内核完成，需要系统调用，开销相对更高。 用户级线程(协程)：在线程库/运行时于用户态完成调度与切换，通常只在必要时与少量内核线程关联，因而切换开销更小。 goroutine 就是一种用户级线程 它由 Go 运行时在用户态调度，创建成本低、切换轻量，还配有按需增长的栈。运行时采用 M:N 调度（后面可以了解一下 GMP 模型），把大量 goroutine 映射到少量内核线程上，从而在保持高并发的同时控制系统调用与上下文切换的成本。\nGoroutine Go语言中使用goroutine非常简单，只需要在调用函数的时候在前面加上go关键字，就可以为一个函数创建一个goroutine。一个goroutine必定对应一个函数，可以创建多个goroutine去执行相同的函数。\n我们想要实现一下用 10 个协程去累加一个数字，每个协程将这个变量自增 10w 次，我们期望得到 100w 的结果\npackage main import ( \"fmt\" \"time\" ) func main() { sum := 0 for range 10 { go func() { for range 100000 { sum += 1 } }() } time.Sleep(1 * time.Second) fmt.Println(sum) } 结果呢？\nroot@RINAI-SWORD:/project/lanshan/count# go run ./ 569738 root@RINAI-SWORD:/project/lanshan/count# go run ./ 503786 root@RINAI-SWORD:/project/lanshan/count# go run ./ 595125 得到是不确定的数字，可能有人觉得奇怪，但是在现实中，这才是符合预期的，你如果把数值调小，让多个线程累加到 100 或者 1000，你的结果可能正是你期望的，但是仅仅是因为样本数量太少而没有引发多线程出现的问题。\n那么为什么会出现这种结果？\n这涉及到我们 cpu 的工作原理，我们的一条自增 ++ 代码，在 cpu 层面并不是原子执行的，实际上，一个简单的自增在计算机层面会是这样的顺序：\n1. cpu 从指定内存读取 sum 的值 2. cpu 将 sum + 1。 3. cpu 将 sum 写回指定内存。 大概是这三个步骤，那么在多线程场景下思考，只要在 1 -\u003e 2 的间隙发生线程切换，这里线程切换会将当前线程中的某些上下文数据保存下来到内存中，等到切换回线程1的时候就会从内存中恢复这些数据到 cpu 中，在另一个线程中执行了 sum + 1，就会导致我们当前 cpu 读取的数值是旧的，比如：\n线程1：cpu 读取到 sum = 10。 线程2：cpu 读取到 sum = 10。 线程2：cpu 将 sum + 1。 线程2：cpu 回写 sum，此时 sum = 11。 线程1：cpu 根据读取到的 sum + 1。 线程1：cpu 回写 sum，此时 sum = 11. 由此可见，多线程虽然利用多核的优势，但是也给我们带来了一些麻烦。因此，我们需要同步原语，以消除这种不确定性，在并发环境中强制实现“顺序”和“互斥”\n原子性和原子操作 原子性的核心目标是保证数据在并发访问下的一致性。\n在多线程/多核环境中，操作系统会随时在不同的线程之间进行切换，如果一个非原子操作执行到一半被中断，而另一个线程又来读取或修改相同的数据，结果将是不可预测的。\n通常是原子的（在主流32/64位CPU上）：\n读取或写入一个对齐的、原生数据类型（如在Go中，int32、int64、bool等变量的单次读或写）通常是原子的。这意味着你不会读到半个写操作的结果。 通常不是原子的（需要额外保护）：\n任何需要多个步骤的操作： ​\t对结构体、切片、映射等复杂数据结构的修改。\n​\t在32位系统上对64位变量的读写（如 int64），可能需要两条指令来完成。\n**原子操作：**Go中 sync/atomic 包，封装了底层的硬件原子指令，提供了如 atomic.AddInt32、atomic.LoadPointer、atomic.CompareAndSwapUint64 等函数。\nChannel “不要通过共享内存来通信，而要通过通信来共享内存\"，这句话便是 Go 语言的并发哲学，什么意思？就是说，如果两个 goroutine 希望共享一个变量，不应该通过一个外部的全局变量来进行加锁读写，而是应该通过 channel 将 goroutine A 中的变量传递给 goroutine B。\n下面是一个任务调度器：\npackage main import ( \"fmt\" \"time\" ) type Task struct { // 函数也可以是结构体的成员 Runnable func(workerId int) } func main() { // 一个负责任务分发的管道 ch := make(chan Task, 10) // 启动几个 worker 负责处理任务 for id := range 10 { go func(workerId int) { for t := range ch { t.Runnable(workerId) } }(id) } // 任务分发 for i := range 20 { j := i t1 := Task{ Runnable: func(workerId int) { fmt.Printf(\"workerId%v：task%v做一件事情\\n\", workerId, j) }, } ch \u003c- t1 } time.Sleep(1 * time.Second) close(ch) } select 关键字 用于处理多个通道的读写操作，类似于switch，每个case都是通道操作，但是最终只会执行一个(如果多个通道同时接收到数值，会随机选择一个进行接收)。\npackage main import ( \"fmt\" \"time\" ) func main() { tick := time.Tick(100 * time.Millisecond) boom := time.After(500 * time.Millisecond) for { select { case \u003c-tick: fmt.Println(\"tick.\") case \u003c-boom: fmt.Println(\"BOOM!\") return default: fmt.Println(\" .\") time.Sleep(50 * time.Millisecond) } } } 同步原语(Sync包) 1 .WaitGroup 它提供了一种简单、同步的方式，让一个 Goroutine（通常是主 Goroutine）能够阻塞，直到其他多个 Goroutine 都完成它们的工作。它只有三个方法Add(delta int)、Done()和Wait()，功能正如字面意思一样。\npackage main import ( \"fmt\" \"sync\" ) func main() { wg := sync.WaitGroup{} for range 10 { // wg.Add 计数器+1，代表添加一个执行任务 wg.Add(1) go func() { fmt.Println(1) // wg.Done() 计数器-1，代表执行完成 wg.Done() }() } // 等待 Add 的任务全部 Done wg.Wait() } 2 .Mutex互斥锁 对于同一把互斥锁：同一时间只能有一个协程获得锁，当锁被持有时，其他协程尝试加锁会被阻塞，直到锁被释放。\nvar mu sync.Mutex var counter int func increment() { mu.Lock() // 加锁 defer mu.Unlock() // 函数返回时解锁 counter++ } 除了 sync.Mutex 还有一种另一种锁 sync.RWmutex 也就是读写锁，因为在只有并发读，没有并发写的时候，再加锁并没有什么用，因为并发读始终是安全的，因此读写锁就是针对于互斥锁的一个优化，在读多写少的场景下我们可以选择读写锁来替代互斥锁。\n3.sync.Once 程序运行时，懒加载初始化常用（其实平时也不咋用这个），保证了整个生命周期，一个 sync.Once 对象仅会执行一次 Do 方法，多余的都会跳过。\n比如：\npackage main import ( \"fmt\" \"sync\" ) func main() { init := sync.Once{} num := 0 for range 10 { init.Do(func() { num ++ }) } fmt.Println(num) } 结果为 1，无需多言。\n4.sync.Map 众所不周知，我们 go 中原生的 map 并不是并发安全的，在并发读写的情况下会 panic，导致程序崩溃，于是 sync 标准库推出了 sync.Map ，这是一个并发安全的 map，严格意义来说，我们直接在原生 map 的基础上加互斥锁或者读写锁也能够解决问题，但是 sync.Map 是做了一定基础的优化的，go 1.24 之前的版本和之后的版本有不同的实现方式，感兴趣可以去了解一下。总之，有了它，我们就不需要为 map 维护一个互斥锁了。\n5. sync.Cond 它可以实现一种信号通知的功能\npackage main import ( \"sync\" \"time\" ) func main() { l := sync.Mutex{} c := sync.NewCond(\u0026l) go func() { // 调用 wait 前需要先加锁 c.L.Lock() c.Wait() println(\"Hello, world!\") // 调用 wait 后需要解锁 c.L.Unlock() }() time.Sleep(time.Second) println(\"唤醒\") // Signal 方法唤醒等待的 goroutine c.Signal() time.Sleep(time.Second) println(\"end\") } 剩下的不常用。\n参考链接：https://draven.co/golang/docs/part3-runtime/ch06-concurrency/golang-sync-primitives/\nContext 上下文 context 可以在函数传播链中用于存储一些 kv 键值对信息用于下游获取，也可以在并发控制中发挥作用，比如我们可以为这个函数调用设计一个超时时间，我们的 context 就可以通过这个超时时间来取消这个函数调用链，除了超时控制，我们还可以手动地去 cancel 这个上下文，取消这次调用，但是需要注意的是，你即便取消了这个 context,已经执行的代码并不能撤回，谨慎设置超时时间。 例子：\npackage main import ( \"context\" \"fmt\" \"time\" ) func doSomething(ctx context.Context) { for { select { case \u003c-ctx.Done(): fmt.Println(\"doSomething stopped:\", ctx.Err()) return // 退出 goroutine default: fmt.Println(\"hello\") time.Sleep(time.Second) } } } func main() { ctx := context.Background() ctx, cancel := context.WithTimeout(ctx, 2*time.Second) defer cancel() doSomething(ctx) } 详细讲解 https://draven.co/golang/docs/part3-runtime/ch06-concurrency/golang-context/\n",
+  "wordCount" : "556",
+  "inLanguage": "en",
+  "datePublished": "2025-11-18T09:33:11+08:00",
+  "dateModified": "2025-11-18T09:33:11+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Sheep44044"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://sheep44044.github.io/posts/2025-11-18-%E5%B9%B6%E5%8F%91/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "sheep44044的小站",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sheep44044.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://sheep44044.github.io/" accesskey="h" title="sheep44044的小站 (Alt + H)">sheep44044的小站</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://sheep44044.github.io/" title="主页">
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sheep44044.github.io/about/" title="个人">
+                    <span>个人</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sheep44044.github.io/posts/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sheep44044.github.io/daily/" title="日常">
+                    <span>日常</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sheep44044.github.io/weekly/" title="周报">
+                    <span>周报</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      并发
+    </h1>
+    <div class="post-meta"><span title='2025-11-18 09:33:11 +0800 CST'>November 18, 2025</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Sheep44044
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%b9%b6%e5%8f%91" aria-label="并发">并发</a></li>
+                <li>
+                    <a href="#goroutine" aria-label="Goroutine">Goroutine</a></li>
+                <li>
+                    <a href="#%e5%8e%9f%e5%ad%90%e6%80%a7%e5%92%8c%e5%8e%9f%e5%ad%90%e6%93%8d%e4%bd%9c" aria-label="原子性和原子操作">原子性和原子操作</a></li>
+                <li>
+                    <a href="#channel" aria-label="Channel">Channel</a></li>
+                <li>
+                    <a href="#select-%e5%85%b3%e9%94%ae%e5%ad%97" aria-label="select 关键字">select 关键字</a></li>
+                <li>
+                    <a href="#%e5%90%8c%e6%ad%a5%e5%8e%9f%e8%af%adsync%e5%8c%85" aria-label="同步原语(Sync包)">同步原语(Sync包)</a><ul>
+                        
+                <li>
+                    <a href="#1-waitgroup" aria-label="1 .WaitGroup">1 .WaitGroup</a></li></ul>
+                </li>
+                <li>
+                    <a href="#2-mutex%e4%ba%92%e6%96%a5%e9%94%81" aria-label="2 .Mutex互斥锁">2 .Mutex互斥锁</a><ul>
+                        
+                <li>
+                    <a href="#3synconce" aria-label="3.sync.Once">3.sync.Once</a></li>
+                <li>
+                    <a href="#4syncmap" aria-label="4.sync.Map">4.sync.Map</a></li>
+                <li>
+                    <a href="#5-synccond" aria-label="5. sync.Cond">5. sync.Cond</a></li></ul>
+                </li>
+                <li>
+                    <a href="#context-%e4%b8%8a%e4%b8%8b%e6%96%87" aria-label="Context 上下文">Context 上下文</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="并发">并发<a hidden class="anchor" aria-hidden="true" href="#并发">#</a></h2>
+<p>什么是并发？我的理解是<strong>并发是关于如何让一个系统在面对多个任务时，既能高效地利用资源，又能正确地协调它们之间的交互</strong>。在《戴森球计划》等游戏运行时，CPU满载运行时渲染的蓝色洪流，我认为是对并发/并行最完美的具象化呈现。</p>
+<p><strong>先说进程。</strong> 进程是一个正在运行的程序实例，Chrome浏览器和Word文档，它们就是两个不同的进程。操作系统会为每个进程分配彼此隔离的用户空间，并把它们交给 CPU 调度执行。一个应用可以只开一个进程，也可以开很多个，这取决于应用自身；对操作系统来说，进程之间没有啥区别，它只负责把要跑的活儿交给 CPU。</p>
+<p><strong>那一颗 CPU 怎么“同时”跑这么多东西？</strong> 关键在于“时间片”。单个 CPU 核心同一时刻只能执行一个任务，但操作系统会把时间切成很细的片段，轮流把这些时间片分给不同的可运行实体。每个时间片到了就切换到下一个，如此快速轮转，让我们主观上感觉“所有程序都在同时跑”。<strong>这就是并发</strong>，宏观上，微观上</p>
+<p><strong>再说线程。线程是操作系统调度的最小单位</strong>，线程通常对应一个功能。一个进程至少包含一个线程；所谓“调度进程”本质上是在<strong>调度进程里的线程</strong>。同一进程中的线程共享进程的资源，但各自拥有独立的栈（栈主要是负责存局部变量和函数调用栈等数据的）。</p>
+<p>线程大致分两类：</p>
+<ul>
+<li><strong>内核级线程</strong>：创建、销毁、调度与上下文切换由内核完成，需要系统调用，开销相对更高。</li>
+<li><strong>用户级线程(协程)</strong>：在线程库/运行时于用户态完成调度与切换，通常只在必要时与少量内核线程关联，因而切换开销更小。</li>
+</ul>
+<p><strong>goroutine 就是一种用户级线程</strong> 它由 Go 运行时在用户态调度，创建成本低、切换轻量，还配有按需增长的栈。运行时采用 M:N 调度（后面可以了解一下 <strong>GMP 模型</strong>），把大量 goroutine 映射到少量内核线程上，从而在保持高并发的同时控制系统调用与上下文切换的成本。</p>
+<h2 id="goroutine">Goroutine<a hidden class="anchor" aria-hidden="true" href="#goroutine">#</a></h2>
+<p>Go语言中使用goroutine非常简单，只需要在调用函数的时候在前面加上go关键字，就可以为一个函数创建一个goroutine。一个goroutine必定对应一个函数，可以创建多个goroutine去执行相同的函数。</p>
+<p>我们想要实现一下用 10 个协程去累加一个数字，每个协程将这个变量自增 10w 次，我们期望得到 100w 的结果</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sum</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#66d9ef">range</span> <span style="color:#ae81ff">10</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#66d9ef">range</span> <span style="color:#ae81ff">100000</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">sum</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">sum</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>结果呢？</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">root</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">RINAI</span><span style="color:#f92672">-</span><span style="color:#a6e22e">SWORD</span>:<span style="color:#f92672">/</span><span style="color:#a6e22e">project</span><span style="color:#f92672">/</span><span style="color:#a6e22e">lanshan</span><span style="color:#f92672">/</span><span style="color:#a6e22e">count</span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">run</span> .<span style="color:#f92672">/</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">569738</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">root</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">RINAI</span><span style="color:#f92672">-</span><span style="color:#a6e22e">SWORD</span>:<span style="color:#f92672">/</span><span style="color:#a6e22e">project</span><span style="color:#f92672">/</span><span style="color:#a6e22e">lanshan</span><span style="color:#f92672">/</span><span style="color:#a6e22e">count</span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">run</span> .<span style="color:#f92672">/</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">503786</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">root</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">RINAI</span><span style="color:#f92672">-</span><span style="color:#a6e22e">SWORD</span>:<span style="color:#f92672">/</span><span style="color:#a6e22e">project</span><span style="color:#f92672">/</span><span style="color:#a6e22e">lanshan</span><span style="color:#f92672">/</span><span style="color:#a6e22e">count</span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">run</span> .<span style="color:#f92672">/</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">595125</span>
+</span></span></code></pre></div><p>得到是不确定的数字，可能有人觉得奇怪，但是在现实中，这才是符合预期的，你如果把数值调小，让多个线程累加到 100 或者 1000，你的结果可能正是你期望的，但是仅仅是因为样本数量太少而没有引发多线程出现的问题。</p>
+<p>那么为什么会出现这种结果？</p>
+<p>这涉及到我们 cpu 的工作原理，我们的一条自增 ++ 代码，在 cpu 层面并不是原子执行的，实际上，一个简单的自增在计算机层面会是这样的顺序：</p>
+<pre tabindex="0"><code>1. cpu 从指定内存读取 sum 的值
+2. cpu 将 sum + 1。
+3. cpu 将 sum 写回指定内存。
+</code></pre><p>大概是这三个步骤，那么在多线程场景下思考，只要在 1 -&gt; 2 的间隙发生线程切换，这里线程切换会将当前线程中的某些上下文数据保存下来到内存中，等到切换回线程1的时候就会从内存中恢复这些数据到 cpu 中，在另一个线程中执行了 sum + 1，就会导致我们当前 cpu 读取的数值是旧的，比如：</p>
+<pre tabindex="0"><code>线程1：cpu 读取到 sum = 10。
+线程2：cpu 读取到 sum = 10。
+线程2：cpu 将 sum + 1。
+线程2：cpu 回写 sum，此时 sum = 11。
+线程1：cpu 根据读取到的 sum + 1。
+线程1：cpu 回写 sum，此时 sum = 11.
+</code></pre><p>由此可见，多线程虽然利用多核的优势，但是也给我们带来了一些麻烦。因此，我们需要同步原语，以消除这种不确定性，在并发环境中强制实现“顺序”和“互斥”</p>
+<h2 id="原子性和原子操作">原子性和原子操作<a hidden class="anchor" aria-hidden="true" href="#原子性和原子操作">#</a></h2>
+<p>原子性的核心目标是<strong>保证数据在并发访问下的一致性</strong>。</p>
+<p>在多线程/多核环境中，操作系统会随时在不同的线程之间进行切换，如果一个非原子操作执行到一半被中断，而另一个线程又来读取或修改相同的数据，结果将是不可预测的。</p>
+<p><strong>通常是原子的（在主流32/64位CPU上）：</strong></p>
+<ul>
+<li>读取或写入一个<strong>对齐的、原生数据类型</strong>（如在Go中，<code>int32</code>、<code>int64</code>、<code>bool</code>等变量的单次读或写）通常是原子的。这意味着你不会读到半个写操作的结果。</li>
+</ul>
+<p><strong>通常不是原子的（需要额外保护）：</strong></p>
+<ul>
+<li><strong>任何需要多个步骤的操作：</strong></li>
+</ul>
+<p>​	对结构体、切片、映射等复杂数据结构的修改。</p>
+<p>​	在32位系统上对64位变量的读写（如 <code>int64</code>），可能需要两条指令来完成。</p>
+<p>**原子操作：**Go中 <code>sync/atomic</code> 包，封装了底层的硬件原子指令，提供了如 <code>atomic.AddInt32</code>、<code>atomic.LoadPointer</code>、<code>atomic.CompareAndSwapUint64</code> 等函数。</p>
+<h2 id="channel">Channel<a hidden class="anchor" aria-hidden="true" href="#channel">#</a></h2>
+<p>&ldquo;<strong>不要通过共享内存来通信，而要通过通信来共享内存</strong>&quot;，这句话便是 Go 语言的并发哲学，什么意思？就是说，如果两个 goroutine 希望共享一个变量，不应该通过一个外部的全局变量来进行加锁读写，而是应该通过 channel 将 goroutine A 中的变量传递给 goroutine B。</p>
+<p>下面是一个任务调度器：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Task</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 函数也可以是结构体的成员</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Runnable</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">workerId</span> <span style="color:#66d9ef">int</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 一个负责任务分发的管道</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#a6e22e">Task</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 启动几个 worker 负责处理任务</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">id</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#ae81ff">10</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">workerId</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">ch</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Runnable</span>(<span style="color:#a6e22e">workerId</span>)
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }(<span style="color:#a6e22e">id</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 任务分发</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#ae81ff">20</span> {
+</span></span><span style="display:flex;"><span>	    <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">t1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Task</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">Runnable</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">workerId</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;workerId%v：task%v做一件事情\n&#34;</span>, <span style="color:#a6e22e">workerId</span>, <span style="color:#a6e22e">j</span>)
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">t1</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+</span></span><span style="display:flex;"><span>    close(<span style="color:#a6e22e">ch</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="select-关键字">select 关键字<a hidden class="anchor" aria-hidden="true" href="#select-关键字">#</a></h2>
+<p>用于处理多个通道的读写操作，类似于<code>switch</code>，每个case都是通道操作，但是最终只会执行一个(如果多个通道同时接收到数值，会随机选择一个进行接收)。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">tick</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Tick</span>(<span style="color:#ae81ff">100</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Millisecond</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">boom</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">After</span>(<span style="color:#ae81ff">500</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Millisecond</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">tick</span>:
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;tick.&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">boom</span>:
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;BOOM!&#34;</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">default</span>:
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;    .&#34;</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#ae81ff">50</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Millisecond</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="同步原语sync包">同步原语(Sync包)<a hidden class="anchor" aria-hidden="true" href="#同步原语sync包">#</a></h2>
+<h3 id="1-waitgroup">1 .WaitGroup<a hidden class="anchor" aria-hidden="true" href="#1-waitgroup">#</a></h3>
+<p>它提供了一种简单、同步的方式，让一个 Goroutine（通常是主 Goroutine）能够阻塞，直到其他多个 Goroutine 都完成它们的工作。它只有三个方法<code>Add(delta int)</code>、<code>Done()</code>和<code>Wait()</code>，功能正如字面意思一样。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;sync&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">wg</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>{}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#66d9ef">range</span> <span style="color:#ae81ff">10</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// wg.Add 计数器+1，代表添加一个执行任务</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// wg.Done() 计数器-1，代表执行完成</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+</span></span><span style="display:flex;"><span>        }()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 等待 Add 的任务全部 Done</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="2-mutex互斥锁">2 .Mutex互斥锁<a hidden class="anchor" aria-hidden="true" href="#2-mutex互斥锁">#</a></h2>
+<p>对于<strong>同一把</strong>互斥锁：同一时间<strong>只能有一个</strong>协程获得锁，当锁被持有时，其他协程尝试加锁会<strong>被阻塞</strong>，直到锁被释放。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">mu</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">counter</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">increment</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Lock</span>()         <span style="color:#75715e">// 加锁</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">mu</span>.<span style="color:#a6e22e">Unlock</span>() <span style="color:#75715e">// 函数返回时解锁</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">counter</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>除了 <code>sync.Mutex</code> 还有一种另一种锁 <code>sync.RWmutex</code> 也就是读写锁，因为在只有并发读，没有并发写的时候，再加锁并没有什么用，因为并发读始终是安全的，因此读写锁就是针对于互斥锁的一个优化，在读多写少的场景下我们可以选择读写锁来替代互斥锁。</p>
+<h3 id="3synconce">3.sync.Once<a hidden class="anchor" aria-hidden="true" href="#3synconce">#</a></h3>
+<p>程序运行时，懒加载初始化常用（其实平时也不咋用这个），保证了整个生命周期，一个 sync.Once 对象仅会执行一次 Do 方法，多余的都会跳过。</p>
+<p>比如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;sync&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">init</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Once</span>{}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">num</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#66d9ef">range</span> <span style="color:#ae81ff">10</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">init</span>.<span style="color:#a6e22e">Do</span>(<span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">num</span> <span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">num</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>结果为 1，无需多言。</p>
+<h3 id="4syncmap">4.sync.Map<a hidden class="anchor" aria-hidden="true" href="#4syncmap">#</a></h3>
+<p>众所不周知，我们 go 中原生的 <code>map</code> 并不是并发安全的，在并发读写的情况下会 panic，导致程序崩溃，于是 sync 标准库推出了 <code>sync.Map</code> ，这是一个并发安全的 <code>map</code>，严格意义来说，我们直接在原生 <code>map</code> 的基础上加互斥锁或者读写锁也能够解决问题，但是 <code>sync.Map</code> 是做了一定基础的优化的，go 1.24 之前的版本和之后的版本有不同的实现方式，感兴趣可以去了解一下。总之，有了它，我们就不需要为 <code>map</code> 维护一个互斥锁了。</p>
+<h3 id="5-synccond">5. sync.Cond<a hidden class="anchor" aria-hidden="true" href="#5-synccond">#</a></h3>
+<p>它可以实现一种信号通知的功能</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;sync&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">l</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span>{}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">NewCond</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">l</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 调用 wait 前需要先加锁</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">L</span>.<span style="color:#a6e22e">Lock</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Wait</span>()
+</span></span><span style="display:flex;"><span>		println(<span style="color:#e6db74">&#34;Hello, world!&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 调用 wait 后需要解锁</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">L</span>.<span style="color:#a6e22e">Unlock</span>()
+</span></span><span style="display:flex;"><span>	}()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+</span></span><span style="display:flex;"><span>	println(<span style="color:#e6db74">&#34;唤醒&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Signal 方法唤醒等待的 goroutine</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Signal</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+</span></span><span style="display:flex;"><span>	println(<span style="color:#e6db74">&#34;end&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>剩下的不常用。</p>
+<p>参考链接：https://draven.co/golang/docs/part3-runtime/ch06-concurrency/golang-sync-primitives/</p>
+<h2 id="context-上下文">Context 上下文<a hidden class="anchor" aria-hidden="true" href="#context-上下文">#</a></h2>
+<p>context 可以在函数传播链中用于存储一些 kv 键值对信息用于下游获取，也可以在并发控制中发挥作用，比如我们可以为这个函数调用设计一个超时时间，我们的 context 就可以通过这个超时时间来取消这个函数调用链，除了超时控制，我们还可以手动地去 cancel 这个上下文，取消这次调用，但是需要注意的是，你即便取消了这个 context,已经执行的代码并不能撤回，谨慎设置超时时间。 例子：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;context&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">doSomething</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Done</span>():
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;doSomething stopped:&#34;</span>, <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Err</span>())
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span> <span style="color:#75715e">// 退出 goroutine</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">default</span>:
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;hello&#34;</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ctx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithTimeout</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">cancel</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">doSomething</span>(<span style="color:#a6e22e">ctx</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>详细讲解 <a href="https://draven.co/golang/docs/part3-runtime/ch06-concurrency/golang-context/">https://draven.co/golang/docs/part3-runtime/ch06-concurrency/golang-context/</a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://sheep44044.github.io/weekly/2025-11-17-weekly10/">
+    <span class="title">Next »</span>
+    <br>
+    <span>第十周总结</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://sheep44044.github.io/">sheep44044的小站</a></span> · 
+        © 2025 我的网站 | <a href="/privacy">隐私政策</a> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
