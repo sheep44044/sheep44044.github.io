@@ -6,8 +6,29 @@
     <description>Recent content on sheep44044的小站</description>
     <generator>Hugo -- 0.147.4</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 24 Nov 2025 08:02:33 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 24 Nov 2025 08:49:10 +0800</lastBuildDate>
     <atom:link href="https://sheep44044.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第十一周总结</title>
+      <link>https://sheep44044.github.io/weekly/2025-11-24-weekly11/</link>
+      <pubDate>Mon, 24 Nov 2025 08:49:10 +0800</pubDate>
+      <guid>https://sheep44044.github.io/weekly/2025-11-24-weekly11/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;这周我认为过的不赖，无论是学习还是游戏，我能够记得我周一至周日每天的所作所为，不是一种浑浑噩噩的生活。这周可以说是恢复了一些学习的感觉，回顾了并发、学习了redis，添加了缓存，安装了docker，也和朋友一起玩了好久的瓦，这周过的真不赖☺️&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;已完成事项&#34;&gt;已完成事项&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;对并发进行了回顾和拓展，更加地理解了生产者-消费者模型，更加了解一些同步原语(Sync包)内除了waitgroup和mutex的一些内容，sync.Once，sync.Map和sync.Cond。同时了解一些并发模型，理发师问题，哲学家吃饭问题和读者写者问题。&lt;/li&gt;
+&lt;li&gt;对redis的5种类型string，list，hash，set和zset的各种操作进行了了解和实践&lt;/li&gt;
+&lt;li&gt;完成了对小项目的redis的连接，并在应用层对Get和用户登入添加了缓存化处理，对create，update和delete添加了缓存失效处理。&lt;/li&gt;
+&lt;li&gt;安装了docker，原本打算完成最基础的Goland对docker连接等基础的操作部署，不过由于Goland的内置docker版本太低，被新版的docker拒绝，先暂且搁置&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;下周计划&#34;&gt;下周计划&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;对小项目增加更多的redis部署，Redis连接失败时的降级策略等东西&lt;/li&gt;
+&lt;li&gt;不知道&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
     <item>
       <title>令人无语的goland和docker</title>
       <link>https://sheep44044.github.io/daily/2025-11-24-daily5/</link>

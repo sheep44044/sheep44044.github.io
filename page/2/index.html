@@ -155,6 +155,19 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">第六周总结
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p> ​	这一周原本是大复特习的节奏，不过由于学校期中考的离谱安排，大学物理与概率论隔了两周时间，所以我就继续边学习边完成项目了。不过，有一说一，我觉得之前缺乏学习热情导致的原因还是陌生导致的，觉得很难，其实tag和原本的没什么不同，加个many2many，修改一下原本对tag的支持就基本完成了。
+已完成事项 完成了物理知识的复习（刷题之后再说吧） 完成了tag系统，并学习了Gorm的相关知识：many2many，关联模式的association()、replace()等 了解了cookie、session和token的知识概念，并在post记录了下来 了解了jwt的知识概念，跟着csdn上的一篇博客Gin 框架中如何实现 JWT 鉴权中间件初步学习了利用 jwt 包实现 web 鉴权 下周计划 数据结构刷点题（要考试了）🫠✅ 学习Viper来进行配置管理✅ 仿着csdn的那篇博客， 来实现 JWT 工具、编写登录/注册接口和编写鉴权中间件 </p>
+  </div>
+  <footer class="entry-footer"><span title='2025-10-20 08:01:01 +0800 CST'>October 20, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
+  <a class="entry-link" aria-label="post link to 第六周总结" href="https://sheep44044.github.io/weekly/2025-10-20-weekly6/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Cookie Session Token理解笔记
     </h2>
   </header>
@@ -291,29 +304,6 @@ Go 中的字符串、字节、符文和字符
   </div>
   <footer class="entry-footer"><span title='2025-09-22 08:04:18 +0800 CST'>September 22, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
   <a class="entry-link" aria-label="post link to 第二周总结" href="https://sheep44044.github.io/weekly/2025-09-22-weekly2/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Golang之接口
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Golang之接口 接口是我在tour of go上遇到的第一个难点，因此我打算再开一篇来着重记录，不仅是当下对此的沉淀与思考，也是对未来的提醒与照应。为了方便自己的查看，便独立于之前的知识碎片。
-接口（interface） 接口的定义 接口（Interface）本质上就是定义了一组方法签名（Method Signatures）的集合。它只关心**“做什么”，而不关心“怎么做”**。
-它规定：“任何类型，只要你实现了我的合同里规定的所有这些方法，那我就认为你实现了这个接口。”
-每个接口类型由任意个方法签名组成，接口的定义格式如下：
-type 接口类型名 interface{ 方法名1( 参数列表1 ) 返回值列表1 方法名2( 参数列表2 ) 返回值列表2 … } 如何实现接口？（“隐式实现”） Go 接口的实现是 “隐式” 的。这意味着你不需要像 Java 那样明确地写 implements Speaker。只需要让这个类型拥有接口里规定的所有方法，它就自动实现了该接口！
-这是 Go 的哲学——“鸭子类型”（如果它走起来像鸭子，叫起来像鸭子，那它就是鸭子）。
-接口值 接口也是值。它们可以像其它值一样传递。
-接口值可以用作函数的参数或返回值。
-接口值可以看作两部分具体类型和该类型的值。
-可以把接口值想象成一个特殊的“盒子”。
-这个盒子上贴着一个标签，写着里面装的东西的类型（*main.Dog）。 盒子里装着实际的值（一个 Dog 结构体的实例）。 var s Speaker // 接口变量 s，此时它是一个空的“盒子”，里面是 nil s = Dog{Name: &#34;Rex&#34;} // 赋值后，s 这个“盒子”里： // - 标签：main.Dog // - 值：{Rex} fmt.Printf(&#34;(%v, %T)\n&#34;, s, s) // 输出：({Rex}, main.Dog) // 值部分 和 类型部分 当你调用 s.Speak() 时，Go 会打开这个“盒子”，根据标签找到类型 Dog，然后执行 Dog 的 Speak 方法。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-09-20 13:33:54 +0800 CST'>September 20, 2025</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Sheep44044</footer>
-  <a class="entry-link" aria-label="post link to Golang之接口" href="https://sheep44044.github.io/posts/2025-09-19-interface/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
