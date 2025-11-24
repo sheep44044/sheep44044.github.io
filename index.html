@@ -177,6 +177,23 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">令人无语的goland和docker
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p> 感恩🙏Goland，感恩🙏docker，如果没有你们的最新版本的冲突，我就不会学会去官网寻找答案，我不再是那个局限于AI的人了。
+真是服了，一个简单的goland连接docker功能，浪费了我这么多时间，“Status 400: client version 1.24 is too old. Minimum supported API version is 1.44, please upgrade your client to a newer version&#34;这句话我真的是看吐了，什么docker which、docker version明明是1.52的最新版本，老是给我显示异常。
+最后，在官网docker插件这里发现大家都有这个问题，并且都是最近的，一周、两周前发表的评论。goland内置的docker的API版本太低了，被最新版的docker拒绝了，haha～
+给出的解决办法也是AI最不推荐的，把新版的docker删了，换成旧的版本，hh
+无语
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-11-24 08:02:33 +0800 CST'>November 24, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
+  <a class="entry-link" aria-label="post link to 令人无语的goland和docker" href="https://sheep44044.github.io/daily/2025-11-24-daily5/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">一些并发的模型
     </h2>
   </header>
@@ -328,28 +345,6 @@ func Cost(hashedPassword []byte) (int, error) tips：bcrypt 最多处理 72 字�
   </div>
   <footer class="entry-footer"><span title='2025-10-20 08:01:01 +0800 CST'>October 20, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
   <a class="entry-link" aria-label="post link to 第六周总结" href="https://sheep44044.github.io/weekly/2025-10-20-weekly6/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Cookie Session Token理解笔记
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>作为初学者，之前对于cookie、session和token的概念老是搞不清楚，现在搞懂了一些，就赶紧记下这一刻的知识，方便以后的查询。
-历史的演进是：Cookie -&gt; Session (基于Cookie) -&gt; Token (尤其是JWT)。
-1. Cookie Cookie 本身不进行验证，它只是一个存储和传输机制，一个携带信息的工具。在session出现之前，Cookie直接存储用户信息，十分不安全。
-2. Session session一般结合cookie使用，是存储在服务器，它会在服务器储存相关信息，设置session并返回sessionid，sessionid存储在客户端，每次登陆用cookie带上sessionid，去寻找session验证。
-Session 验证：类似于“查账本”的方式。服务器收到Session ID后，需要去数据库或内存中查找这个ID对应的Session数据。
-因为需要为每个活跃用户存储一份数据，所以存储量 = 用户数量 × 每个用户的数据大小，所以导致了技术上的限制：
-Session数据存储在单个服务器的内存中 在集群环境中，请求可能被负载均衡到不同服务器 除非所有服务器共享Session存储（如Redis），否则无法识别用户 3. Token token是存储在客户端的，相关信息存储在token的payload上，服务器只储存一个统一的密匙，用密匙进行验证。
-token验证：类似于“验证人民币”的方式。服务器中的密匙，根据token的header和payload验证签名。（header上的算法类似于开锁方法和说明书，密匙相当于那把钥匙，算法不等于密匙）
-因为只存储一份统一的密匙，所以存储量是个常量，天生符合分布式系统。
-4. 安全性 关于安全方面，不太清楚，就直接贴一下，AI的回答吧。
-Session 的安全核心是：Session ID 的保密性。一旦泄露，攻击者可以完全冒充用户，直到服务器端主动使其失效。 Token 的安全核心是：签名验证和短生命周期。它的设计一定程度上接受了“令牌可能会被偷”的现实，但通过技术手段限制其破坏力。 </p>
-  </div>
-  <footer class="entry-footer"><span title='2025-10-19 14:42:57 +0800 CST'>October 19, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
-  <a class="entry-link" aria-label="post link to Cookie Session Token理解笔记" href="https://sheep44044.github.io/posts/2025-10-19-cookie/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
