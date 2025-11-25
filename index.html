@@ -177,6 +177,28 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">LeetCode 1.两数之和
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1. 两数之和
+给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那 两个 整数，并返回它们的数组下标。
+你可以假设每种输入只会对应一个答案，并且你不能使用两次相同的元素。
+你可以按任意顺序返回答案。
+示例 1：
+输入：nums = [2,7,11,15], target = 9 输出：[0,1] 解释：因为 nums[0] &#43; nums[1] == 9 ，返回 [0, 1] 。
+示例 2：
+输入：nums = [3,2,4], target = 6 输出：[1,2]
+示例 3：
+输入：nums = [3,3], target = 6 输出：[0,1]
+哈希表 func twoSum(nums []int, target int) []int { for i := 0; i &lt; len(nums); i&#43;&#43; { for j := i &#43; 1; j &lt; len(nums); j&#43;&#43; { if nums[i] &#43; nums[j] == target { return []int{i, j} } } } return nil } </p>
+  </div>
+  <footer class="entry-footer"><span title='2025-11-25 10:08:04 +0800 CST'>November 25, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
+  <a class="entry-link" aria-label="post link to LeetCode 1.两数之和" href="https://sheep44044.github.io/posts/leetcode-1.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">第十一周总结
     </h2>
   </header>
@@ -316,35 +338,6 @@ func Cost(hashedPassword []byte) (int, error) tips：bcrypt 最多处理 72 字�
   </div>
   <footer class="entry-footer"><span title='2025-10-27 08:38:15 +0800 CST'>October 27, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
   <a class="entry-link" aria-label="post link to 第七周总结" href="https://sheep44044.github.io/weekly/2025-10-27-weekly7/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">焦虑随想
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>可能是因为我渴望完美，却又深感自己的不足，所以我发现自己是个很喜欢听鸡汤的人——希望用那些励志的话语同时麻痹和激励自己。记得曾听过这样一句话：“人们总是高估短时间内的努力，又低估长时间的努力。”
-最近看到一位技术大神在他的博客中写道：“在准备一个能帮我找到第一段实习的项目，再配一个工作室的小程序可能差不多？之后就得复习八股文准备面试了。但感觉在此之前，还有好多东西没学，像最近流行的agent技术，还有一直想学的k8s也只是浅尝辄止。或许，还是我太着急了吧。”
-我不知道他的焦虑是否真实，但这些话确实引发了我的焦虑。同样处于大二上学期，当别人已经掌握了那么多技术时，我还在学习如何使用viper和zap这样基础的工具来完成一个小项目。诚然，别人从大一甚至更早就开始学习Golang，而我真正学习这门语言，不过一个半月而已。
-但现实不像游戏存档，它不会看你单位时间内的成长速度，只会在同一时间轴上比较每个人的成就，然后毫不留情地展示出我的弱小。
-最近因杨振宁先生逝世，我在知乎上了解到了他的老师费米的故事。费米曾在一门课程的导论中写道：
-加州理工是座优秀的大学，它必须不断筛选学生。能够来到这里的学生无不是优秀的。但在加州理工有这么一个现实问题：总有一半的同学会位于后50%。
-对于这个问题，有人觉得可笑，但这确实是个需要正视的问题。费米认为，这里的学生最大的挑战其实是心理问题。
-如果有位排名后20%的学生来找他，说自己无论如何都学不会这门课，不知该怎么办。费米会这样回答：
-“你能够来到加州理工，说明你已经从几十上百名同辈中脱颖而出。现在你在这里排名后20%，你可以选择接受这个现实，这无可厚非。
-或者，你可以不理性地看待现状——虽然你位于后20%，但在这个群体中你可能是前几名。避免让现状影响你的心态，同时理性地继续努力。最终，你或许会成为前面的几名。”
-就像这个故事所说，虽然我身在一所双非院校，无法与加州理工相提并论，但我同样可以用这种“不理性”来暂时麻痹自己：牛客上确实有人在几个月内抱佛脚成功，小黑盒上类似的例子更是数不胜数……
-但我知道，焦虑不会就此消失。毕竟我已经大二了——大二的同辈有一年的学习积累，大一的新生又潜力无限。时间，终究不是站在我这边的…
-我不是《凡人修仙传》里的韩立，我没有小绿瓶，我也没有什么机缘，我只是一名普通的邮兵。我只能继续学习啊…也许等未来我成为了一名架构师，维护着上亿人使用的app时，也会焦虑吧…
-不过现在的我身处迷雾之中，而未来又在何方呢？
-焦虑啊，焦虑啊…
-也许成长就是这样——一边焦虑，一边向前…
-写于 2025年10月26日 晚
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-10-26 20:45:46 +0800 CST'>October 26, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
-  <a class="entry-link" aria-label="post link to 焦虑随想" href="https://sheep44044.github.io/daily/2025-10-26-daily4/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
