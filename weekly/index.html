@@ -165,6 +165,20 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">第十二周总结
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p> 这周，我实践的不是很多，只是在上周完成了redis的应用部署情况下继续部署。在回顾整个项目时也是发现了新的感悟和不足，redis虽然也叫数据库，但更多是进行性能优化的功能，如果是一个小项目只用gin和gorm就够了。我现在发现虽然我知道了中间件的洋葱模型，但我不太理解他在整个过程中的逻辑思路，并且发现了一些其他的不足
+我好菜啊…🥲
+已完成事项 用redis进行了更多的部署，包括用户会话管理(加上了黑名单)，实现了登出功能。 设置了随机过期时间防止雪崩，了解了防击穿(我现在似乎用不上所以只知道是用redis的锁)，实行了降级策略（避免redis挂了，程序无法运行） 实现了最近访问记录功能 回顾了整个代码（之前有点囫囵吞枣，像jwt的一些方法我都不太了解）。记住了一些常用的方法：json包里的marshal和Unmarshal([]byte和数据结构的转换),，jwt包的parse(需要的密匙，非要用函数作为参数来传递)和ParseUnverified(有三个返回值了还能填充claims，太高级了) 在实现相关功能时了解了一些go-redis的api(其实感觉和redis操作差不多，方法名字都一样，不过老是要使用context参数和结尾加个result()有点麻烦，所以去封装了一下，不过封装多了感觉其实差不多) 做了一道力扣😄 下周计划 没想好，哈哈哈 </p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-01 14:11:05 +0800 CST'>December 1, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
+  <a class="entry-link" aria-label="post link to 第十二周总结" href="https://sheep44044.github.io/weekly/2025-12-01-weekly12/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">第十一周总结
     </h2>
   </header>
@@ -277,18 +291,6 @@
   </div>
   <footer class="entry-footer"><span title='2025-09-29 08:25:14 +0800 CST'>September 29, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
   <a class="entry-link" aria-label="post link to 第三周总结" href="https://sheep44044.github.io/weekly/2025-09-29-weekly3/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">第二周总结
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>完成事项 解决了上周博客留下来的问题，有了一个简陋但功能完备的网站 🥳。 在 Tour of Go 上基本完成了所有内容的学习，包括切片、接口、并发等知识点。 持续推进 Go by Example 的学习，目前完成 switch 部分，进入数组相关内容（不得不说gobyexample确实不赖，对于这些基础知识我也能学到新的特性）。 做了一些学习笔记。 下周计划 巩固已学知识，搞懂 Tour of Go 中的练习题。✅ 继续学习 Go by Example 的后续内容。✅ （可能）了解一些常用标准库包的基本用法。 </p>
-  </div>
-  <footer class="entry-footer"><span title='2025-09-22 08:04:18 +0800 CST'>September 22, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
-  <a class="entry-link" aria-label="post link to 第二周总结" href="https://sheep44044.github.io/weekly/2025-09-22-weekly2/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

@@ -5,37 +5,27 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>LeetCode 1.两数之和 | sheep44044的小站</title>
+<title>第十二周总结 | sheep44044的小站</title>
 <meta name="keywords" content="">
-<meta name="description" content="1. 两数之和
+<meta name="description" content="
+这周，我实践的不是很多，只是在上周完成了redis的应用部署情况下继续部署。在回顾整个项目时也是发现了新的感悟和不足，redis虽然也叫数据库，但更多是进行性能优化的功能，如果是一个小项目只用gin和gorm就够了。我现在发现虽然我知道了中间件的洋葱模型，但我不太理解他在整个过程中的逻辑思路，并且发现了一些其他的不足
+我好菜啊&hellip;🥲
+已完成事项
 
-给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那 两个 整数，并返回它们的数组下标。
-你可以假设每种输入只会对应一个答案，并且你不能使用两次相同的元素。
-你可以按任意顺序返回答案。
+用redis进行了更多的部署，包括用户会话管理(加上了黑名单)，实现了登出功能。
+设置了随机过期时间防止雪崩，了解了防击穿(我现在似乎用不上所以只知道是用redis的锁)，实行了降级策略（避免redis挂了，程序无法运行）
+实现了最近访问记录功能
+回顾了整个代码（之前有点囫囵吞枣，像jwt的一些方法我都不太了解）。记住了一些常用的方法：json包里的marshal和Unmarshal([]byte和数据结构的转换),，jwt包的parse(需要的密匙，非要用函数作为参数来传递)和ParseUnverified(有三个返回值了还能填充claims，太高级了)
+在实现相关功能时了解了一些go-redis的api(其实感觉和redis操作差不多，方法名字都一样，不过老是要使用context参数和结尾加个result()有点麻烦，所以去封装了一下，不过封装多了感觉其实差不多)
+做了一道力扣😄
 
 
-示例 1：
-输入：nums = [2,7,11,15], target = 9 输出：[0,1] 解释：因为 nums[0] &#43; nums[1] == 9 ，返回 [0, 1] 。
-示例 2：
-输入：nums = [3,2,4], target = 6 输出：[1,2]
-示例 3：
-输入：nums = [3,3], target = 6
-输出：[0,1]
+下周计划
 
-哈希表
-func twoSum(nums []int, target int) []int {
-    for i := 0; i &lt; len(nums); i&#43;&#43; {
-        for j := i &#43; 1; j &lt; len(nums); j&#43;&#43; {
-            if nums[i] &#43; nums[j] == target {
-                return []int{i, j}  
-            }
-        }
-    }
-    return nil
-}
+没想好，哈哈哈
 ">
 <meta name="author" content="Sheep44044">
-<link rel="canonical" href="https://sheep44044.github.io/leetcode/leetcode-1.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+<link rel="canonical" href="https://sheep44044.github.io/weekly/2025-12-01-weekly12/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" integrity="sha256-IhHKMWS&#43;eDACT2qtKzouUghDpk&#43;PBIRFw0AcEkmqBR0=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://sheep44044.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://sheep44044.github.io/favicon-16x16.png">
@@ -44,7 +34,7 @@ func twoSum(nums []int, target int) []int {
 <link rel="mask-icon" href="https://sheep44044.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://sheep44044.github.io/leetcode/leetcode-1.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+<link rel="alternate" hreflang="en" href="https://sheep44044.github.io/weekly/2025-12-01-weekly12/">
 <noscript>
     <style>
         #theme-toggle,
@@ -81,53 +71,35 @@ func twoSum(nums []int, target int) []int {
         }
 
     </style>
-</noscript><meta property="og:url" content="https://sheep44044.github.io/leetcode/leetcode-1.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+</noscript><meta property="og:url" content="https://sheep44044.github.io/weekly/2025-12-01-weekly12/">
   <meta property="og:site_name" content="sheep44044的小站">
-  <meta property="og:title" content="LeetCode 1.两数之和">
-  <meta property="og:description" content="1. 两数之和
-给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那 两个 整数，并返回它们的数组下标。
-你可以假设每种输入只会对应一个答案，并且你不能使用两次相同的元素。
-你可以按任意顺序返回答案。
-示例 1：
-输入：nums = [2,7,11,15], target = 9 输出：[0,1] 解释：因为 nums[0] &#43; nums[1] == 9 ，返回 [0, 1] 。
-示例 2：
-输入：nums = [3,2,4], target = 6 输出：[1,2]
-示例 3：
-输入：nums = [3,3], target = 6 输出：[0,1]
-哈希表 func twoSum(nums []int, target int) []int { for i := 0; i &lt; len(nums); i&#43;&#43; { for j := i &#43; 1; j &lt; len(nums); j&#43;&#43; { if nums[i] &#43; nums[j] == target { return []int{i, j} } } } return nil } ">
+  <meta property="og:title" content="第十二周总结">
+  <meta property="og:description" content=" 这周，我实践的不是很多，只是在上周完成了redis的应用部署情况下继续部署。在回顾整个项目时也是发现了新的感悟和不足，redis虽然也叫数据库，但更多是进行性能优化的功能，如果是一个小项目只用gin和gorm就够了。我现在发现虽然我知道了中间件的洋葱模型，但我不太理解他在整个过程中的逻辑思路，并且发现了一些其他的不足
+我好菜啊…🥲
+已完成事项 用redis进行了更多的部署，包括用户会话管理(加上了黑名单)，实现了登出功能。 设置了随机过期时间防止雪崩，了解了防击穿(我现在似乎用不上所以只知道是用redis的锁)，实行了降级策略（避免redis挂了，程序无法运行） 实现了最近访问记录功能 回顾了整个代码（之前有点囫囵吞枣，像jwt的一些方法我都不太了解）。记住了一些常用的方法：json包里的marshal和Unmarshal([]byte和数据结构的转换),，jwt包的parse(需要的密匙，非要用函数作为参数来传递)和ParseUnverified(有三个返回值了还能填充claims，太高级了) 在实现相关功能时了解了一些go-redis的api(其实感觉和redis操作差不多，方法名字都一样，不过老是要使用context参数和结尾加个result()有点麻烦，所以去封装了一下，不过封装多了感觉其实差不多) 做了一道力扣😄 下周计划 没想好，哈哈哈 ">
   <meta property="og:locale" content="zh-CN">
   <meta property="og:type" content="article">
-    <meta property="article:section" content="leetcode">
-    <meta property="article:published_time" content="2025-11-25T10:08:04+08:00">
-    <meta property="article:modified_time" content="2025-11-25T10:08:04+08:00">
+    <meta property="article:section" content="weekly">
+    <meta property="article:published_time" content="2025-12-01T14:11:05+08:00">
+    <meta property="article:modified_time" content="2025-12-01T14:11:05+08:00">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode 1.两数之和">
-<meta name="twitter:description" content="1. 两数之和
+<meta name="twitter:title" content="第十二周总结">
+<meta name="twitter:description" content="
+这周，我实践的不是很多，只是在上周完成了redis的应用部署情况下继续部署。在回顾整个项目时也是发现了新的感悟和不足，redis虽然也叫数据库，但更多是进行性能优化的功能，如果是一个小项目只用gin和gorm就够了。我现在发现虽然我知道了中间件的洋葱模型，但我不太理解他在整个过程中的逻辑思路，并且发现了一些其他的不足
+我好菜啊&hellip;🥲
+已完成事项
 
-给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那 两个 整数，并返回它们的数组下标。
-你可以假设每种输入只会对应一个答案，并且你不能使用两次相同的元素。
-你可以按任意顺序返回答案。
+用redis进行了更多的部署，包括用户会话管理(加上了黑名单)，实现了登出功能。
+设置了随机过期时间防止雪崩，了解了防击穿(我现在似乎用不上所以只知道是用redis的锁)，实行了降级策略（避免redis挂了，程序无法运行）
+实现了最近访问记录功能
+回顾了整个代码（之前有点囫囵吞枣，像jwt的一些方法我都不太了解）。记住了一些常用的方法：json包里的marshal和Unmarshal([]byte和数据结构的转换),，jwt包的parse(需要的密匙，非要用函数作为参数来传递)和ParseUnverified(有三个返回值了还能填充claims，太高级了)
+在实现相关功能时了解了一些go-redis的api(其实感觉和redis操作差不多，方法名字都一样，不过老是要使用context参数和结尾加个result()有点麻烦，所以去封装了一下，不过封装多了感觉其实差不多)
+做了一道力扣😄
 
 
-示例 1：
-输入：nums = [2,7,11,15], target = 9 输出：[0,1] 解释：因为 nums[0] &#43; nums[1] == 9 ，返回 [0, 1] 。
-示例 2：
-输入：nums = [3,2,4], target = 6 输出：[1,2]
-示例 3：
-输入：nums = [3,3], target = 6
-输出：[0,1]
+下周计划
 
-哈希表
-func twoSum(nums []int, target int) []int {
-    for i := 0; i &lt; len(nums); i&#43;&#43; {
-        for j := i &#43; 1; j &lt; len(nums); j&#43;&#43; {
-            if nums[i] &#43; nums[j] == target {
-                return []int{i, j}  
-            }
-        }
-    }
-    return nil
-}
+没想好，哈哈哈
 ">
 
 
@@ -139,14 +111,14 @@ func twoSum(nums []int, target int) []int {
     {
       "@type": "ListItem",
       "position":  1 ,
-      "name": "Leetcode",
-      "item": "https://sheep44044.github.io/leetcode/"
+      "name": "Weekly",
+      "item": "https://sheep44044.github.io/weekly/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "LeetCode 1.两数之和",
-      "item": "https://sheep44044.github.io/leetcode/leetcode-1.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"
+      "name": "第十二周总结",
+      "item": "https://sheep44044.github.io/weekly/2025-12-01-weekly12/"
     }
   ]
 }
@@ -155,24 +127,24 @@ func twoSum(nums []int, target int) []int {
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "LeetCode 1.两数之和",
-  "name": "LeetCode 1.两数之和",
-  "description": "1. 两数之和\n给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那 两个 整数，并返回它们的数组下标。\n你可以假设每种输入只会对应一个答案，并且你不能使用两次相同的元素。\n你可以按任意顺序返回答案。\n示例 1：\n输入：nums = [2,7,11,15], target = 9 输出：[0,1] 解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。\n示例 2：\n输入：nums = [3,2,4], target = 6 输出：[1,2]\n示例 3：\n输入：nums = [3,3], target = 6 输出：[0,1]\n哈希表 func twoSum(nums []int, target int) []int { for i := 0; i \u0026lt; len(nums); i++ { for j := i + 1; j \u0026lt; len(nums); j++ { if nums[i] + nums[j] == target { return []int{i, j} } } } return nil } ",
+  "headline": "第十二周总结",
+  "name": "第十二周总结",
+  "description": " 这周，我实践的不是很多，只是在上周完成了redis的应用部署情况下继续部署。在回顾整个项目时也是发现了新的感悟和不足，redis虽然也叫数据库，但更多是进行性能优化的功能，如果是一个小项目只用gin和gorm就够了。我现在发现虽然我知道了中间件的洋葱模型，但我不太理解他在整个过程中的逻辑思路，并且发现了一些其他的不足\n我好菜啊\u0026hellip;🥲\n已完成事项 用redis进行了更多的部署，包括用户会话管理(加上了黑名单)，实现了登出功能。 设置了随机过期时间防止雪崩，了解了防击穿(我现在似乎用不上所以只知道是用redis的锁)，实行了降级策略（避免redis挂了，程序无法运行） 实现了最近访问记录功能 回顾了整个代码（之前有点囫囵吞枣，像jwt的一些方法我都不太了解）。记住了一些常用的方法：json包里的marshal和Unmarshal([]byte和数据结构的转换),，jwt包的parse(需要的密匙，非要用函数作为参数来传递)和ParseUnverified(有三个返回值了还能填充claims，太高级了) 在实现相关功能时了解了一些go-redis的api(其实感觉和redis操作差不多，方法名字都一样，不过老是要使用context参数和结尾加个result()有点麻烦，所以去封装了一下，不过封装多了感觉其实差不多) 做了一道力扣😄 下周计划 没想好，哈哈哈 ",
   "keywords": [
     
   ],
-  "articleBody": "1. 两数之和\n给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那 两个 整数，并返回它们的数组下标。\n你可以假设每种输入只会对应一个答案，并且你不能使用两次相同的元素。\n你可以按任意顺序返回答案。\n示例 1：\n输入：nums = [2,7,11,15], target = 9 输出：[0,1] 解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。\n示例 2：\n输入：nums = [3,2,4], target = 6 输出：[1,2]\n示例 3：\n输入：nums = [3,3], target = 6 输出：[0,1]\n哈希表 func twoSum(nums []int, target int) []int { for i := 0; i \u003c len(nums); i++ { for j := i + 1; j \u003c len(nums); j++ { if nums[i] + nums[j] == target { return []int{i, j} } } } return nil } ",
-  "wordCount" : "94",
+  "articleBody": " 这周，我实践的不是很多，只是在上周完成了redis的应用部署情况下继续部署。在回顾整个项目时也是发现了新的感悟和不足，redis虽然也叫数据库，但更多是进行性能优化的功能，如果是一个小项目只用gin和gorm就够了。我现在发现虽然我知道了中间件的洋葱模型，但我不太理解他在整个过程中的逻辑思路，并且发现了一些其他的不足\n我好菜啊…🥲\n已完成事项 用redis进行了更多的部署，包括用户会话管理(加上了黑名单)，实现了登出功能。 设置了随机过期时间防止雪崩，了解了防击穿(我现在似乎用不上所以只知道是用redis的锁)，实行了降级策略（避免redis挂了，程序无法运行） 实现了最近访问记录功能 回顾了整个代码（之前有点囫囵吞枣，像jwt的一些方法我都不太了解）。记住了一些常用的方法：json包里的marshal和Unmarshal([]byte和数据结构的转换),，jwt包的parse(需要的密匙，非要用函数作为参数来传递)和ParseUnverified(有三个返回值了还能填充claims，太高级了) 在实现相关功能时了解了一些go-redis的api(其实感觉和redis操作差不多，方法名字都一样，不过老是要使用context参数和结尾加个result()有点麻烦，所以去封装了一下，不过封装多了感觉其实差不多) 做了一道力扣😄 下周计划 没想好，哈哈哈 ",
+  "wordCount" : "11",
   "inLanguage": "en",
-  "datePublished": "2025-11-25T10:08:04+08:00",
-  "dateModified": "2025-11-25T10:08:04+08:00",
+  "datePublished": "2025-12-01T14:11:05+08:00",
+  "dateModified": "2025-12-01T14:11:05+08:00",
   "author":{
     "@type": "Person",
     "name": "Sheep44044"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://sheep44044.github.io/leetcode/leetcode-1.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"
+    "@id": "https://sheep44044.github.io/weekly/2025-12-01-weekly12/"
   },
   "publisher": {
     "@type": "Organization",
@@ -265,9 +237,9 @@ func twoSum(nums []int, target int) []int {
   <header class="post-header">
     
     <h1 class="post-title entry-hint-parent">
-      LeetCode 1.两数之和
+      第十二周总结
     </h1>
-    <div class="post-meta"><span title='2025-11-25 10:08:04 +0800 CST'>November 25, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044
+    <div class="post-meta"><span title='2025-12-01 14:11:05 +0800 CST'>December 1, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044
 
 </div>
   </header> <div class="toc">
@@ -278,40 +250,33 @@ func twoSum(nums []int, target int) []int {
 
         <div class="inner"><ul>
                 <li>
-                    <a href="#%e5%93%88%e5%b8%8c%e8%a1%a8" aria-label="哈希表">哈希表</a>
+                    <a href="#%e5%b7%b2%e5%ae%8c%e6%88%90%e4%ba%8b%e9%a1%b9" aria-label="已完成事项">已完成事项</a></li>
+                <li>
+                    <a href="#%e4%b8%8b%e5%91%a8%e8%ae%a1%e5%88%92" aria-label="下周计划">下周计划</a>
                 </li>
             </ul>
         </div>
     </details>
 </div>
 
-  <div class="post-content"><p><a href="https://leetcode.cn/problems/two-sum/"><strong>1. 两数之和</strong></a></p>
-<blockquote>
-<p>给定一个整数数组 <code>nums</code> 和一个整数目标值 <code>target</code>，请你在该数组中找出 <strong>和为目标值</strong> <em><code>target</code></em> 的那 <strong>两个</strong> 整数，并返回它们的数组下标。</p>
-<p>你可以假设每种输入只会对应一个答案，并且你不能使用两次相同的元素。</p>
-<p>你可以按任意顺序返回答案。</p>
-<hr></blockquote>
-<blockquote>
-<p><strong>示例 1：</strong></p>
-<p><code>输入：nums = [2,7,11,15], target = 9 输出：[0,1] 解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。</code></p>
-<p><strong>示例 2：</strong></p>
-<p><code>输入：nums = [3,2,4], target = 6 输出：[1,2]</code></p>
-<p><strong>示例 3：</strong></p>
-<p>输入：nums = [3,3], target = 6
-输出：[0,1]</p>
-<hr></blockquote>
-<h2 id="哈希表">哈希表<a hidden class="anchor" aria-hidden="true" href="#哈希表">#</a></h2>
-<pre tabindex="0"><code>func twoSum(nums []int, target int) []int {
-    for i := 0; i &lt; len(nums); i++ {
-        for j := i + 1; j &lt; len(nums); j++ {
-            if nums[i] + nums[j] == target {
-                return []int{i, j}  
-            }
-        }
-    }
-    return nil
-}
-</code></pre>
+  <div class="post-content"><blockquote>
+<p>这周，我实践的不是很多，只是在上周完成了redis的应用部署情况下继续部署。在回顾整个项目时也是发现了新的感悟和不足，redis虽然也叫数据库，但更多是进行性能优化的功能，如果是一个小项目只用gin和gorm就够了。我现在发现虽然我知道了中间件的洋葱模型，但我不太理解他在整个过程中的逻辑思路，并且发现了一些其他的不足</p>
+<p>我好菜啊&hellip;🥲</p></blockquote>
+<h2 id="已完成事项">已完成事项<a hidden class="anchor" aria-hidden="true" href="#已完成事项">#</a></h2>
+<ol>
+<li>用redis进行了更多的部署，包括用户会话管理(加上了黑名单)，实现了登出功能。</li>
+<li>设置了随机过期时间防止雪崩，了解了防击穿(我现在似乎用不上所以只知道是用redis的锁)，实行了降级策略（避免redis挂了，程序无法运行）</li>
+<li>实现了最近访问记录功能</li>
+<li>回顾了整个代码（之前有点囫囵吞枣，像jwt的一些方法我都不太了解）。记住了一些常用的方法：json包里的<code>marshal</code>和<code>Unmarshal</code>([]byte和数据结构的转换),，jwt包的<code>parse</code>(需要的密匙，非要用函数作为参数来传递)和<code>ParseUnverified</code>(有三个返回值了还能填充claims，太高级了)</li>
+<li>在实现相关功能时了解了一些<code>go-redis的api</code>(其实感觉和redis操作差不多，方法名字都一样，不过老是要使用context参数和结尾加个result()有点麻烦，所以去封装了一下，不过封装多了感觉其实差不多)</li>
+<li>做了一道力扣😄</li>
+</ol>
+<hr>
+<h2 id="下周计划">下周计划<a hidden class="anchor" aria-hidden="true" href="#下周计划">#</a></h2>
+<ol>
+<li>没想好，哈哈哈</li>
+</ol>
+
 
   </div>
 
@@ -319,15 +284,10 @@ func twoSum(nums []int, target int) []int {
     <ul class="post-tags">
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://sheep44044.github.io/weekly/2025-12-01-weekly12/">
-    <span class="title">« Prev</span>
-    <br>
-    <span>第十二周总结</span>
-  </a>
-  <a class="next" href="https://sheep44044.github.io/weekly/2025-11-24-weekly11/">
+  <a class="next" href="https://sheep44044.github.io/leetcode/leetcode-1.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
     <span class="title">Next »</span>
     <br>
-    <span>第十一周总结</span>
+    <span>LeetCode 1.两数之和</span>
   </a>
 </nav>
 
