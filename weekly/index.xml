@@ -6,8 +6,30 @@
     <description>Recent content in Weekly on sheep44044的小站</description>
     <generator>Hugo -- 0.147.4</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 01 Dec 2025 14:11:05 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 08 Dec 2025 13:49:03 +0800</lastBuildDate>
     <atom:link href="https://sheep44044.github.io/weekly/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第十三周总结</title>
+      <link>https://sheep44044.github.io/weekly/2025-12-08-weekly13/</link>
+      <pubDate>Mon, 08 Dec 2025 13:49:03 +0800</pubDate>
+      <guid>https://sheep44044.github.io/weekly/2025-12-08-weekly13/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;由于上周还是上上周，我提过这版的goland内置API过低连接不上docker，因为懒得回退版本，所以没有选择去看docker，这周我主要是一直在为小项目添砖加瓦吧，完成了user的全部功能，给note也添加了部分功能，其实现在看虽然不是完成品，但我感觉也很不赖了。其实完成一个小项目确实不是什么难事，只需要回最基础的gin+gorm和强大的AI即可&lt;/p&gt;
+&lt;p&gt;现在看什么笔记，备忘录，文档确实是差不多东西的玩意儿&lt;/p&gt;
+&lt;p&gt;GO～（摩托声）&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;已完成事项&#34;&gt;已完成事项&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;完成了所有user需要的功能(自认为，仅限后端部分)，包括这周完成的修改密码、个人主页部分，和之前已经完成的注册、登入和登出&lt;/li&gt;
+&lt;li&gt;完成了一些note的功能，包括添加了简单的搜索功能、置顶功能、点赞(收藏/star)功能、添加isprivate和favoritecount字段，为未来我伟大的explore/community功能打下伏笔（不过这样看怎么有点像小红书了？），还有一两个还没完成的功能。(不过AI建议我还要加上事务等工具完善，现在太简陋了😭)&lt;/li&gt;
+&lt;li&gt;查询了一下，发现note的一些功能是需要与前端合作的，像自动保存和富文本，只能暂且放下(怪不得cyjj没完成这些)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;下周计划&#34;&gt;下周计划&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Goland更新了！修复好了连接docker的bug，或许学学docker&lt;/li&gt;
+&lt;li&gt;或许继续完善功能(感觉单靠gin+gorm+redis快要到极限了)&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
     <item>
       <title>第十二周总结</title>
       <link>https://sheep44044.github.io/weekly/2025-12-01-weekly12/</link>

@@ -5,27 +5,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>第十二周总结 | sheep44044的小站</title>
+<title>第十三周总结 | sheep44044的小站</title>
 <meta name="keywords" content="">
 <meta name="description" content="
-这周，我实践的不是很多，只是在上周完成了redis的应用部署情况下继续部署。在回顾整个项目时也是发现了新的感悟和不足，redis虽然也叫数据库，但更多是进行性能优化的功能，如果是一个小项目只用gin和gorm就够了。我现在发现虽然我知道了中间件的洋葱模型，但我不太理解他在整个过程中的逻辑思路，并且发现了一些其他的不足
-我好菜啊&hellip;🥲
+由于上周还是上上周，我提过这版的goland内置API过低连接不上docker，因为懒得回退版本，所以没有选择去看docker，这周我主要是一直在为小项目添砖加瓦吧，完成了user的全部功能，给note也添加了部分功能，其实现在看虽然不是完成品，但我感觉也很不赖了。其实完成一个小项目确实不是什么难事，只需要回最基础的gin&#43;gorm和强大的AI即可
+现在看什么笔记，备忘录，文档确实是差不多东西的玩意儿
+GO～（摩托声）
 已完成事项
 
-用redis进行了更多的部署，包括用户会话管理(加上了黑名单)，实现了登出功能。
-设置了随机过期时间防止雪崩，了解了防击穿(我现在似乎用不上所以只知道是用redis的锁)，实行了降级策略（避免redis挂了，程序无法运行）
-实现了最近访问记录功能
-回顾了整个代码（之前有点囫囵吞枣，像jwt的一些方法我都不太了解）。记住了一些常用的方法：json包里的marshal和Unmarshal([]byte和数据结构的转换),，jwt包的parse(需要的密匙，非要用函数作为参数来传递)和ParseUnverified(有三个返回值了还能填充claims，太高级了)
-在实现相关功能时了解了一些go-redis的api(其实感觉和redis操作差不多，方法名字都一样，不过老是要使用context参数和结尾加个result()有点麻烦，所以去封装了一下，不过封装多了感觉其实差不多)
-做了一道力扣😄
+完成了所有user需要的功能(自认为，仅限后端部分)，包括这周完成的修改密码、个人主页部分，和之前已经完成的注册、登入和登出
+完成了一些note的功能，包括添加了简单的搜索功能、置顶功能、点赞(收藏/star)功能、添加isprivate和favoritecount字段，为未来我伟大的explore/community功能打下伏笔（不过这样看怎么有点像小红书了？），还有一两个还没完成的功能。(不过AI建议我还要加上事务等工具完善，现在太简陋了😭)
+查询了一下，发现note的一些功能是需要与前端合作的，像自动保存和富文本，只能暂且放下(怪不得cyjj没完成这些)
 
 
 下周计划
 
-没想好，哈哈哈
+Goland更新了！修复好了连接docker的bug，或许学学docker
+或许继续完善功能(感觉单靠gin&#43;gorm&#43;redis快要到极限了)
 ">
 <meta name="author" content="Sheep44044">
-<link rel="canonical" href="https://sheep44044.github.io/weekly/2025-12-01-weekly12/">
+<link rel="canonical" href="https://sheep44044.github.io/weekly/2025-12-08-weekly13/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" integrity="sha256-IhHKMWS&#43;eDACT2qtKzouUghDpk&#43;PBIRFw0AcEkmqBR0=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://sheep44044.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://sheep44044.github.io/favicon-16x16.png">
@@ -34,7 +33,7 @@
 <link rel="mask-icon" href="https://sheep44044.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://sheep44044.github.io/weekly/2025-12-01-weekly12/">
+<link rel="alternate" hreflang="en" href="https://sheep44044.github.io/weekly/2025-12-08-weekly13/">
 <noscript>
     <style>
         #theme-toggle,
@@ -71,35 +70,35 @@
         }
 
     </style>
-</noscript><meta property="og:url" content="https://sheep44044.github.io/weekly/2025-12-01-weekly12/">
+</noscript><meta property="og:url" content="https://sheep44044.github.io/weekly/2025-12-08-weekly13/">
   <meta property="og:site_name" content="sheep44044的小站">
-  <meta property="og:title" content="第十二周总结">
-  <meta property="og:description" content=" 这周，我实践的不是很多，只是在上周完成了redis的应用部署情况下继续部署。在回顾整个项目时也是发现了新的感悟和不足，redis虽然也叫数据库，但更多是进行性能优化的功能，如果是一个小项目只用gin和gorm就够了。我现在发现虽然我知道了中间件的洋葱模型，但我不太理解他在整个过程中的逻辑思路，并且发现了一些其他的不足
-我好菜啊…🥲
-已完成事项 用redis进行了更多的部署，包括用户会话管理(加上了黑名单)，实现了登出功能。 设置了随机过期时间防止雪崩，了解了防击穿(我现在似乎用不上所以只知道是用redis的锁)，实行了降级策略（避免redis挂了，程序无法运行） 实现了最近访问记录功能 回顾了整个代码（之前有点囫囵吞枣，像jwt的一些方法我都不太了解）。记住了一些常用的方法：json包里的marshal和Unmarshal([]byte和数据结构的转换),，jwt包的parse(需要的密匙，非要用函数作为参数来传递)和ParseUnverified(有三个返回值了还能填充claims，太高级了) 在实现相关功能时了解了一些go-redis的api(其实感觉和redis操作差不多，方法名字都一样，不过老是要使用context参数和结尾加个result()有点麻烦，所以去封装了一下，不过封装多了感觉其实差不多) 做了一道力扣😄 下周计划 没想好，哈哈哈 ">
+  <meta property="og:title" content="第十三周总结">
+  <meta property="og:description" content=" 由于上周还是上上周，我提过这版的goland内置API过低连接不上docker，因为懒得回退版本，所以没有选择去看docker，这周我主要是一直在为小项目添砖加瓦吧，完成了user的全部功能，给note也添加了部分功能，其实现在看虽然不是完成品，但我感觉也很不赖了。其实完成一个小项目确实不是什么难事，只需要回最基础的gin&#43;gorm和强大的AI即可
+现在看什么笔记，备忘录，文档确实是差不多东西的玩意儿
+GO～（摩托声）
+已完成事项 完成了所有user需要的功能(自认为，仅限后端部分)，包括这周完成的修改密码、个人主页部分，和之前已经完成的注册、登入和登出 完成了一些note的功能，包括添加了简单的搜索功能、置顶功能、点赞(收藏/star)功能、添加isprivate和favoritecount字段，为未来我伟大的explore/community功能打下伏笔（不过这样看怎么有点像小红书了？），还有一两个还没完成的功能。(不过AI建议我还要加上事务等工具完善，现在太简陋了😭) 查询了一下，发现note的一些功能是需要与前端合作的，像自动保存和富文本，只能暂且放下(怪不得cyjj没完成这些) 下周计划 Goland更新了！修复好了连接docker的bug，或许学学docker 或许继续完善功能(感觉单靠gin&#43;gorm&#43;redis快要到极限了) ">
   <meta property="og:locale" content="zh-CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="weekly">
-    <meta property="article:published_time" content="2025-12-01T14:11:05+08:00">
-    <meta property="article:modified_time" content="2025-12-01T14:11:05+08:00">
+    <meta property="article:published_time" content="2025-12-08T13:49:03+08:00">
+    <meta property="article:modified_time" content="2025-12-08T13:49:03+08:00">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第十二周总结">
+<meta name="twitter:title" content="第十三周总结">
 <meta name="twitter:description" content="
-这周，我实践的不是很多，只是在上周完成了redis的应用部署情况下继续部署。在回顾整个项目时也是发现了新的感悟和不足，redis虽然也叫数据库，但更多是进行性能优化的功能，如果是一个小项目只用gin和gorm就够了。我现在发现虽然我知道了中间件的洋葱模型，但我不太理解他在整个过程中的逻辑思路，并且发现了一些其他的不足
-我好菜啊&hellip;🥲
+由于上周还是上上周，我提过这版的goland内置API过低连接不上docker，因为懒得回退版本，所以没有选择去看docker，这周我主要是一直在为小项目添砖加瓦吧，完成了user的全部功能，给note也添加了部分功能，其实现在看虽然不是完成品，但我感觉也很不赖了。其实完成一个小项目确实不是什么难事，只需要回最基础的gin&#43;gorm和强大的AI即可
+现在看什么笔记，备忘录，文档确实是差不多东西的玩意儿
+GO～（摩托声）
 已完成事项
 
-用redis进行了更多的部署，包括用户会话管理(加上了黑名单)，实现了登出功能。
-设置了随机过期时间防止雪崩，了解了防击穿(我现在似乎用不上所以只知道是用redis的锁)，实行了降级策略（避免redis挂了，程序无法运行）
-实现了最近访问记录功能
-回顾了整个代码（之前有点囫囵吞枣，像jwt的一些方法我都不太了解）。记住了一些常用的方法：json包里的marshal和Unmarshal([]byte和数据结构的转换),，jwt包的parse(需要的密匙，非要用函数作为参数来传递)和ParseUnverified(有三个返回值了还能填充claims，太高级了)
-在实现相关功能时了解了一些go-redis的api(其实感觉和redis操作差不多，方法名字都一样，不过老是要使用context参数和结尾加个result()有点麻烦，所以去封装了一下，不过封装多了感觉其实差不多)
-做了一道力扣😄
+完成了所有user需要的功能(自认为，仅限后端部分)，包括这周完成的修改密码、个人主页部分，和之前已经完成的注册、登入和登出
+完成了一些note的功能，包括添加了简单的搜索功能、置顶功能、点赞(收藏/star)功能、添加isprivate和favoritecount字段，为未来我伟大的explore/community功能打下伏笔（不过这样看怎么有点像小红书了？），还有一两个还没完成的功能。(不过AI建议我还要加上事务等工具完善，现在太简陋了😭)
+查询了一下，发现note的一些功能是需要与前端合作的，像自动保存和富文本，只能暂且放下(怪不得cyjj没完成这些)
 
 
 下周计划
 
-没想好，哈哈哈
+Goland更新了！修复好了连接docker的bug，或许学学docker
+或许继续完善功能(感觉单靠gin&#43;gorm&#43;redis快要到极限了)
 ">
 
 
@@ -117,8 +116,8 @@
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "第十二周总结",
-      "item": "https://sheep44044.github.io/weekly/2025-12-01-weekly12/"
+      "name": "第十三周总结",
+      "item": "https://sheep44044.github.io/weekly/2025-12-08-weekly13/"
     }
   ]
 }
@@ -127,24 +126,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "第十二周总结",
-  "name": "第十二周总结",
-  "description": " 这周，我实践的不是很多，只是在上周完成了redis的应用部署情况下继续部署。在回顾整个项目时也是发现了新的感悟和不足，redis虽然也叫数据库，但更多是进行性能优化的功能，如果是一个小项目只用gin和gorm就够了。我现在发现虽然我知道了中间件的洋葱模型，但我不太理解他在整个过程中的逻辑思路，并且发现了一些其他的不足\n我好菜啊\u0026hellip;🥲\n已完成事项 用redis进行了更多的部署，包括用户会话管理(加上了黑名单)，实现了登出功能。 设置了随机过期时间防止雪崩，了解了防击穿(我现在似乎用不上所以只知道是用redis的锁)，实行了降级策略（避免redis挂了，程序无法运行） 实现了最近访问记录功能 回顾了整个代码（之前有点囫囵吞枣，像jwt的一些方法我都不太了解）。记住了一些常用的方法：json包里的marshal和Unmarshal([]byte和数据结构的转换),，jwt包的parse(需要的密匙，非要用函数作为参数来传递)和ParseUnverified(有三个返回值了还能填充claims，太高级了) 在实现相关功能时了解了一些go-redis的api(其实感觉和redis操作差不多，方法名字都一样，不过老是要使用context参数和结尾加个result()有点麻烦，所以去封装了一下，不过封装多了感觉其实差不多) 做了一道力扣😄 下周计划 没想好，哈哈哈 ",
+  "headline": "第十三周总结",
+  "name": "第十三周总结",
+  "description": " 由于上周还是上上周，我提过这版的goland内置API过低连接不上docker，因为懒得回退版本，所以没有选择去看docker，这周我主要是一直在为小项目添砖加瓦吧，完成了user的全部功能，给note也添加了部分功能，其实现在看虽然不是完成品，但我感觉也很不赖了。其实完成一个小项目确实不是什么难事，只需要回最基础的gin+gorm和强大的AI即可\n现在看什么笔记，备忘录，文档确实是差不多东西的玩意儿\nGO～（摩托声）\n已完成事项 完成了所有user需要的功能(自认为，仅限后端部分)，包括这周完成的修改密码、个人主页部分，和之前已经完成的注册、登入和登出 完成了一些note的功能，包括添加了简单的搜索功能、置顶功能、点赞(收藏/star)功能、添加isprivate和favoritecount字段，为未来我伟大的explore/community功能打下伏笔（不过这样看怎么有点像小红书了？），还有一两个还没完成的功能。(不过AI建议我还要加上事务等工具完善，现在太简陋了😭) 查询了一下，发现note的一些功能是需要与前端合作的，像自动保存和富文本，只能暂且放下(怪不得cyjj没完成这些) 下周计划 Goland更新了！修复好了连接docker的bug，或许学学docker 或许继续完善功能(感觉单靠gin+gorm+redis快要到极限了) ",
   "keywords": [
     
   ],
-  "articleBody": " 这周，我实践的不是很多，只是在上周完成了redis的应用部署情况下继续部署。在回顾整个项目时也是发现了新的感悟和不足，redis虽然也叫数据库，但更多是进行性能优化的功能，如果是一个小项目只用gin和gorm就够了。我现在发现虽然我知道了中间件的洋葱模型，但我不太理解他在整个过程中的逻辑思路，并且发现了一些其他的不足\n我好菜啊…🥲\n已完成事项 用redis进行了更多的部署，包括用户会话管理(加上了黑名单)，实现了登出功能。 设置了随机过期时间防止雪崩，了解了防击穿(我现在似乎用不上所以只知道是用redis的锁)，实行了降级策略（避免redis挂了，程序无法运行） 实现了最近访问记录功能 回顾了整个代码（之前有点囫囵吞枣，像jwt的一些方法我都不太了解）。记住了一些常用的方法：json包里的marshal和Unmarshal([]byte和数据结构的转换),，jwt包的parse(需要的密匙，非要用函数作为参数来传递)和ParseUnverified(有三个返回值了还能填充claims，太高级了) 在实现相关功能时了解了一些go-redis的api(其实感觉和redis操作差不多，方法名字都一样，不过老是要使用context参数和结尾加个result()有点麻烦，所以去封装了一下，不过封装多了感觉其实差不多) 做了一道力扣😄 下周计划 没想好，哈哈哈 ",
-  "wordCount" : "11",
+  "articleBody": " 由于上周还是上上周，我提过这版的goland内置API过低连接不上docker，因为懒得回退版本，所以没有选择去看docker，这周我主要是一直在为小项目添砖加瓦吧，完成了user的全部功能，给note也添加了部分功能，其实现在看虽然不是完成品，但我感觉也很不赖了。其实完成一个小项目确实不是什么难事，只需要回最基础的gin+gorm和强大的AI即可\n现在看什么笔记，备忘录，文档确实是差不多东西的玩意儿\nGO～（摩托声）\n已完成事项 完成了所有user需要的功能(自认为，仅限后端部分)，包括这周完成的修改密码、个人主页部分，和之前已经完成的注册、登入和登出 完成了一些note的功能，包括添加了简单的搜索功能、置顶功能、点赞(收藏/star)功能、添加isprivate和favoritecount字段，为未来我伟大的explore/community功能打下伏笔（不过这样看怎么有点像小红书了？），还有一两个还没完成的功能。(不过AI建议我还要加上事务等工具完善，现在太简陋了😭) 查询了一下，发现note的一些功能是需要与前端合作的，像自动保存和富文本，只能暂且放下(怪不得cyjj没完成这些) 下周计划 Goland更新了！修复好了连接docker的bug，或许学学docker 或许继续完善功能(感觉单靠gin+gorm+redis快要到极限了) ",
+  "wordCount" : "10",
   "inLanguage": "en",
-  "datePublished": "2025-12-01T14:11:05+08:00",
-  "dateModified": "2025-12-01T14:11:05+08:00",
+  "datePublished": "2025-12-08T13:49:03+08:00",
+  "dateModified": "2025-12-08T13:49:03+08:00",
   "author":{
     "@type": "Person",
     "name": "Sheep44044"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://sheep44044.github.io/weekly/2025-12-01-weekly12/"
+    "@id": "https://sheep44044.github.io/weekly/2025-12-08-weekly13/"
   },
   "publisher": {
     "@type": "Organization",
@@ -237,9 +236,9 @@
   <header class="post-header">
     
     <h1 class="post-title entry-hint-parent">
-      第十二周总结
+      第十三周总结
     </h1>
-    <div class="post-meta"><span title='2025-12-01 14:11:05 +0800 CST'>December 1, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044
+    <div class="post-meta"><span title='2025-12-08 13:49:03 +0800 CST'>December 8, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044
 
 </div>
   </header> <div class="toc">
@@ -260,21 +259,20 @@
 </div>
 
   <div class="post-content"><blockquote>
-<p>这周，我实践的不是很多，只是在上周完成了redis的应用部署情况下继续部署。在回顾整个项目时也是发现了新的感悟和不足，redis虽然也叫数据库，但更多是进行性能优化的功能，如果是一个小项目只用gin和gorm就够了。我现在发现虽然我知道了中间件的洋葱模型，但我不太理解他在整个过程中的逻辑思路，并且发现了一些其他的不足</p>
-<p>我好菜啊&hellip;🥲</p></blockquote>
+<p>由于上周还是上上周，我提过这版的goland内置API过低连接不上docker，因为懒得回退版本，所以没有选择去看docker，这周我主要是一直在为小项目添砖加瓦吧，完成了user的全部功能，给note也添加了部分功能，其实现在看虽然不是完成品，但我感觉也很不赖了。其实完成一个小项目确实不是什么难事，只需要回最基础的gin+gorm和强大的AI即可</p>
+<p>现在看什么笔记，备忘录，文档确实是差不多东西的玩意儿</p>
+<p>GO～（摩托声）</p></blockquote>
 <h2 id="已完成事项">已完成事项<a hidden class="anchor" aria-hidden="true" href="#已完成事项">#</a></h2>
 <ol>
-<li>用redis进行了更多的部署，包括用户会话管理(加上了黑名单)，实现了登出功能。</li>
-<li>设置了随机过期时间防止雪崩，了解了防击穿(我现在似乎用不上所以只知道是用redis的锁)，实行了降级策略（避免redis挂了，程序无法运行）</li>
-<li>实现了最近访问记录功能</li>
-<li>回顾了整个代码（之前有点囫囵吞枣，像jwt的一些方法我都不太了解）。记住了一些常用的方法：json包里的<code>marshal</code>和<code>Unmarshal</code>([]byte和数据结构的转换),，jwt包的<code>parse</code>(需要的密匙，非要用函数作为参数来传递)和<code>ParseUnverified</code>(有三个返回值了还能填充claims，太高级了)</li>
-<li>在实现相关功能时了解了一些<code>go-redis的api</code>(其实感觉和redis操作差不多，方法名字都一样，不过老是要使用context参数和结尾加个result()有点麻烦，所以去封装了一下，不过封装多了感觉其实差不多)</li>
-<li>做了一道力扣😄</li>
+<li>完成了所有user需要的功能(自认为，仅限后端部分)，包括这周完成的修改密码、个人主页部分，和之前已经完成的注册、登入和登出</li>
+<li>完成了一些note的功能，包括添加了简单的搜索功能、置顶功能、点赞(收藏/star)功能、添加isprivate和favoritecount字段，为未来我伟大的explore/community功能打下伏笔（不过这样看怎么有点像小红书了？），还有一两个还没完成的功能。(不过AI建议我还要加上事务等工具完善，现在太简陋了😭)</li>
+<li>查询了一下，发现note的一些功能是需要与前端合作的，像自动保存和富文本，只能暂且放下(怪不得cyjj没完成这些)</li>
 </ol>
 <hr>
 <h2 id="下周计划">下周计划<a hidden class="anchor" aria-hidden="true" href="#下周计划">#</a></h2>
 <ol>
-<li>没想好，哈哈哈</li>
+<li>Goland更新了！修复好了连接docker的bug，或许学学docker</li>
+<li>或许继续完善功能(感觉单靠gin+gorm+redis快要到极限了)</li>
 </ol>
 
 
@@ -284,15 +282,10 @@
     <ul class="post-tags">
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://sheep44044.github.io/weekly/2025-12-08-weekly13/">
-    <span class="title">« Prev</span>
-    <br>
-    <span>第十三周总结</span>
-  </a>
-  <a class="next" href="https://sheep44044.github.io/leetcode/leetcode-1.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+  <a class="next" href="https://sheep44044.github.io/weekly/2025-12-01-weekly12/">
     <span class="title">Next »</span>
     <br>
-    <span>LeetCode 1.两数之和</span>
+    <span>第十二周总结</span>
   </a>
 </nav>
 
