@@ -5,26 +5,25 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>第十三周总结 | sheep44044的小站</title>
+<title>第十四周总结 | sheep44044的小站</title>
 <meta name="keywords" content="">
 <meta name="description" content="
-由于上周还是上上周，我提过这版的goland内置API过低连接不上docker，因为懒得回退版本，所以没有选择去看docker，这周我主要是一直在为小项目添砖加瓦吧，完成了user的全部功能，给note也添加了部分功能，其实现在看虽然不是完成品，但我感觉也很不赖了。其实完成一个小项目确实不是什么难事，只需要回最基础的gin&#43;gorm和强大的AI即可
-现在看什么笔记，备忘录，文档确实是差不多东西的玩意儿
-GO～（摩托声）
+这周由于生病&#43;六级考试的原因，其实没什么时间学习，不过倒也做了一点和学了点东西。不过马上就要期末考了，之后估计主要去看大物和概率论了(备考压力还是有点大的)，可能偶尔会继续学习吧&hellip;
+还有好多要学习啊🥲，docker、消息队列、微服务、八股、算法&hellip;&hellip;感觉学前都很难、学后就觉得是简单的掉包罢了(虽然事实如此)，人果然不能共情自己
 已完成事项
 
-完成了所有user需要的功能(自认为，仅限后端部分)，包括这周完成的修改密码、个人主页部分，和之前已经完成的注册、登入和登出
-完成了一些note的功能，包括添加了简单的搜索功能、置顶功能、点赞(收藏/star)功能、添加isprivate和favoritecount字段，为未来我伟大的explore/community功能打下伏笔（不过这样看怎么有点像小红书了？），还有一两个还没完成的功能。(不过AI建议我还要加上事务等工具完善，现在太简陋了😭)
-查询了一下，发现note的一些功能是需要与前端合作的，像自动保存和富文本，只能暂且放下(怪不得cyjj没完成这些)
+这周主要是对我的小项目完成了暂时的功能(业务?)设计的实现，包括用分页展示note的社区(之后可能会用游标)、所有展示笔记类似的功能(像返回最近记录、展示star的内容、获取关注的人的笔记推送等)、实现关注和取关的功能。
+优化并修复了些代码，像把redis的实现从全局变量这种简单粗暴的方式改为了依赖注入，更加严谨一点
+了解了一些消息队列的还是，在小项目中成功连接了rabbitMQ，初步学习了相关文档，准备进一步的学习后进行部署和应用
 
 
 下周计划
 
-Goland更新了！修复好了连接docker的bug，或许学学docker
-或许继续完善功能(感觉单靠gin&#43;gorm&#43;redis快要到极限了)
+学习和应用rabbitMQ
+学习和使用docker
 ">
 <meta name="author" content="Sheep44044">
-<link rel="canonical" href="https://sheep44044.github.io/weekly/2025-12-08-weekly13/">
+<link rel="canonical" href="https://sheep44044.github.io/weekly/2025-12-15-weekly14/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" integrity="sha256-IhHKMWS&#43;eDACT2qtKzouUghDpk&#43;PBIRFw0AcEkmqBR0=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://sheep44044.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://sheep44044.github.io/favicon-16x16.png">
@@ -33,7 +32,7 @@ Goland更新了！修复好了连接docker的bug，或许学学docker
 <link rel="mask-icon" href="https://sheep44044.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://sheep44044.github.io/weekly/2025-12-08-weekly13/">
+<link rel="alternate" hreflang="en" href="https://sheep44044.github.io/weekly/2025-12-15-weekly14/">
 <noscript>
     <style>
         #theme-toggle,
@@ -70,35 +69,33 @@ Goland更新了！修复好了连接docker的bug，或许学学docker
         }
 
     </style>
-</noscript><meta property="og:url" content="https://sheep44044.github.io/weekly/2025-12-08-weekly13/">
+</noscript><meta property="og:url" content="https://sheep44044.github.io/weekly/2025-12-15-weekly14/">
   <meta property="og:site_name" content="sheep44044的小站">
-  <meta property="og:title" content="第十三周总结">
-  <meta property="og:description" content=" 由于上周还是上上周，我提过这版的goland内置API过低连接不上docker，因为懒得回退版本，所以没有选择去看docker，这周我主要是一直在为小项目添砖加瓦吧，完成了user的全部功能，给note也添加了部分功能，其实现在看虽然不是完成品，但我感觉也很不赖了。其实完成一个小项目确实不是什么难事，只需要回最基础的gin&#43;gorm和强大的AI即可
-现在看什么笔记，备忘录，文档确实是差不多东西的玩意儿
-GO～（摩托声）
-已完成事项 完成了所有user需要的功能(自认为，仅限后端部分)，包括这周完成的修改密码、个人主页部分，和之前已经完成的注册、登入和登出 完成了一些note的功能，包括添加了简单的搜索功能、置顶功能、点赞(收藏/star)功能、添加isprivate和favoritecount字段，为未来我伟大的explore/community功能打下伏笔（不过这样看怎么有点像小红书了？），还有一两个还没完成的功能。(不过AI建议我还要加上事务等工具完善，现在太简陋了😭) 查询了一下，发现note的一些功能是需要与前端合作的，像自动保存和富文本，只能暂且放下(怪不得cyjj没完成这些) 下周计划 Goland更新了！修复好了连接docker的bug，或许学学docker 或许继续完善功能(感觉单靠gin&#43;gorm&#43;redis快要到极限了) ">
+  <meta property="og:title" content="第十四周总结">
+  <meta property="og:description" content=" 这周由于生病&#43;六级考试的原因，其实没什么时间学习，不过倒也做了一点和学了点东西。不过马上就要期末考了，之后估计主要去看大物和概率论了(备考压力还是有点大的)，可能偶尔会继续学习吧…
+还有好多要学习啊🥲，docker、消息队列、微服务、八股、算法……感觉学前都很难、学后就觉得是简单的掉包罢了(虽然事实如此)，人果然不能共情自己
+已完成事项 这周主要是对我的小项目完成了暂时的功能(业务?)设计的实现，包括用分页展示note的社区(之后可能会用游标)、所有展示笔记类似的功能(像返回最近记录、展示star的内容、获取关注的人的笔记推送等)、实现关注和取关的功能。 优化并修复了些代码，像把redis的实现从全局变量这种简单粗暴的方式改为了依赖注入，更加严谨一点 了解了一些消息队列的还是，在小项目中成功连接了rabbitMQ，初步学习了相关文档，准备进一步的学习后进行部署和应用 下周计划 学习和应用rabbitMQ 学习和使用docker ">
   <meta property="og:locale" content="zh-CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="weekly">
-    <meta property="article:published_time" content="2025-12-08T13:49:03+08:00">
-    <meta property="article:modified_time" content="2025-12-08T13:49:03+08:00">
+    <meta property="article:published_time" content="2025-12-15T14:27:25+08:00">
+    <meta property="article:modified_time" content="2025-12-15T14:27:25+08:00">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第十三周总结">
+<meta name="twitter:title" content="第十四周总结">
 <meta name="twitter:description" content="
-由于上周还是上上周，我提过这版的goland内置API过低连接不上docker，因为懒得回退版本，所以没有选择去看docker，这周我主要是一直在为小项目添砖加瓦吧，完成了user的全部功能，给note也添加了部分功能，其实现在看虽然不是完成品，但我感觉也很不赖了。其实完成一个小项目确实不是什么难事，只需要回最基础的gin&#43;gorm和强大的AI即可
-现在看什么笔记，备忘录，文档确实是差不多东西的玩意儿
-GO～（摩托声）
+这周由于生病&#43;六级考试的原因，其实没什么时间学习，不过倒也做了一点和学了点东西。不过马上就要期末考了，之后估计主要去看大物和概率论了(备考压力还是有点大的)，可能偶尔会继续学习吧&hellip;
+还有好多要学习啊🥲，docker、消息队列、微服务、八股、算法&hellip;&hellip;感觉学前都很难、学后就觉得是简单的掉包罢了(虽然事实如此)，人果然不能共情自己
 已完成事项
 
-完成了所有user需要的功能(自认为，仅限后端部分)，包括这周完成的修改密码、个人主页部分，和之前已经完成的注册、登入和登出
-完成了一些note的功能，包括添加了简单的搜索功能、置顶功能、点赞(收藏/star)功能、添加isprivate和favoritecount字段，为未来我伟大的explore/community功能打下伏笔（不过这样看怎么有点像小红书了？），还有一两个还没完成的功能。(不过AI建议我还要加上事务等工具完善，现在太简陋了😭)
-查询了一下，发现note的一些功能是需要与前端合作的，像自动保存和富文本，只能暂且放下(怪不得cyjj没完成这些)
+这周主要是对我的小项目完成了暂时的功能(业务?)设计的实现，包括用分页展示note的社区(之后可能会用游标)、所有展示笔记类似的功能(像返回最近记录、展示star的内容、获取关注的人的笔记推送等)、实现关注和取关的功能。
+优化并修复了些代码，像把redis的实现从全局变量这种简单粗暴的方式改为了依赖注入，更加严谨一点
+了解了一些消息队列的还是，在小项目中成功连接了rabbitMQ，初步学习了相关文档，准备进一步的学习后进行部署和应用
 
 
 下周计划
 
-Goland更新了！修复好了连接docker的bug，或许学学docker
-或许继续完善功能(感觉单靠gin&#43;gorm&#43;redis快要到极限了)
+学习和应用rabbitMQ
+学习和使用docker
 ">
 
 
@@ -116,8 +113,8 @@ Goland更新了！修复好了连接docker的bug，或许学学docker
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "第十三周总结",
-      "item": "https://sheep44044.github.io/weekly/2025-12-08-weekly13/"
+      "name": "第十四周总结",
+      "item": "https://sheep44044.github.io/weekly/2025-12-15-weekly14/"
     }
   ]
 }
@@ -126,24 +123,24 @@ Goland更新了！修复好了连接docker的bug，或许学学docker
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "第十三周总结",
-  "name": "第十三周总结",
-  "description": " 由于上周还是上上周，我提过这版的goland内置API过低连接不上docker，因为懒得回退版本，所以没有选择去看docker，这周我主要是一直在为小项目添砖加瓦吧，完成了user的全部功能，给note也添加了部分功能，其实现在看虽然不是完成品，但我感觉也很不赖了。其实完成一个小项目确实不是什么难事，只需要回最基础的gin+gorm和强大的AI即可\n现在看什么笔记，备忘录，文档确实是差不多东西的玩意儿\nGO～（摩托声）\n已完成事项 完成了所有user需要的功能(自认为，仅限后端部分)，包括这周完成的修改密码、个人主页部分，和之前已经完成的注册、登入和登出 完成了一些note的功能，包括添加了简单的搜索功能、置顶功能、点赞(收藏/star)功能、添加isprivate和favoritecount字段，为未来我伟大的explore/community功能打下伏笔（不过这样看怎么有点像小红书了？），还有一两个还没完成的功能。(不过AI建议我还要加上事务等工具完善，现在太简陋了😭) 查询了一下，发现note的一些功能是需要与前端合作的，像自动保存和富文本，只能暂且放下(怪不得cyjj没完成这些) 下周计划 Goland更新了！修复好了连接docker的bug，或许学学docker 或许继续完善功能(感觉单靠gin+gorm+redis快要到极限了) ",
+  "headline": "第十四周总结",
+  "name": "第十四周总结",
+  "description": " 这周由于生病+六级考试的原因，其实没什么时间学习，不过倒也做了一点和学了点东西。不过马上就要期末考了，之后估计主要去看大物和概率论了(备考压力还是有点大的)，可能偶尔会继续学习吧\u0026hellip;\n还有好多要学习啊🥲，docker、消息队列、微服务、八股、算法\u0026hellip;\u0026hellip;感觉学前都很难、学后就觉得是简单的掉包罢了(虽然事实如此)，人果然不能共情自己\n已完成事项 这周主要是对我的小项目完成了暂时的功能(业务?)设计的实现，包括用分页展示note的社区(之后可能会用游标)、所有展示笔记类似的功能(像返回最近记录、展示star的内容、获取关注的人的笔记推送等)、实现关注和取关的功能。 优化并修复了些代码，像把redis的实现从全局变量这种简单粗暴的方式改为了依赖注入，更加严谨一点 了解了一些消息队列的还是，在小项目中成功连接了rabbitMQ，初步学习了相关文档，准备进一步的学习后进行部署和应用 下周计划 学习和应用rabbitMQ 学习和使用docker ",
   "keywords": [
     
   ],
-  "articleBody": " 由于上周还是上上周，我提过这版的goland内置API过低连接不上docker，因为懒得回退版本，所以没有选择去看docker，这周我主要是一直在为小项目添砖加瓦吧，完成了user的全部功能，给note也添加了部分功能，其实现在看虽然不是完成品，但我感觉也很不赖了。其实完成一个小项目确实不是什么难事，只需要回最基础的gin+gorm和强大的AI即可\n现在看什么笔记，备忘录，文档确实是差不多东西的玩意儿\nGO～（摩托声）\n已完成事项 完成了所有user需要的功能(自认为，仅限后端部分)，包括这周完成的修改密码、个人主页部分，和之前已经完成的注册、登入和登出 完成了一些note的功能，包括添加了简单的搜索功能、置顶功能、点赞(收藏/star)功能、添加isprivate和favoritecount字段，为未来我伟大的explore/community功能打下伏笔（不过这样看怎么有点像小红书了？），还有一两个还没完成的功能。(不过AI建议我还要加上事务等工具完善，现在太简陋了😭) 查询了一下，发现note的一些功能是需要与前端合作的，像自动保存和富文本，只能暂且放下(怪不得cyjj没完成这些) 下周计划 Goland更新了！修复好了连接docker的bug，或许学学docker 或许继续完善功能(感觉单靠gin+gorm+redis快要到极限了) ",
-  "wordCount" : "10",
+  "articleBody": " 这周由于生病+六级考试的原因，其实没什么时间学习，不过倒也做了一点和学了点东西。不过马上就要期末考了，之后估计主要去看大物和概率论了(备考压力还是有点大的)，可能偶尔会继续学习吧…\n还有好多要学习啊🥲，docker、消息队列、微服务、八股、算法……感觉学前都很难、学后就觉得是简单的掉包罢了(虽然事实如此)，人果然不能共情自己\n已完成事项 这周主要是对我的小项目完成了暂时的功能(业务?)设计的实现，包括用分页展示note的社区(之后可能会用游标)、所有展示笔记类似的功能(像返回最近记录、展示star的内容、获取关注的人的笔记推送等)、实现关注和取关的功能。 优化并修复了些代码，像把redis的实现从全局变量这种简单粗暴的方式改为了依赖注入，更加严谨一点 了解了一些消息队列的还是，在小项目中成功连接了rabbitMQ，初步学习了相关文档，准备进一步的学习后进行部署和应用 下周计划 学习和应用rabbitMQ 学习和使用docker ",
+  "wordCount" : "9",
   "inLanguage": "en",
-  "datePublished": "2025-12-08T13:49:03+08:00",
-  "dateModified": "2025-12-08T13:49:03+08:00",
+  "datePublished": "2025-12-15T14:27:25+08:00",
+  "dateModified": "2025-12-15T14:27:25+08:00",
   "author":{
     "@type": "Person",
     "name": "Sheep44044"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://sheep44044.github.io/weekly/2025-12-08-weekly13/"
+    "@id": "https://sheep44044.github.io/weekly/2025-12-15-weekly14/"
   },
   "publisher": {
     "@type": "Organization",
@@ -236,9 +233,9 @@ Goland更新了！修复好了连接docker的bug，或许学学docker
   <header class="post-header">
     
     <h1 class="post-title entry-hint-parent">
-      第十三周总结
+      第十四周总结
     </h1>
-    <div class="post-meta"><span title='2025-12-08 13:49:03 +0800 CST'>December 8, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044
+    <div class="post-meta"><span title='2025-12-15 14:27:25 +0800 CST'>December 15, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044
 
 </div>
   </header> <div class="toc">
@@ -259,20 +256,19 @@ Goland更新了！修复好了连接docker的bug，或许学学docker
 </div>
 
   <div class="post-content"><blockquote>
-<p>由于上周还是上上周，我提过这版的goland内置API过低连接不上docker，因为懒得回退版本，所以没有选择去看docker，这周我主要是一直在为小项目添砖加瓦吧，完成了user的全部功能，给note也添加了部分功能，其实现在看虽然不是完成品，但我感觉也很不赖了。其实完成一个小项目确实不是什么难事，只需要回最基础的gin+gorm和强大的AI即可</p>
-<p>现在看什么笔记，备忘录，文档确实是差不多东西的玩意儿</p>
-<p>GO～（摩托声）</p></blockquote>
+<p>这周由于生病+六级考试的原因，其实没什么时间学习，不过倒也做了一点和学了点东西。不过马上就要期末考了，之后估计主要去看大物和概率论了(备考压力还是有点大的)，可能偶尔会继续学习吧&hellip;</p>
+<p>还有好多要学习啊🥲，docker、消息队列、微服务、八股、算法&hellip;&hellip;感觉学前都很难、学后就觉得是简单的掉包罢了(虽然事实如此)，人果然不能共情自己</p></blockquote>
 <h2 id="已完成事项">已完成事项<a hidden class="anchor" aria-hidden="true" href="#已完成事项">#</a></h2>
 <ol>
-<li>完成了所有user需要的功能(自认为，仅限后端部分)，包括这周完成的修改密码、个人主页部分，和之前已经完成的注册、登入和登出</li>
-<li>完成了一些note的功能，包括添加了简单的搜索功能、置顶功能、点赞(收藏/star)功能、添加isprivate和favoritecount字段，为未来我伟大的explore/community功能打下伏笔（不过这样看怎么有点像小红书了？），还有一两个还没完成的功能。(不过AI建议我还要加上事务等工具完善，现在太简陋了😭)</li>
-<li>查询了一下，发现note的一些功能是需要与前端合作的，像自动保存和富文本，只能暂且放下(怪不得cyjj没完成这些)</li>
+<li>这周主要是对我的小项目完成了暂时的功能(业务?)设计的实现，包括用分页展示note的社区(之后可能会用游标)、所有展示笔记类似的功能(像返回最近记录、展示star的内容、获取关注的人的笔记推送等)、实现关注和取关的功能。</li>
+<li>优化并修复了些代码，像把redis的实现从全局变量这种简单粗暴的方式改为了依赖注入，更加严谨一点</li>
+<li>了解了一些消息队列的还是，在小项目中成功连接了rabbitMQ，初步学习了相关文档，准备进一步的学习后进行部署和应用</li>
 </ol>
 <hr>
 <h2 id="下周计划">下周计划<a hidden class="anchor" aria-hidden="true" href="#下周计划">#</a></h2>
 <ol>
-<li>Goland更新了！修复好了连接docker的bug，或许学学docker</li>
-<li>或许继续完善功能(感觉单靠gin+gorm+redis快要到极限了)</li>
+<li>学习和应用rabbitMQ</li>
+<li>学习和使用docker</li>
 </ol>
 
 
@@ -282,15 +278,10 @@ Goland更新了！修复好了连接docker的bug，或许学学docker
     <ul class="post-tags">
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://sheep44044.github.io/weekly/2025-12-15-weekly14/">
-    <span class="title">« Prev</span>
-    <br>
-    <span>第十四周总结</span>
-  </a>
-  <a class="next" href="https://sheep44044.github.io/weekly/2025-12-01-weekly12/">
+  <a class="next" href="https://sheep44044.github.io/weekly/2025-12-08-weekly13/">
     <span class="title">Next »</span>
     <br>
-    <span>第十二周总结</span>
+    <span>第十三周总结</span>
   </a>
 </nav>
 

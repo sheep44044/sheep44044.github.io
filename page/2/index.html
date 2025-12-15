@@ -160,6 +160,31 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Bcrypt和盐
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>bcrypt 是一种结合了盐值机制的自适应哈希函数。与普通哈希算法的根本区别在于，bcrypt 在设计上内置了盐值的使用，从而显著提升了密码存储的安全性。
+普通哈希算法存在一个关键缺陷：对于相同的输入，始终产生相同的输出。这意味着如果多个用户使用相同密码（例如“123456”），其哈希值也会完全相同，系统因此容易受到彩虹表攻击。
+彩虹表攻击：彩虹表就是一张升级版的储存常见明文密码和哈希值的表。它通过链式结构和规约函数解决了存储空间的问题，平衡了空间和时间。
+盐（Salt） 就是为了解决这个问题而生的。
+定义：盐是一段随机生成的、足够长的字符串。 工作方式：在哈希密码之前，系统会先为每个用户生成一个独一无二的盐，然后把这个盐拼接在用户的密码后面，再对**“密码&#43;盐”** 这个组合进行哈希。 存储：最终，系统将哈希结果和盐值本身一起存储到数据库中 由于每个用户拥有独特的盐值，即使密码相同，最终得到的哈希结果也会完全不同。这意味着攻击者无法使用同一张彩虹表破解所有用户密码，而必须为每个盐值单独建立破解表，这使得攻击成本急剧上升，在实际中几乎不可行。
+此外，bcrypt 被刻意设计为计算缓慢且内存密集，这种“故意低效”的设计大幅增加了暴力破解和彩虹表构建所需的时间和资源开销。
+总结来说，bcrypt = 故意缓慢的哈希算法 &#43; 自动强盐机制 &#43; 可配置的计算成本。
+bcrypt的使用在Golang中则是比较简单，具体可以见bcrypt文档
+下面简单说一下：
+1.生成密码哈希
+func GenerateFromPassword(password []byte, cost int) ([]byte, error) 2.验证密码
+func CompareHashAndPassword(hashedPassword, password []byte) error 3.获取哈希成本
+func Cost(hashedPassword []byte) (int, error) tips：bcrypt 最多处理 72 字节的密码
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-11-05 16:16:45 +0800 CST'>November 5, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
+  <a class="entry-link" aria-label="post link to Bcrypt和盐" href="https://sheep44044.github.io/posts/2025-11-05-bcrypt/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">第八周总结
     </h2>
   </header>
@@ -308,18 +333,6 @@ package main import &#34;fmt&#34; // 定义结构体（类似类） type Person 
   </div>
   <footer class="entry-footer"><span title='2025-09-29 09:33:43 +0800 CST'>September 29, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
   <a class="entry-link" aria-label="post link to 愚蠢的我和GitHub教育" href="https://sheep44044.github.io/daily/2025-09-28-daily3/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">第三周总结
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>已完成事项 Go 语言学习 完成了 Tour of Go 的大部分练习。 但是也跳过了一些练习，image 接口等内容目前不急需；二叉查找树 等概念需要继续沉淀。 Go by Example 推进 已学习到 goroutine 的 rate-limiting 部分。 重点学习了闭包和goroutine及其timer、tickers、waitgroup 等内容。 但是也跳过了 范型、枚举、迭代器的 range 等目前不会的内容。 项目开发 - 智能笔记 开始完成智能笔记项目，准备一边学一边开发。 迈出第一步：成功让 API 服务运行起来。 Gin 框架学习 初步开始Gin的学习，掌握了 HTTP 方法、路由、路由参数、JSON、Query 和 Post Form 的使用。 计划在后续开发 JWT、日志 等功能时进行更深入的学习。 工具与环境 安装了 Postman、MySQL 等开发工具。 成功申请了 GitHub 教育福利（费了我好大劲，在使用 VPN 的情况下）。 下周计划 项目开发继续✅ 学习 SQL 基础语法。 初步学习 Gorm。 实现笔记的完整 CRUD 功能。 实现数据持久化，接入 MySQL 数据库。 学校课业（可能） 可能需要回顾学校知识，为 10 月中下旬 的期中考做准备。 </p>
-  </div>
-  <footer class="entry-footer"><span title='2025-09-29 08:25:14 +0800 CST'>September 29, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
-  <a class="entry-link" aria-label="post link to 第三周总结" href="https://sheep44044.github.io/weekly/2025-09-29-weekly3/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

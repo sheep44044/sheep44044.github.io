@@ -182,6 +182,20 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">第十四周总结
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p> 这周由于生病&#43;六级考试的原因，其实没什么时间学习，不过倒也做了一点和学了点东西。不过马上就要期末考了，之后估计主要去看大物和概率论了(备考压力还是有点大的)，可能偶尔会继续学习吧…
+还有好多要学习啊🥲，docker、消息队列、微服务、八股、算法……感觉学前都很难、学后就觉得是简单的掉包罢了(虽然事实如此)，人果然不能共情自己
+已完成事项 这周主要是对我的小项目完成了暂时的功能(业务?)设计的实现，包括用分页展示note的社区(之后可能会用游标)、所有展示笔记类似的功能(像返回最近记录、展示star的内容、获取关注的人的笔记推送等)、实现关注和取关的功能。 优化并修复了些代码，像把redis的实现从全局变量这种简单粗暴的方式改为了依赖注入，更加严谨一点 了解了一些消息队列的还是，在小项目中成功连接了rabbitMQ，初步学习了相关文档，准备进一步的学习后进行部署和应用 下周计划 学习和应用rabbitMQ 学习和使用docker </p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-15 14:27:25 +0800 CST'>December 15, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
+  <a class="entry-link" aria-label="post link to 第十四周总结" href="https://sheep44044.github.io/weekly/2025-12-15-weekly14/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">第十三周总结
     </h2>
   </header>
@@ -321,31 +335,6 @@ package main import ( &#34;fmt&#34; &#34;time&#34; ) func main() { sum := 0 for 
   </div>
   <footer class="entry-footer"><span title='2025-11-10 11:15:31 +0800 CST'>November 10, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
   <a class="entry-link" aria-label="post link to 第九周总结" href="https://sheep44044.github.io/weekly/2025-11-10-weekly9/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Bcrypt和盐
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>bcrypt 是一种结合了盐值机制的自适应哈希函数。与普通哈希算法的根本区别在于，bcrypt 在设计上内置了盐值的使用，从而显著提升了密码存储的安全性。
-普通哈希算法存在一个关键缺陷：对于相同的输入，始终产生相同的输出。这意味着如果多个用户使用相同密码（例如“123456”），其哈希值也会完全相同，系统因此容易受到彩虹表攻击。
-彩虹表攻击：彩虹表就是一张升级版的储存常见明文密码和哈希值的表。它通过链式结构和规约函数解决了存储空间的问题，平衡了空间和时间。
-盐（Salt） 就是为了解决这个问题而生的。
-定义：盐是一段随机生成的、足够长的字符串。 工作方式：在哈希密码之前，系统会先为每个用户生成一个独一无二的盐，然后把这个盐拼接在用户的密码后面，再对**“密码&#43;盐”** 这个组合进行哈希。 存储：最终，系统将哈希结果和盐值本身一起存储到数据库中 由于每个用户拥有独特的盐值，即使密码相同，最终得到的哈希结果也会完全不同。这意味着攻击者无法使用同一张彩虹表破解所有用户密码，而必须为每个盐值单独建立破解表，这使得攻击成本急剧上升，在实际中几乎不可行。
-此外，bcrypt 被刻意设计为计算缓慢且内存密集，这种“故意低效”的设计大幅增加了暴力破解和彩虹表构建所需的时间和资源开销。
-总结来说，bcrypt = 故意缓慢的哈希算法 &#43; 自动强盐机制 &#43; 可配置的计算成本。
-bcrypt的使用在Golang中则是比较简单，具体可以见bcrypt文档
-下面简单说一下：
-1.生成密码哈希
-func GenerateFromPassword(password []byte, cost int) ([]byte, error) 2.验证密码
-func CompareHashAndPassword(hashedPassword, password []byte) error 3.获取哈希成本
-func Cost(hashedPassword []byte) (int, error) tips：bcrypt 最多处理 72 字节的密码
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-11-05 16:16:45 +0800 CST'>November 5, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
-  <a class="entry-link" aria-label="post link to Bcrypt和盐" href="https://sheep44044.github.io/posts/2025-11-05-bcrypt/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
