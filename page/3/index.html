@@ -160,6 +160,28 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">面向对象编程感悟
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>面向对象，不知从何时起盘旋在我的脑海中，或许是学习Java，亦或是更早。不过，我一直都没特别理解这个东西，更不要说封装、继承等概念了，是我脑海中不断徘徊的乌云。直到现在，我重新审视，通过B站、知乎等网站，我终于有所感悟和理解，于是写下这篇文章。
+这里不着重于结构体和方法的理解和实现，只是单纯谈谈这个思想罢了👌
+OOP即面向对象编程(Object Oriented Programming)，与之相对的是面向过程编程。面向过程和面向对象的区别，用我在知乎上看到的一句话说就是——面向过程是编年体，面向对象是纪传体。
+面向过程，关注的是做事，关注的是&#34;步骤&#34;。把要实现的事情，拆分成一个个步骤，依次完成。解决问题时，思考的是&#34;先做什么，再做什么，最后做什么&#34;。在我看来这个视角类似于实施者，由于生活中我们就是以这种思想来生活，所以不可避免的更熟悉和理解面向过程编程。
+面向对象则不一样，它关注的是对象，是找人。解决问题时，思考的是&#34;这个问题中有哪些参与者？这些参与者有哪些属性和行为？它们之间如何交互？“在这里，面向对象先把事务分解到对象身上，描述各个对象的作用，然后才是他们之间的交互。这里的视角类似于管理者。
+基于这一思想，面向对象发展出封装、继承和多态这三大特性。
+关于OOP的三特性形象化理解，假设你有一台洗衣机，要用它洗衣服，你关心它内部是怎么洗的么？你不关心，你只要按一个按钮就好了，这就是封装。不同型号的洗衣机洗衣方式不同，但是都能洗衣，而且你也只关心洗衣机的这个洗衣功能而已，所以你可以将全部洗衣机进行抽象，最终抽象出一个接口洗衣机，它有一个方法洗衣，这就是多态。相同品牌或者系列的洗衣机可能有类似的内部细节，这些细节可以组成一个模板，作为基类或者父类，而具体的某款产品则是子类，这是继承。 使用时，你通过上下文取得洗衣机接口的一个实例，调用其的洗衣方法，你就可以完成洗衣服操作了。至于它是如何洗衣服的你压根不关心。这就是OOP。
+在面向对象编程的概念中，类、对象、方法和属性在Java中体现的尤为明显，在Golang中则有不同的实现方式。
+传统OOP概念 Go中的实现 类(Class) 结构体(Struct) 对象(Object) 结构体实例(Struct Instance) 方法(Method) 带有接收者的函数(Method) 属性(Fields) 结构体字段(Struct Fields) 1. 封装 Go使用结构体和方法实现封装：
+package main import &#34;fmt&#34; // 定义结构体（类似类） type Person struct { name string // 私有字段（小写开头） Age int // 公共字段（大写开头） } // 结构体方法（接收者） func (p *Person) GetName() string { return p.name } func (p *Person) SetName(name string) { p.name = name } func main() { p := Person{} p.SetName(&#34;Alice&#34;) p.Age = 30 fmt.Println(p.GetName()) // 输出: Alice fmt.Println(p.Age) // 输出: 30 } 2. 组合（替代继承） Go使用组合而不是继承来实现代码复用：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-09-30 00:40:06 +0800 CST'>September 30, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Sheep44044</footer>
+  <a class="entry-link" aria-label="post link to 面向对象编程感悟" href="https://sheep44044.github.io/posts/2025-09-30-oop/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">愚蠢的我和GitHub教育
     </h2>
   </header>
