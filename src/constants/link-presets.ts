@@ -25,7 +25,7 @@ export const LinkPresets: { [key in LinkPreset]: NavBarLink } = {
 	},
 	[LinkPreset.weekly]: {
 		name: i18n(I18nKey.weekly),
-        url: "/archive/?category=周报",
+		url: "/archive/?category=周报",
 		i18nKey: I18nKey.weekly,
 	},
 };

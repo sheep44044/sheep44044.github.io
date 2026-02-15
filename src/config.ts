@@ -84,8 +84,8 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Home,
 		LinkPreset.Notes,
 		LinkPreset.weekly,
-        LinkPreset.About,
-        LinkPreset.Archive,
+		LinkPreset.About,
+		LinkPreset.Archive,
 		{
 			name: "GitHub",
 			url: "https://github.com/sheep44044",
