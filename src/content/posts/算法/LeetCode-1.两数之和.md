@@ -40,6 +40,8 @@ title: "LeetCode 1.两数之和"
 
 
 
+**1.最简单暴力的(自己很久前的解法)**
+
 ```go
 func twoSum(nums []int, target int) []int {
     for i := 0; i < len(nums); i++ {
@@ -52,3 +54,24 @@ func twoSum(nums []int, target int) []int {
     return nil
 }
 ```
+
+
+
+**2.现在的**
+
+> AI告诉我说要先检查后储存，我把m[num] = i放前面 竟然是错了
+
+```go
+func twoSum(nums []int, target int) []int {
+    m := make(map[int]int)
+    for i , num := range nums {
+        need := target - num
+        if j , ok := m[need] ; ok{
+            return []int{j, i}
+        }
+        m[num] = i
+    }
+    return nil
+}
+```
+
