@@ -9,7 +9,7 @@ draft: false
 lang: ''
 ---
 
-### 哈希表
+### 双指针
 
 [**15. 三数之和**](https://leetcode.cn/problems/3sum/)
 
@@ -85,3 +85,66 @@ func threeSum(nums []int) [][]int {
 }
 ```
 
+
+
+**2.双指针**
+
+思路：排序 + 固定基准数 `i` + 双指针寻找另外两个数
+
+因为最大的难点就是避免重复，所以我们需要处理的是数据重复的问题。
+
+关于处理重复这个双指针和前边的值比较，还是和后边的值比较，在我自己实践中感觉本质上一样的，但是需要注意的是：
+
+和后边的值比较，需要注意边界问题，避免第一个和最后一个元素的越界
+
+和前边的值比较，会停在这一堆重复数字的最后一个上面，必须强制执行一次 `left++` 和 `right--`
+
+```go
+func threeSum(nums []int) [][]int {
+    var res [][]int
+    n := len(nums)
+    if n < 3 {
+        return res
+    }
+
+    sort.Ints(nums)
+
+    for i := 0; i < n-2; i++ {
+        if nums[i] > 0 {
+            break
+        }
+
+        if i > 0 && nums[i] == nums[i-1] {
+            continue
+        }
+
+        left := i + 1
+        right := n - 1
+
+        for left < right {
+            sum := nums[i] + nums[left] + nums[right]
+
+            if sum == 0 {
+                res = append(res, []int{nums[i], nums[left], nums[right]})
+                
+                for left < right && nums[left] == nums[left+1] {
+                    left++
+                }
+               
+                for left < right && nums[right] == nums[right-1] {
+                    right--
+                }
+                
+                left++
+                right--
+            } else if sum < 0 {
+                left++ 
+            } else {
+                right-- 
+            }
+        }
+    }
+
+    return res
+}
+```
