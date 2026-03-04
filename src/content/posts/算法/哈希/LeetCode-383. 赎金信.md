@@ -63,7 +63,7 @@ func canConstruct(ransomNote string, magazine string) bool {
         m[i-'a']-- 
     }
 
-    for _, i := range m{
+    for _, i := range m {
         if i < 0 {
             return false
         }
