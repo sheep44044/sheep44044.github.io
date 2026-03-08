@@ -3,8 +3,8 @@ title: LeetCode-56.合并区间
 published: 2026-03-06
 description: ''
 image: ''
-tags: []
-category: ''
+tags: ["数组"]
+category: '算法'
 draft: false 
 lang: ''
 ---
