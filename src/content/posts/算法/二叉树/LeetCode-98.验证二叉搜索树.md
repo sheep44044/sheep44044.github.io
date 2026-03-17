@@ -156,7 +156,6 @@ func validate(node *TreeNode, min, max int) bool {
 
 ```go
 func isValidBST(root *TreeNode) bool {
-    // 记录上一个遍历到的节点的值，初始设为极小值
     preVal := math.MinInt 
     
     var inorder func(*TreeNode) bool
@@ -165,17 +164,13 @@ func isValidBST(root *TreeNode) bool {
             return true
         }
 
-        // 1. 左：一直往左走到底
         leftValid := inorder(node.Left)
 
-        // 2. 中：处理当前节点
-        // 如果当前节点的值 <= 上一个节点的值，说明不是严格递增的，破坏了规则
         if node.Val <= preVal {
             return false
         }
-        preVal = node.Val // 更新“上一个节点的值”为当前节点
+        preVal = node.Val 
 
-        // 3. 右：处理右子树
         rightValid := inorder(node.Right)
 
         return leftValid && rightValid
