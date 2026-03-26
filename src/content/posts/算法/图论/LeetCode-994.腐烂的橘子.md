@@ -71,52 +71,51 @@ func orangesRotting(grid [][]int) int {
     }
 
     m, n := len(grid), len(grid[0])
+   
     queue := [][]int{}
-    freshCount := 0
-
+    fresh := 0
     for i := 0; i < m; i++ {
         for j := 0; j < n; j++ {
             if grid[i][j] == 2 {
                 queue = append(queue, []int{i, j})
-            } else if grid[i][j] == 1 {
-                freshCount++
+            }
+            if grid[i][j] == 1 {
+                fresh++
             }
         }
     }
 
-    if freshCount == 0 {
+    if fresh == 0 {
         return 0
     }
 
     time := 0
-    dirs := [][]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
-
-    for len(queue) > 0 {
+    dirs := [][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}}
+    for len(queue) != 0 {
         size := len(queue)
-        rottedThisMinute := false 
-
+        rottedThisMinute := false
         for i := 0; i < size; i++ {
             cur := queue[0]
             queue = queue[1:]
             row, col := cur[0], cur[1]
 
-            for _, d := range dirs {
-                nr, nc := row+d[0], col+d[1]
-                if nr >= 0 && nc >= 0 && nr < m && nc < n && grid[nr][nc] == 1 {
-                    grid[nr][nc] = 2 
-                    freshCount--    
+            for _, v := range dirs {
+                nr, nc := v[0]+row, v[1]+col
+                if nr >= 0 && nr < m && nc >= 0 && nc < n && grid[nr][nc] == 1 {
+                    grid[nr][nc] = 2
                     queue = append(queue, []int{nr, nc})
+                    fresh--
                     rottedThisMinute = true
                 }
             }
         }
-        
-        if rottedThisMinute {
+
+        if rottedThisMinute == true {
             time++
         }
     }
 
-    if freshCount > 0 {
+    if fresh != 0 {
         return -1
     }
 
