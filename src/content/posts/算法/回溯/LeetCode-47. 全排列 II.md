@@ -38,6 +38,10 @@ lang: ''
 
 
 
+思路:相较于 [**46. 全排列**](https://leetcode.cn/problems/permutations/) 这里多了一步就是如何判断重复，通过`if i > 0 && nums[i] == nums[i-1] && !used[i-1]`这个语句，能避免重复的情况直接跳过
+
+唯一需要注意的是`i > 0 && nums[i] == nums[i-1]`顺序不要写反了，不然会执行错误
+
 ```go
 func permuteUnique(nums []int) [][]int {
     sort.Ints(nums)
@@ -46,7 +50,7 @@ func permuteUnique(nums []int) [][]int {
     path := []int{}
     used := make([]bool, len(nums))
 
-    var backtrack func() 
+    var backtrack func()
     backtrack = func() {
         if len(path) == len(nums) {
             res = append(res, append([]int(nil), path...))
@@ -56,7 +60,11 @@ func permuteUnique(nums []int) [][]int {
             if used[i] {
                 continue
             }
-            if nums[i] = nums
+
+            if i > 0 && nums[i] == nums[i-1] && !used[i-1] {
+                continue
+            }
+
             path = append(path, nums[i])
             used[i] = true
             backtrack()
@@ -64,7 +72,9 @@ func permuteUnique(nums []int) [][]int {
             used[i] = false
         }
     }
-    
+
+    backtrack()
+    return res
 }
 ```
 

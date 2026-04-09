@@ -50,6 +50,14 @@ lang: ''
 
 
 
+**思路**
+
+感觉这道题是 [**200. 岛屿数量**](https://leetcode.cn/problems/number-of-islands/) 的进阶版，难点就是如何处理四个方向的递归？
+
+这里就给`backtrack`引入了一个`bool`返回值，这段代码`found := backtrack(row-1, col, index+1) || backtrack(row+1, col, index+1) || backtrack(row, col-1, index+1) || backtrack(row, col+1, index+1)`是点精之笔
+
+并且这里对数据的存储和处理也是比较有意思的，`board[row][col] = '#'`，不需要引入额外的数组，就可以避开这个数
+
 ```go
 func exist(board [][]byte, word string) bool {
     m, n := len(board), len(board[0])
