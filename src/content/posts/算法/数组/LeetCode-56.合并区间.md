@@ -3,7 +3,7 @@ title: LeetCode-56.合并区间
 published: 2026-03-06
 description: ''
 image: ''
-tags: ["数组"]
+tags: ["数组","贪心"]
 category: '算法'
 draft: false 
 lang: ''
@@ -42,6 +42,35 @@ lang: ''
 > ```
 >
 > ----
+
+
+
+**第二次手撕**
+
+```go
+func merge(intervals [][]int) [][]int {
+    if len(intervals) <= 1 {
+        return intervals
+    }
+
+    sort.Slice(intervals, func(i, j int) bool {
+        return intervals[i][0] < intervals[j][0]
+    })
+
+    res := [][]int{intervals[0]}
+    for i := 1; i < len(intervals); i++ {
+        if intervals[i][0] <= res[len(res)-1][1] {
+            if intervals[i][1] > res[len(res)-1][1] {
+                res[len(res)-1][1] = intervals[i][1]
+            }
+        }else {
+            res = append(res, intervals[i])
+        }
+    }
+
+    return res
+}
+```
 
 
 
